@@ -1,0 +1,54 @@
+{
+  "name": "mi-trago-ya",
+  "version": "1.0.0",
+  "main": "./src/index.js",
+  "scripts": {
+    "start": "node src",
+    "dev": "nodemon src"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "connect-flash": "^0.1.1",
+    "cordova": "^9.0.0",
+    "cors": "^2.8.5",
+    "datatables.net-dt": "^1.10.20",
+    "express": "^4.17.1",
+    "express-fileupload": "^1.1.6",
+    "express-formidable": "^1.2.0",
+    "express-handlebars": "^3.1.0",
+    "express-jwt": "^5.3.3",
+    "express-mysql-session": "^2.1.0",
+    "express-session": "^1.17.0",
+    "express-validator": "^6.3.1",
+    "firebase-admin": "^9.1.1",
+    "firebase-functions": "^3.11.0",
+    "handlebars": "^4.7.3",
+    "jquery": "^3.4.1",
+    "jsonwebtoken": "^8.5.1",
+    "morgan": "^1.9.1",
+    "multer": "^1.4.2",
+    "mysql": "^2.17.1",
+    "nodemon": "^1.19.4",
+    "nodetable": "^1.0.2",
+    "passport": "^0.4.1",
+    "passport-local": "^1.0.0",
+    "path": "^0.12.7",
+    "pg": "^7.17.0",
+    "serve-favicon": "^2.5.0",
+    "timeago.js": "^4.0.2",
+    "webpack-dev-server": "^3.10.3"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://danigb66@bitbucket.org/danigb66/caracterizacion.git"
+  },
+  "engines": {
+    "node": "12.14.0",
+    "npm": "6.13.4"
+  },
+  "homepage": "https://bitbucket.org/danigb66/caracterizacion#readme",
+  "description": ""
+}

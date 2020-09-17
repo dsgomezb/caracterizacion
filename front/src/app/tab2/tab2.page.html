@@ -1,0 +1,83 @@
+<ion-header [translucent]="true">
+  <ion-toolbar color="primary">
+    <ion-title ><b>Encuestas</b></ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<!--Enuestas, tener en cuenta agregar direccion paseando-->
+<ion-content [fullscreen]="true">
+  <div>
+    <form>
+      <ion-card>
+        <ion-card-content>
+          <ion-grid>
+            <ion-row>
+              <ion-col>
+                <ion-list>
+                  <ion-radio-group value="biff">
+                    <ion-list-header>
+                      <ion-label>Encuestado</ion-label>
+                    </ion-list-header>            
+                    <ion-item>
+                      <ion-label>Propietario</ion-label>
+                      <ion-radio slot="start" value="griff"></ion-radio>
+                    </ion-item>            
+                    <ion-item>
+                      <ion-label>Mayordomo</ion-label>
+                      <ion-radio slot="start" value="buford"></ion-radio>
+                    </ion-item>
+                  </ion-radio-group>
+                </ion-list>
+              </ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col>
+                <ion-item>
+                  <ion-label position="floating">Nombres<ion-text color="danger" >*</ion-text></ion-label>
+                  <ion-input type="text" name="owner" ></ion-input>
+                </ion-item>
+              </ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col>
+                <ion-item>
+                  <ion-label position="floating">Apellidos<ion-text color="danger" >*</ion-text></ion-label>
+                  <ion-input type="text" name="owner" ></ion-input>
+                </ion-item>
+              </ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col>
+                <ion-item>
+                  <ion-label position="floating">Tipo de documento</ion-label>
+                  <ion-select value="brown" okText="Seleccionar" cancelText="Cancelar">
+                    <ion-select-option value="brown">Cédula de ciudadania</ion-select-option>
+                    <ion-select-option value="blonde">Cédula de extranjeria</ion-select-option>
+                    <ion-select-option value="black">Pasaporte</ion-select-option>
+                    <ion-select-option value="red">Tarjeta de identidad</ion-select-option>
+                  </ion-select>
+                </ion-item>
+              </ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col>
+                <ion-item>
+                  <ion-label position="floating">Número de Documento<ion-text color="danger" >*</ion-text></ion-label>
+                  <ion-input type="text" name="owner" ></ion-input>
+                </ion-item>
+              </ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col>
+                <ion-item>
+                  <ion-label position="floating">Dirección<ion-text color="danger" >*</ion-text></ion-label>
+                  <ion-input type="text" name="owner" ></ion-input>
+                </ion-item>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-card-content>
+      </ion-card>
+    </form>
+  </div>
+</ion-content>

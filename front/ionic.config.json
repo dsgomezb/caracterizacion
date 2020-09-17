@@ -1,0 +1,7 @@
+{
+  "name": "caracterizacion",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
