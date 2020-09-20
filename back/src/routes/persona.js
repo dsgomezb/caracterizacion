@@ -1,0 +1,229 @@
+const express = require('express');
+const router = express.Router();
+const passport = require('passport');
+const { isNotLoggedIn } = require('../lib/auth');
+const pool = require('../database');
+const helpers = require('../lib/helpers');
+
+
+//Api para obtener los tipo person activos de la base de datos: Mayordomo - propietario
+router.post('/api/get_tipo_persona', async (req, res) => {
+    let tipoPersona = await pool.query("SELECT id, nombre FROM tipo_persona where estado is true order by nombre");
+    console.log(tipoPersona.rows);
+    if(tipoPersona.rows.length > 0){
+        data = {
+            "code": "0",
+            "data": tipoPersona
+        };
+    }else{
+        data = {
+            "code": "1",
+            "error": "No existen tipo persona"
+        };
+    }
+    res.status(200).json(data);
+});
+
+//Api para obtener los estado civil activos de la base de datos
+router.post('/api/get_estados_civil', async (req, res) => {
+    let estadosCiviles = await pool.query("SELECT id, nombre FROM estado_civil where estado is true order by nombre");
+    console.log(estadosCiviles.rows);
+    if(estadosCiviles.rows.length > 0){
+        data = {
+            "code": "0",
+            "data": estadosCiviles
+        };
+    }else{
+        data = {
+            "code": "1",
+            "error": "No existen estados civiles"
+        };
+    }
+    res.status(200).json(data);
+});
+
+
+//Api para obtener los tipo documento activos de la base de datos
+router.post('/api/get_tipo_documento', async (req, res) => {
+    let tipoDocumento = await pool.query("SELECT id, nombre FROM tipo_documento where estado is true order by nombre");
+    console.log(tipoDocumento.rows);
+    if(tipoDocumento.rows.length > 0){
+        data = {
+            "code": "0",
+            "data": tipoDocumento
+        };
+    }else{
+        data = {
+            "code": "1",
+            "error": "No existen tipos de documentos"
+        };
+    }
+    res.status(200).json(data);
+});
+
+//Api para obtener los municipios de la base de datos
+router.post('/api/get_municipios', async (req, res) => {
+    let municipios = await pool.query("SELECT codigo, municipio || ' - ' || departamento as nombre FROM localidades order by municipio");
+    console.log(municipios.rows);
+    if(municipios.rows.length > 0){
+        data = {
+            "code": "0",
+            "data": municipios
+        };
+    }else{
+        data = {
+            "code": "1",
+            "error": "No existen municipios"
+        };
+    }
+    res.status(200).json(data);
+});
+
+
+//Api para obtener los géneros activos de la base de datos
+router.post('/api/get_generos', async (req, res) => {
+    let generos = await pool.query("SELECT id, nombre FROM genero where estado is true order by nombre");
+    console.log(generos.rows);
+    if(generos.rows.length > 0){
+        data = {
+            "code": "0",
+            "data": generos
+        };
+    }else{
+        data = {
+            "code": "1",
+            "error": "No existen generos"
+        };
+    }
+    res.status(200).json(data);
+});
+
+//Api para obtener las ocupacion activos de la base de datos
+router.post('/api/get_ocupacion', async (req, res) => {
+    let ocupacion = await pool.query("SELECT id, nombre FROM ocupacion where estado is true order by nombre");
+    console.log(ocupacion.rows);
+    if(ocupacion.rows.length > 0){
+        data = {
+            "code": "0",
+            "data": ocupacion
+        };
+    }else{
+        data = {
+            "code": "1",
+            "error": "No existen ocupaciones"
+        };
+    }
+    res.status(200).json(data);
+});
+
+//Api para obtener las nivel de escolaridad activos de la base de datos
+router.post('/api/get_nivel_escolaridad', async (req, res) => {
+    let nivelEscolaridad = await pool.query("SELECT id, nombre FROM nivel_escolaridad where estado is true order by nombre");
+    console.log(nivelEscolaridad.rows);
+    if(nivelEscolaridad.rows.length > 0){
+        data = {
+            "code": "0",
+            "data": nivelEscolaridad
+        };
+    }else{
+        data = {
+            "code": "1",
+            "error": "No existen niveles de escolaridad"
+        };
+    }
+    res.status(200).json(data);
+});
+
+
+//Api para obtener las nivel de tipo_afiliacion activos de la base de datos
+router.post('/api/get_tipo_afiliacion', async (req, res) => {
+    let tipoAfiliacion = await pool.query("SELECT id, nombre FROM tipo_afiliacion where estado is true order by nombre");
+    console.log(tipoAfiliacion.rows);
+    if(tipoAfiliacion.rows.length > 0){
+        data = {
+            "code": "0",
+            "data": tipoAfiliacion
+        };
+    }else{
+        data = {
+            "code": "1",
+            "error": "No existen niveles de tipos de afiliacion"
+        };
+    }
+    res.status(200).json(data);
+});
+
+//Api para obtener las nivel de tipo_poblacion activos de la base de datos
+router.post('/api/get_tipo_poblacion', async (req, res) => {
+    let tiposPoblacion = await pool.query("SELECT id, nombre FROM tipo_poblacion where estado is true order by nombre");
+    console.log(tiposPoblacion.rows);
+    if(tiposPoblacion.rows.length > 0){
+        data = {
+            "code": "0",
+            "data": tiposPoblacion
+        };
+    }else{
+        data = {
+            "code": "1",
+            "error": "No existen tipos de población"
+        };
+    }
+    res.status(200).json(data);
+});
+
+
+//Api para obtener las nivel de grupo_etnico activos de la base de datos
+router.post('/api/get_grupo_etnico', async (req, res) => {
+    let grupoEtnico = await pool.query("SELECT id, nombre FROM grupo_etnico where estado is true order by nombre");
+    console.log(grupoEtnico.rows);
+    if(grupoEtnico.rows.length > 0){
+        data = {
+            "code": "0",
+            "data": grupoEtnico
+        };
+    }else{
+        data = {
+            "code": "1",
+            "error": "No existen grupos etnicos"
+        };
+    }
+    res.status(200).json(data);
+});
+
+
+//Agregar informacion de la persona ya sea mayordomo o propietario
+router.post('/api/add_persona', async (req, res) => {
+    const { id_tipo_persona, id_tipo_documento, id_municipio, id_genero, id_estado_civil, id_ocupacion, 
+        id_nivel_escolaridad, id_tipo_afiliacion, id_grupo_etnico, id_tipo_poblacion, documento, nombre,
+        apellidos, direccion, barrio, telefono, email, fecha_nacimiento, num_personas_cargo, foto_documento,
+        vive_finca, tiempo_lleva_finca } = req.body;
+
+       const add_persona = await pool.query('INSERT INTO persona(id_tipo_persona, id_tipo_documento, id_municipio, id_genero, id_estado_civil, id_ocupacion, \
+        id_nivel_escolaridad, id_tipo_afiliacion, id_grupo_etnico, id_tipo_poblacion, documento, nombre, \
+        apellidos, direccion, barrio, telefono, email, fecha_nacimiento, num_personas_cargo, foto_documento, \
+        vive_finca, tiempo_lleva_finca) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18, $19, $20, $21, $22)', [id_tipo_persona, id_tipo_documento, id_municipio, id_genero, id_estado_civil, id_ocupacion, 
+            id_nivel_escolaridad, id_tipo_afiliacion, id_grupo_etnico, id_tipo_poblacion, documento, nombre,
+            apellidos, direccion, barrio, telefono, email, fecha_nacimiento, num_personas_cargo, foto_documento,
+            vive_finca, tiempo_lleva_finca]);
+
+    if (add_persona) {
+        data = {
+            "code": "0",
+            "message": "Información de la persona guardada correctamente",
+            "save": true
+        };
+    } else {
+        data = {
+            "code": "1",
+            "update": false,
+            "error": "Error al guardar los datos de la persona"
+        };
+    }
+    res.status(200).json(data);
+});
+
+
+
+
+
+module.exports = router;

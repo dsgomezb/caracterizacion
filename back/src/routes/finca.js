@@ -4,25 +4,74 @@ const passport = require('passport');
 const { isNotLoggedIn } = require('../lib/auth');
 const pool = require('../database');
 const helpers = require('../lib/helpers');
-var nodemailer = require('nodemailer');
+/*var nodemailer = require('nodemailer');
 const { data_email } = require('../keys');
 const admin = require("firebase-admin");
-const serviceAccount = require("../credenciales-firebase.json");
+const serviceAccount = require("../credenciales-firebase.json");*/
 
-admin.initializeApp({
+/*admin.initializeApp({
     credential: admin.credential.cert(serviceAccount),
     databaseURL: "https://paseandotumascota-b5559.firebaseio.com"
-  });
+  });*/
 
 //Ruta para registrar un nuevo usuario en la base de datos
-router.post('/signup', passport.authenticate('local.signup', {
+/*router.post('/signup', passport.authenticate('local.signup', {
     successRedirect: '/users',
     failureRedirect: '/create',
     failureFlash: true,
-}));
+}));*/
+
+//Api para obtener las veredas de la base de datos
+router.post('/api/get_veredas', async (req, res) => {
+    let veredas = await pool.query("SELECT id, nombre_vereda || ' - ' || nombre_municipio as nombre FROM vereda order by nombre_vereda");
+    console.log(veredas.rows);
+    if(veredas.rows.length > 0){
+        data = {
+            "code": "0",
+            "data": veredas
+        };
+    }else{
+        data = {
+            "code": "1",
+            "error": "No existen veredas"
+        };
+    }
+    res.status(200).json(data);
+});
+
+
+//Agregar informacion de finca para carga inicial
+router.post('/api/add_finca_inicial', async (req, res) => {
+    const { nombre, id_vereda, longitud, latitud } = req.body;
+       const add_finca_inicial = await pool.query('INSERT INTO finca(nombre, id_vereda, longitud, latitud) VALUES ($1, $2, $3, $4)', [nombre, id_vereda, longitud, latitud]);
+    if (add_finca_inicial) {
+        data = {
+            "code": "0",
+            "message": "Información de la finca guardada correctamente",
+            "save": true
+        };
+    } else {
+        data = {
+            "code": "1",
+            "update": false,
+            "error": "Error al guardar los datos de la finca"
+        };
+    }
+    res.status(200).json(data);
+});
+
+
+
+
+
+
+
+
+/*
 
 //Ruta para enviar notificación
 router.post('/api/notification', async (req, res) => {
+    console.log('llega');
     let token = req.body.token
     try {
         let response = await admin.messaging().send({
@@ -32,15 +81,14 @@ router.post('/api/notification', async (req, res) => {
             },
             token: token
         });
-    
+
         return res.json(response)
-    }catch(err){
+    } catch (err) {
         return res.json(err).status(500);
     }
 });
-
 //API Capturar id de usuario, consultar informacion de éste y enviarla al front para perfil
-router.post('/api/get_info_user', async (req, res) => {
+/*router.post('/api/get_info_user', async (req, res) => {
     const { user_id } = req.body;
 
     let profile = await pool.query('SELECT * FROM users \
@@ -165,52 +213,7 @@ router.post('/api/get_address_user', async (req, res) => {
     res.status(200).json(data);
 });
 
-//Api para obtener los municipios de la base de datos
-router.post('/api/get_states', async (req, res) => {
-    const states = await pool.query("SELECT muni.id_muni, CONCAT(muni.nombre_muni,' - ',UPPER(depto.name_depto)) as nombre_muni \
-    FROM municipios AS muni JOIN departamentos AS depto ON depto.id_depto = muni.id_depto ORDER BY depto.name_depto asc");
-    if(states.length > 0){
-        data = {
-            "code": "0",
-            "data": states
-        };
-    }else{
-        data = {
-            "code": "1",
-            "error": "No existen municipios"
-        };
-    }
-    res.status(200).json(data);
-});
 
-//Agregar nueva direccion de un usuario desde movil
-router.post('/api/add_user_address', async (req, res) => {
-    const { address_title, user_address, description_user_address, id_user, cbar_cdigo } = req.body;
-    var id_muni = req.body.id_muni.id_muni;
-    const newUserAddress = {
-        id_user,
-        address_title,
-        description_user_address,
-        user_address,
-        id_muni,
-        cbar_cdigo
-    };
-    const add_address = await pool.query('INSERT INTO user_address SET ?', [newUserAddress]);
-    if(add_address){
-        data = {
-            "code": "0",
-            "message": "Dirección guardada correctamente",
-            "save": true
-        };
-    }else{
-        data = {
-            "code": "1",
-            "update": false,
-            "error": "Error al guardar la dirección"
-        };
-    }
-    res.status(200).json(data);
-});
 
 //Eliminar direccion de un usuario
 router.post('/api/delete_address_user', async (req, res) => {
@@ -757,6 +760,6 @@ router.post('/api/send_mail', async (req, res) => {
             }
         });
 
-});
+});*/
 
 module.exports = router;

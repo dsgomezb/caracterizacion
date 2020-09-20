@@ -3,9 +3,11 @@ module.exports = {
     //Local
     database: {
         host: 'localhost',
-        user: 'root',
-        password: '',
-        database: 'paseando_tu_mascota'
+        user: 'postgres',
+        password: 'postgres',
+        database: 'caracterizacion',
+        port: 5432
+
     },
     //Produccion
     /*database: {
