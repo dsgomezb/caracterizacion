@@ -1,5 +1,4 @@
 <ion-content padding>
-  <form (ngSubmit)="login()">
     <ion-card>
       <ion-card-content class="fondo">
         <ion-grid>
@@ -57,11 +56,10 @@
         <ion-grid>
           <ion-row>
             <ion-col>
-              <ion-button color="primary" shape="round" expand="block" type="submit">Iniciar</ion-button>
+              <ion-button color="primary" shape="round" expand="block" type="submit" (click)="goHome()">Iniciar</ion-button>
             </ion-col>
           </ion-row>
         </ion-grid>
       </ion-card-content>
     </ion-card>
-  </form>
 </ion-content>
