@@ -55,4 +55,18 @@ ion-toast.warning-toast {
 
 .alert-wrapper.sc-ion-alert-md{
     min-width: 90% !important;
-  }
+}
+
+.modal-small{
+    --max-height: 80% !important;
+    --max-width: 90% !important;
+    --border-radius: 10px;
+}
+
+.toolbar-back{
+    & ion-icon {
+        font-size: 30px;
+        margin-right: 10px;
+        color: red;
+    }
+}

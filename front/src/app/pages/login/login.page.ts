@@ -5,6 +5,8 @@ import { Platform, MenuController, NavController } from '@ionic/angular';
 import { RequestService } from '../../services/http/request.service';
 import { ToastService  } from '../../services/toaster/toast.service';
 import { StorageService } from '../../services/storage/storage.service';
+import { ModalController  } from '@ionic/angular';
+import { LocationComponent } from '../../components/location/location.component';
 
 @Component({
   selector: 'app-login',
@@ -24,6 +26,8 @@ export class LoginPage implements OnInit {
     public storageService: StorageService,
     private platform: Platform,
     private router: Router,
+    public modalCtrl: ModalController
+
   ) {}
 
   ngOnInit() {
@@ -44,6 +48,7 @@ export class LoginPage implements OnInit {
     });
   }
 
+  //Obtiene los municipios con un departamento determinado
   getCity(event){
     let data = {
       id_departamento: event.value.id_departamento_dane
@@ -57,7 +62,7 @@ export class LoginPage implements OnInit {
     });
   }
 
-  //Obtiene todas las veredas con sus municipios
+  //Obtiene todas las veredas de un municipio determinado
   getSideWalk(event){
     let data = {
       id_municipio_dane: event.value.id_municipio_dane
@@ -71,6 +76,15 @@ export class LoginPage implements OnInit {
     });
   }
 
+  //Modal para ingrear la localizacion en caso de que no se tenga internet
+  async modalEnterLocation(){
+    const modal = await this.modalCtrl.create({
+      component: LocationComponent,
+      cssClass: 'modal-small'
+    });
+    return await modal.present();
+  }
+ 
   goHome(){
     this.navController.navigateForward('/inicio');
   }
