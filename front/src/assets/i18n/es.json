@@ -4,6 +4,18 @@
     },
     "general": {
         "select": "Seleccionar",
-        "cancel": "Cancelar"
+        "cancel": "Cancelar",
+        "departments": "Departamentos",
+        "city": "Municipios",
+        "sideWalk": "Vereda",
+        "location": "Localización"
+    },
+    "farm": {
+        "name": "Nombre de la finca"
+    },
+    "button": {
+        "get": "OBTENER",
+        "enter": "INGRESAR",
+        "init": "INICIAR"
     }
 }

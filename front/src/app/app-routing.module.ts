@@ -9,7 +9,11 @@ const routes: Routes = [
   {
     path: 'inicio',
     loadChildren: () => import('./pages/inicio/inicio.module').then( m => m.InicioPageModule)
+  },  {
+    path: 'modal-location',
+    loadChildren: () => import('./pages/modal-location/modal-location.module').then( m => m.ModalLocationPageModule)
   }
+
 ];
 @NgModule({
   imports: [

@@ -13,7 +13,7 @@
     <ion-row>
       <ion-col>
         <ion-item>
-          <ion-label position="floating">Nombre de la finca</ion-label>
+          <ion-label position="floating">{{ "farm.name" | translate }}</ion-label>
           <ion-input type="text" name="farm_name" required autocomplete="off"></ion-input>
         </ion-item>
       </ion-col>
@@ -21,7 +21,7 @@
     <ion-row>
       <ion-col class="d-flex">
         <ion-item>
-          <ion-label position="stacked">Departamentos</ion-label>
+          <ion-label position="stacked">{{ "general.departments" | translate }}</ion-label>
           <ionic-selectable
             name="id_departamento_dane"
             [items]="departments"
@@ -38,7 +38,7 @@
     <ion-row>
       <ion-col class="d-flex">
         <ion-item>
-          <ion-label position="stacked">Municipios</ion-label>
+          <ion-label position="stacked">{{ "general.city" | translate }}</ion-label>
           <ionic-selectable
             name="id_municipio_dane"
             [items]="citys"
@@ -56,7 +56,7 @@
     <ion-row>
       <ion-col class="d-flex">
         <ion-item>
-          <ion-label position="stacked">Vereda</ion-label>
+          <ion-label position="stacked">{{ "general.sideWalk" | translate }}</ion-label>
           <ionic-selectable
             name="id_muni"
             [items]="sideWalks"
@@ -73,22 +73,22 @@
   <ion-grid class="padding-pri">
     <ion-row>
       <ion-col>
-        <ion-label position="stacked" class="small">Localización</ion-label>
+        <ion-label position="stacked" class="small">{{ "general.location" | translate }}</ion-label>
       </ion-col>
     </ion-row>
     <ion-row>
       <ion-col>
-        <ion-button color="success" shape="round" expand="block" size="small">Obtener</ion-button>
+        <ion-button color="success" shape="round" expand="block" size="small">{{ "button.get" | translate }}</ion-button>
       </ion-col>
       <ion-col>
-        <ion-button color="warning" shape="round" expand="block" size="small" (click)="modalEnterLocation()">Ingresar</ion-button>
+        <ion-button color="warning" shape="round" expand="block" size="small" (click)="modalEnterLocation()">{{ "button.enter" | translate }}</ion-button>
       </ion-col>
     </ion-row>
   </ion-grid>
   <ion-grid>
     <ion-row>
       <ion-col>
-        <ion-button color="primary" shape="round" expand="block" type="submit" (click)="goHome()">Iniciar</ion-button>
+        <ion-button color="primary" shape="round" expand="block" type="submit" (click)="goHome()">{{ "button.init" | translate }}</ion-button>
       </ion-col>
     </ion-row>
   </ion-grid>

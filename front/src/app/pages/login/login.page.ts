@@ -6,7 +6,7 @@ import { RequestService } from '../../services/http/request.service';
 import { ToastService  } from '../../services/toaster/toast.service';
 import { StorageService } from '../../services/storage/storage.service';
 import { ModalController  } from '@ionic/angular';
-import { LocationComponent } from '../../components/location/location.component';
+import { ModalLocationPage } from '../modal-location/modal-location.page';
 
 @Component({
   selector: 'app-login',
@@ -79,8 +79,8 @@ export class LoginPage implements OnInit {
   //Modal para ingrear la localizacion en caso de que no se tenga internet
   async modalEnterLocation(){
     const modal = await this.modalCtrl.create({
-      component: LocationComponent,
-      cssClass: 'modal-small'
+      component: ModalLocationPage,
+      cssClass: 'modal-location'
     });
     return await modal.present();
   }
@@ -88,5 +88,9 @@ export class LoginPage implements OnInit {
   goHome(){
     this.navController.navigateForward('/inicio');
   }
+
+  /*public openModal(){ 
+    var modalPage = this.modalCtrl.create('ModalPage'); 
+    modalPage.present(); }*/
 
 }

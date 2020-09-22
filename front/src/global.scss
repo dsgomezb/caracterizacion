@@ -63,6 +63,12 @@ ion-toast.warning-toast {
     --border-radius: 10px;
 }
 
+.modal-location{
+    --max-height: 50% !important;
+    --max-width: 90% !important;
+    --border-radius: 10px;
+}
+
 .toolbar-back{
     & ion-icon {
         font-size: 30px;
