@@ -1,0 +1,9 @@
+{
+    "login": {
+        "login": "Ingreso"
+    },
+    "general": {
+        "select": "Seleccionar",
+        "cancel": "Cancelar"
+    }
+}

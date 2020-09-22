@@ -1,4 +1,4 @@
-<ion-content padding>
+<ion-content padding class="fondo">
     <ion-card>
       <ion-card-content class="fondo">
         <ion-grid>
@@ -9,7 +9,7 @@
           </ion-row>
           <ion-row>
             <ion-col class="center">
-              <ion-title color="primary" class="title">Ingreso</ion-title>
+              <ion-title color="primary" class="title">{{ "login.login" | translate }}</ion-title>
             </ion-col>
           </ion-row>
           <ion-row>
@@ -24,16 +24,16 @@
             <ion-col class="d-flex">
               <ion-item>
                 <ion-label position="stacked">Vereda</ion-label>
-                <ion-select placeholder="" okText="Seleccionar" cancelText="Cancelar">
-                  <ion-select-option value="0">Manizales-La Siria</ion-select-option>
-                  <ion-select-option value="1">Manizales-La Linda</ion-select-option>
-                  <ion-select-option value="2">Manizales-La pava</ion-select-option>
-                  <ion-select-option value="3">Anserma-Aguabonita</ion-select-option>
-                  <ion-select-option value="4">Anserma-Alejandria</ion-select-option>
-                  <ion-select-option value="5">Anserma-Betania</ion-select-option>
-                  <ion-select-option value="6">Aranzazu-La Floresta</ion-select-option>
-                  <ion-select-option value="7">Aranzazu-Naranjal</ion-select-option>
-                </ion-select>
+                <ionic-selectable
+                  name="id_muni"
+                  [items]="sideWalks"
+                  itemValueField="id"
+                  itemTextField="nombre"
+                  [hasVirtualScroll]="true"
+                  closeButtonText="Cancelar"
+                  [canSearch]="true">
+                </ionic-selectable>
+
               </ion-item>
             </ion-col>
           </ion-row>

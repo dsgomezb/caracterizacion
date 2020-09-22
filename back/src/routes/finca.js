@@ -8,12 +8,11 @@ const helpers = require('../lib/helpers');
 
 //Api para obtener las veredas de la base de datos
 router.post('/api/get_veredas', async (req, res) => {
-    let veredas = await pool.query("SELECT id, nombre_vereda || ' - ' || nombre_municipio as nombre FROM vereda order by nombre_vereda");
-    console.log(veredas.rows);
+    const veredas = await pool.query("SELECT id, nombre_vereda || ' - ' || nombre_municipio as nombre FROM vereda order by nombre_vereda");
     if (veredas.rows.length > 0) {
         data = {
             "code": "0",
-            "data": veredas
+            "data": veredas.rows
         };
     } else {
         data = {
