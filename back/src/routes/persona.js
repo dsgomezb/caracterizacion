@@ -12,7 +12,7 @@ router.post('/api/get_tipo_persona', async (req, res) => {
     if (tipoPersona.rows.length > 0) {
         data = {
             "code": "0",
-            "data": tipoPersona
+            "data": tipoPersona.rows
         };
     } else {
         data = {
@@ -29,7 +29,7 @@ router.post('/api/get_estados_civil', async (req, res) => {
     if (estadosCiviles.rows.length > 0) {
         data = {
             "code": "0",
-            "data": estadosCiviles
+            "data": estadosCiviles.rows
         };
     } else {
         data = {
@@ -47,29 +47,12 @@ router.post('/api/get_tipo_documento', async (req, res) => {
     if (tipoDocumento.rows.length > 0) {
         data = {
             "code": "0",
-            "data": tipoDocumento
+            "data": tipoDocumento.rows
         };
     } else {
         data = {
             "code": "1",
             "error": "No existen tipos de documentos"
-        };
-    }
-    res.status(200).json(data);
-});
-
-//Api para obtener los municipios de la base de datos
-router.post('/api/get_municipios', async (req, res) => {
-    let municipios = await pool.query("SELECT codigo, municipio || ' - ' || departamento as nombre FROM localidades order by municipio");
-    if (municipios.rows.length > 0) {
-        data = {
-            "code": "0",
-            "data": municipios
-        };
-    } else {
-        data = {
-            "code": "1",
-            "error": "No existen municipios"
         };
     }
     res.status(200).json(data);
@@ -82,7 +65,7 @@ router.post('/api/get_generos', async (req, res) => {
     if (generos.rows.length > 0) {
         data = {
             "code": "0",
-            "data": generos
+            "data": generos.rows
         };
     } else {
         data = {
@@ -99,7 +82,7 @@ router.post('/api/get_ocupacion', async (req, res) => {
     if (ocupacion.rows.length > 0) {
         data = {
             "code": "0",
-            "data": ocupacion
+            "data": ocupacion.rows
         };
     } else {
         data = {
@@ -116,7 +99,7 @@ router.post('/api/get_nivel_escolaridad', async (req, res) => {
     if (nivelEscolaridad.rows.length > 0) {
         data = {
             "code": "0",
-            "data": nivelEscolaridad
+            "data": nivelEscolaridad.rows
         };
     } else {
         data = {
@@ -134,7 +117,7 @@ router.post('/api/get_tipo_afiliacion', async (req, res) => {
     if (tipoAfiliacion.rows.length > 0) {
         data = {
             "code": "0",
-            "data": tipoAfiliacion
+            "data": tipoAfiliacion.rows
         };
     } else {
         data = {
@@ -151,7 +134,7 @@ router.post('/api/get_tipo_poblacion', async (req, res) => {
     if (tiposPoblacion.rows.length > 0) {
         data = {
             "code": "0",
-            "data": tiposPoblacion
+            "data": tiposPoblacion.rows
         };
     } else {
         data = {
@@ -170,7 +153,7 @@ router.post('/api/get_grupo_etnico', async (req, res) => {
     if (grupoEtnico.rows.length > 0) {
         data = {
             "code": "0",
-            "data": grupoEtnico
+            "data": grupoEtnico.rows
         };
     } else {
         data = {

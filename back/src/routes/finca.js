@@ -5,15 +5,51 @@ const { isNotLoggedIn } = require('../lib/auth');
 const pool = require('../database');
 const helpers = require('../lib/helpers');
 
+//Api para obtener los departamentos
+router.post('/api/get_departamentos', async (req, res) => {
+    let departamentos = await pool.query("SELECT DISTINCT  id_departamento_dane, nombre_departamento FROM municipio order by nombre_departamento");
+    if (departamentos.rows.length > 0) {
+        data = {
+            "code": "0",
+            "data": departamentos.rows
+        };
+    } else {
+        data = {
+            "code": "1",
+            "error": "No existen departamentos"
+        };
+    }
+    res.status(200).json(data);
+});
 
-//Api para obtener las veredas de la base de datos
+
+//Api para obtener los municipios por departamento
+router.post('/api/get_municipios', async (req, res) => {
+    const { id_departamento } = req.body;
+    let municipios = await pool.query("SELECT id_municipio_dane, nombre_municipio FROM municipio where id_departamento_dane = $1 order by nombre_municipio", [id_departamento]);
+    if (municipios.rows.length > 0) {
+        data = {
+            "code": "0",
+            "data": municipios.rows
+        };
+    } else {
+        data = {
+            "code": "1",
+            "error": "No existen municipios"
+        };
+    }
+    res.status(200).json(data);
+});
+
+
+//Api para obtener las veredas por municipio de la base de datos
 router.post('/api/get_veredas', async (req, res) => {
-    let veredas = await pool.query("SELECT id, nombre_vereda || ' - ' || nombre_municipio as nombre FROM vereda order by nombre_vereda");
-    console.log(veredas.rows);
+    const { id_municipio_dane } = req.body;
+    let veredas = await pool.query("SELECT id, nombre_vereda as nombre FROM vereda where id_municipio = $1 order by nombre_vereda", [id_municipio_dane]);
     if (veredas.rows.length > 0) {
         data = {
             "code": "0",
-            "data": veredas
+            "data": veredas.rows
         };
     } else {
         data = {
@@ -54,7 +90,7 @@ router.post('/api/get_tipo_via', async (req, res) => {
     if (tipoVias.rows.length > 0) {
         data = {
             "code": "0",
-            "data": tipoVias
+            "data": tipoVias.rows
         };
     } else {
         data = {
@@ -71,7 +107,7 @@ router.post('/api/get_estado_via', async (req, res) => {
     if (estadoVias.rows.length > 0) {
         data = {
             "code": "0",
-            "data": estadoVias
+            "data": estadoVias.rows
         };
     } else {
         data = {
@@ -89,7 +125,7 @@ router.post('/api/get_tipos_gases', async (req, res) => {
     if (tiposGases.rows.length > 0) {
         data = {
             "code": "0",
-            "data": tiposGases
+            "data": tiposGases.rows
         };
     } else {
         data = {
@@ -107,7 +143,7 @@ router.post('/api/get_actividades_productivas', async (req, res) => {
     if (actividadesProductivas.rows.length > 0) {
         data = {
             "code": "0",
-            "data": actividadesProductivas
+            "data": actividadesProductivas.rows
         };
     } else {
         data = {
@@ -142,7 +178,7 @@ router.post('/api/get_servicios_publicos', async (req, res) => {
     if (serviciosPublicos.rows.length > 0) {
         data = {
             "code": "0",
-            "data": serviciosPublicos
+            "data": serviciosPublicos.rows
         };
     } else {
         data = {
@@ -161,7 +197,7 @@ router.post('/api/get_tendencias_tierra', async (req, res) => {
     if (estadosTendenciaTierra.rows.length > 0) {
         data = {
             "code": "0",
-            "data": estadosTendenciaTierra
+            "data": estadosTendenciaTierra.rows
         };
     } else {
         data = {
@@ -179,7 +215,7 @@ router.post('/api/get_finca_id', async (req, res) => {
     if (finca.rows.length > 0) {
         data = {
             "code": "0",
-            "data": finca
+            "data": finca.rows
         };
     } else {
         data = {
@@ -256,7 +292,7 @@ router.post('/api/get_finca_actividades_productivas', async (req, res) => {
     if (finca.rows.length > 0) {
         data = {
             "code": "0",
-            "data": finca
+            "data": finca.rows
         };
     } else {
         data = {

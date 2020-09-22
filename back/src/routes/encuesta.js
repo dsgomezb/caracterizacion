@@ -13,7 +13,7 @@ router.post('/api/get_encuesta', async (req, res) => {
      if (encuesta.rows.length > 0) {
         data = {
             "code": "0",
-            "data": encuesta,
+            "data": encuesta.rows
 
         };
     } else {
