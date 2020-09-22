@@ -13,7 +13,10 @@ import { StorageService } from '../../services/storage/storage.service';
 })
 export class LoginPage implements OnInit {
   //Arreglo para almacenar veredas
+  departments = [];
   sideWalks = [];
+  citys = [];
+
   constructor(
     public navController: NavController,
     public request: RequestService,
@@ -27,16 +30,43 @@ export class LoginPage implements OnInit {
   }
 
   ionViewWillEnter(){
-    this.getSideWalk();
+    this.getDepartment();
   }
   
+  //Obtener los departamentos
+  getDepartment(){
+    this.request.postData('finca/api/get_departamentos', null, {}).then(data => {
+      if(data.code == 0){
+        this.departments = data.data;
+      }else{
+        this.toast.presentToast(data.error, "error-toast", 3000);
+      }
+    });
+  }
+
+  getCity(event){
+    let data = {
+      id_departamento: event.value.id_departamento_dane
+    }
+    this.request.postData('finca/api/get_municipios', data, {}).then(data => {
+      if(data.code == 0){
+        this.citys = data.data;
+      }else{
+        this.toast.presentToast(data.error, "error-toast", 3000);
+      }
+    });
+  }
+
   //Obtiene todas las veredas con sus municipios
-  getSideWalk(){
-    this.request.postData('finca/api/get_veredas', null, {}).then(data => {
+  getSideWalk(event){
+    let data = {
+      id_municipio_dane: event.value.id_municipio_dane
+    }
+    this.request.postData('finca/api/get_veredas', data, {}).then(data => {
       if(data.code == 0){
         this.sideWalks = data.data;
       }else{
-        this.toast.presentToast(data.error, "info-toast", 3000);
+        this.toast.presentToast(data.error, "error-toast", 3000);
       }
     });
   }

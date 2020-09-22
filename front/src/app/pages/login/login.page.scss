@@ -1,27 +1,33 @@
 .borde {
-    border-radius: 25px !important;
-    overflow: hidden;
+  border-radius: 25px !important;
+  overflow: hidden;
 }
 
 .fondo{
-    background: #ffffff;;
-  }
+  background: #ffffff;
+}
   
-  .title{
-    font-size: 30px;
-  }
+.title {
+  font-size: 30px;
+}
 
 .logo {
-    max-width: 150px;
-    height: 150px;
-    margin: auto;
-    display: block;
-  }
+  max-width: 150px;
+  height: 150px;
+  margin: auto;
+  display: block;
+}
 
-  .tabs{
-    display: none;
-  }
+.tabs {
+  display: none;
+}
 
-  ion-card {
-    height: 96%;
-    }
+.small {
+  font-size: small;
+  color: grey;
+}
+
+.padding-pri{
+  padding-left: 3%;
+  padding-right: 3%;
+}
