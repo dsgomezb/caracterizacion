@@ -75,10 +75,10 @@ app.use(fileUpload());*/
 });*/
 
 //Rutas
-//app.use(require('routes'));
 app.use('/finca', require('./routes/finca'));
 app.use('/persona', require('./routes/persona'));
-
+app.use('/organizacion', require('./routes/organizacion'));
+app.use('/encuesta', require('./routes/encuesta'));
 
 
 //Starting the server

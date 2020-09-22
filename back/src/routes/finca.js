@@ -4,33 +4,18 @@ const passport = require('passport');
 const { isNotLoggedIn } = require('../lib/auth');
 const pool = require('../database');
 const helpers = require('../lib/helpers');
-/*var nodemailer = require('nodemailer');
-const { data_email } = require('../keys');
-const admin = require("firebase-admin");
-const serviceAccount = require("../credenciales-firebase.json");*/
 
-/*admin.initializeApp({
-    credential: admin.credential.cert(serviceAccount),
-    databaseURL: "https://paseandotumascota-b5559.firebaseio.com"
-  });*/
-
-//Ruta para registrar un nuevo usuario en la base de datos
-/*router.post('/signup', passport.authenticate('local.signup', {
-    successRedirect: '/users',
-    failureRedirect: '/create',
-    failureFlash: true,
-}));*/
 
 //Api para obtener las veredas de la base de datos
 router.post('/api/get_veredas', async (req, res) => {
     let veredas = await pool.query("SELECT id, nombre_vereda || ' - ' || nombre_municipio as nombre FROM vereda order by nombre_vereda");
     console.log(veredas.rows);
-    if(veredas.rows.length > 0){
+    if (veredas.rows.length > 0) {
         data = {
             "code": "0",
             "data": veredas
         };
-    }else{
+    } else {
         data = {
             "code": "1",
             "error": "No existen veredas"
@@ -40,14 +25,17 @@ router.post('/api/get_veredas', async (req, res) => {
 });
 
 
-//Agregar informacion de finca para carga inicial
-router.post('/api/add_finca_inicial', async (req, res) => {
+//Guardar informacion de finca para carga inicial
+router.post('/api/save_finca_inicial', async (req, res) => {
     const { nombre, id_vereda, longitud, latitud } = req.body;
-       const add_finca_inicial = await pool.query('INSERT INTO finca(nombre, id_vereda, longitud, latitud) VALUES ($1, $2, $3, $4)', [nombre, id_vereda, longitud, latitud]);
-    if (add_finca_inicial) {
+    const finca = await pool.query('INSERT INTO finca(nombre, id_vereda, longitud, latitud) VALUES ($1, $2, $3, $4)', [nombre, id_vereda, longitud, latitud]);
+    const idFinca = await pool.query('SELECT LASTVAL()');
+
+    if (finca) {
         data = {
             "code": "0",
             "message": "Información de la finca guardada correctamente",
+            "idFinca": idFinca.rows,
             "save": true
         };
     } else {
@@ -60,11 +48,224 @@ router.post('/api/add_finca_inicial', async (req, res) => {
     res.status(200).json(data);
 });
 
+//Api para obtener las tipo vias activos de la base de datos
+router.post('/api/get_tipo_via', async (req, res) => {
+    let tipoVias = await pool.query("SELECT id, nombre FROM tipo_via where estado is true order by nombre");
+    if (tipoVias.rows.length > 0) {
+        data = {
+            "code": "0",
+            "data": tipoVias
+        };
+    } else {
+        data = {
+            "code": "1",
+            "error": "No existen tipo Vias"
+        };
+    }
+    res.status(200).json(data);
+});
+
+//Api para obtener los tipos de los estados vias activos de la base de datos
+router.post('/api/get_estado_via', async (req, res) => {
+    let estadoVias = await pool.query("SELECT id, nombre FROM estado_via where estado is true order by nombre");
+    if (estadoVias.rows.length > 0) {
+        data = {
+            "code": "0",
+            "data": estadoVias
+        };
+    } else {
+        data = {
+            "code": "1",
+            "error": "No existen estados Vias"
+        };
+    }
+    res.status(200).json(data);
+});
+
+
+//Api para obtener los tipos de los estados vias activos de la base de datos
+router.post('/api/get_tipos_gases', async (req, res) => {
+    let tiposGases = await pool.query("SELECT id, nombre FROM gas where estado is true order by nombre");
+    if (tiposGases.rows.length > 0) {
+        data = {
+            "code": "0",
+            "data": tiposGases
+        };
+    } else {
+        data = {
+            "code": "1",
+            "error": "No existen tipos de gases"
+        };
+    }
+    res.status(200).json(data);
+});
+
+
+//Api para obtener las actividades Productivas activas de la base de datos
+router.post('/api/get_actividades_productivas', async (req, res) => {
+    let actividadesProductivas = await pool.query("SELECT id, nombre FROM actividades_productivas where estado is true order by nombre");
+    if (actividadesProductivas.rows.length > 0) {
+        data = {
+            "code": "0",
+            "data": actividadesProductivas
+        };
+    } else {
+        data = {
+            "code": "1",
+            "error": "No existen actividades Productivas"
+        };
+    }
+    res.status(200).json(data);
+});
+
+
+//Api para obtener las tipos de predios activos de la base de datos
+router.post('/api/get_tipos_predios', async (req, res) => {
+    let tiposPredios = await pool.query("SELECT id, nombre FROM predio where estado is true order by nombre");
+    if (tiposPredios.rows.length > 0) {
+        data = {
+            "code": "0",
+            "data": tiposPredios
+        };
+    } else {
+        data = {
+            "code": "1",
+            "error": "No existen tipos Predios"
+        };
+    }
+    res.status(200).json(data);
+});
+
+//Api para obtener los servicios públicos activos de la base de datos
+router.post('/api/get_servicios_publicos', async (req, res) => {
+    let serviciosPublicos = await pool.query("SELECT id, nombre FROM servicios_publicos where estado is true order by nombre");
+    if (serviciosPublicos.rows.length > 0) {
+        data = {
+            "code": "0",
+            "data": serviciosPublicos
+        };
+    } else {
+        data = {
+            "code": "1",
+            "error": "No existen servicios Publicos"
+        };
+    }
+    res.status(200).json(data);
+});
 
 
 
+//Api para obtener los estados tendencias tierra activos de la base de datos
+router.post('/api/get_tendencias_tierra', async (req, res) => {
+    let estadosTendenciaTierra = await pool.query("SELECT id, nombre FROM estado_tendencia_tierra where estado is true order by nombre");
+    if (estadosTendenciaTierra.rows.length > 0) {
+        data = {
+            "code": "0",
+            "data": estadosTendenciaTierra
+        };
+    } else {
+        data = {
+            "code": "1",
+            "error": "No existen estados tendencias tierra"
+        };
+    }
+    res.status(200).json(data);
+});
+
+//Api para obtener los datos iniciales guardados de la finca para mostrarlos  y mostrar el restode info de la finca
+router.post('/api/get_finca_id', async (req, res) => {
+    const { id_finca } = req.body;
+    let finca = await pool.query("SELECT id, nombre, id_vereda, longitud, latitud FROM finca where id = $1", [id_finca]);
+    if (finca.rows.length > 0) {
+        data = {
+            "code": "0",
+            "data": finca
+        };
+    } else {
+        data = {
+            "code": "1",
+            "error": "No existen la finca"
+        };
+    }
+    res.status(200).json(data);
+});
+
+//Update informacion de finca todos los datos
+router.post('/api/update_finca', async (req, res) => {
+    const { id_tipo_via, id_estado_via, id_gas,
+        altitud, analisis_suelos_2_anos, area_total_hectareas,
+        disponibilidad_vias_acceso, distancia_cabecera, id_agua, electricidad,
+        acueducto, pozo_septico, internet, celular, infraestructura_productiva_existente,
+        fecha, television, id_opeador_tv, id_estado_tendencia_tierra, id } = req.body;
+
+    const finca = await pool.query('UPDATE finca SET   id_tipo_via=$1, id_estado_via=$2, \
+        id_gas=$3, altitud=$4, analisis_suelos_2_anos=$5, \
+        area_total_hectareas=$6, disponibilidad_vias_acceso=$7, distancia_cabecera=$8, \
+        id_agua=$9, electricidad=$10, acueducto=$11, pozo_septico=$12, internet=$13, \
+        celular=$14, infraestructura_productiva_existente=$15, fecha=$16, television=$17, \
+        id_opeador_tv=$18, id_estado_tendencia_tierra=$19 WHERE id = $20', [id_tipo_via, id_estado_via, id_gas,
+        altitud, analisis_suelos_2_anos, area_total_hectareas,
+        disponibilidad_vias_acceso, distancia_cabecera, id_agua, electricidad,
+        acueducto, pozo_septico, internet, celular, infraestructura_productiva_existente,
+        fecha, television, id_opeador_tv, id_estado_tendencia_tierra, id]);
 
 
+    if (finca) {
+        data = {
+            "code": "0",
+            "message": "Información de la finca actualizada correctamente",
+            "save": true
+        };
+    } else {
+        data = {
+            "code": "1",
+            "update": false,
+            "error": "Error al guardar los datos de la finca"
+        };
+    }
+    res.status(200).json(data);
+});
+
+//Api para obtener los tipos de predios para guardar las imágenes de la finca de acuerdo al tipo de predio
+router.post('/api/get_tipo_predios', async (req, res) => {
+    let tiposPredio = await pool.query("SELECT id, nombre FROM predio where estado is true order by nombre");
+    if (tiposPredio.rows.length > 0) {
+        data = {
+            "code": "0",
+            "data": tiposPredio
+        };
+    } else {
+        data = {
+            "code": "1",
+            "error": "No existen tipos de predios"
+        };
+    }
+    res.status(200).json(data);
+});
+
+
+
+//Faltan llenar las tabla n a n, pedende de como envíe la info en front
+
+
+
+//Api para obtener las actividades productivas de la finca para mostrar las preguntas respectivas
+router.post('/api/get_finca_actividades_productivas', async (req, res) => {
+    const { id_finca } = req.body;
+    let finca = await pool.query("SELECT id, nombre, id_vereda, longitud, latitud FROM finca where id = $1", [id_finca]);
+    if (finca.rows.length > 0) {
+        data = {
+            "code": "0",
+            "data": finca
+        };
+    } else {
+        data = {
+            "code": "1",
+            "error": "No existen la finca"
+        };
+    }
+    res.status(200).json(data);
+});
 
 
 /*
