@@ -13,7 +13,7 @@ router.post('/api/get_tipo_organizacion', async (req, res) => {
      if (tipoOrganzacion.rows.length > 0) {
         data = {
             "code": "0",
-            "data": tipoOrganzacion,
+            "data": tipoOrganzacion.rows
 
         };
     } else {
