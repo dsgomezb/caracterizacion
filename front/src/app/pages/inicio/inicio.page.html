@@ -245,6 +245,15 @@
                 </ion-item>
               </ion-col>
             </ion-row>
+            <!--Foto Documento-->
+            <ion-row>
+              <ion-col>
+                <ion-item>
+                  <ion-button (click)="hacerFoto()">{{ "init.document_picture" | translate }}</ion-button>
+                  <img [src]="foto" *ngIf="foto" />
+                  </ion-item>
+              </ion-col>
+            </ion-row>
           </ion-grid>
         </ion-card-content>
       </ion-card>

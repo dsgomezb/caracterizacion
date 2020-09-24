@@ -1,7 +1,8 @@
 {
   "name": "caracterizacion",
   "integrations": {
-    "capacitor": {}
+    "capacitor": {},
+    "cordova": {}
   },
   "type": "angular"
 }

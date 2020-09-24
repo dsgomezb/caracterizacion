@@ -6,6 +6,7 @@ import { RequestService } from '../../services/http/request.service';
 import { ToastService  } from '../../services/toaster/toast.service';
 import { StorageService } from '../../services/storage/storage.service';
 import { ModalController  } from '@ionic/angular';
+import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
 
 @Component({
   selector: 'app-inicio',
@@ -50,7 +51,7 @@ export class InicioPage implements OnInit {
   occupation: any;
   type_affiliation: any;
   ethnic_group: any;
-
+  foto: any;
   
   constructor(
     public navCtrl: NavController,
@@ -60,6 +61,7 @@ export class InicioPage implements OnInit {
     private platform: Platform,
     private router: Router,
     public modalCtrl: ModalController,
+    private camera: Camera
   ) { }
 
   ngOnInit() {
@@ -76,6 +78,17 @@ export class InicioPage implements OnInit {
     this.getOccupation();
     this.getTypeAffiliation();
     this.getEthnicGroup();
+  }
+
+  hacerFoto() {
+    const options: CameraOptions = {
+      destinationType: this.camera.DestinationType.DATA_URL
+    }
+    this.camera.getPicture(options).then((imageData) => {
+      this.foto = 'data:image/jpeg;base64,' + imageData;
+    }, (err) => {
+      console.log(err);
+    });
   }
 
   //Obtener la caracterización poblacional

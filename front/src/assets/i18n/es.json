@@ -46,6 +46,7 @@
         "birth_date": "Fecha de Nacimiento",
         "time_in_farm": "Tiempo en finca N° meses",
         "city_origin": "Ciudad de Origen",
-        "department_origin": "Departamento de Origen"
+        "department_origin": "Departamento de Origen",
+        "document_picture": "Foto del Documento"
     }
 }

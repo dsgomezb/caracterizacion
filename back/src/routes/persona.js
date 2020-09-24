@@ -149,7 +149,6 @@ router.post('/api/get_tipo_poblacion', async (req, res) => {
 //Api para obtener las nivel de grupo_etnico activos de la base de datos
 router.post('/api/get_grupo_etnico', async (req, res) => {
     let grupoEtnico = await pool.query("SELECT id, nombre FROM grupo_etnico where estado is true order by nombre");
-    console.log(grupoEtnico.rows);
     if (grupoEtnico.rows.length > 0) {
         data = {
             "code": "0",
