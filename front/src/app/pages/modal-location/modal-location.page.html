@@ -1,0 +1,44 @@
+<ion-header>
+  <ion-toolbar color="brand-succes" class="toolbar-back">
+      <ion-icon slot="end" name="close-circle"  (click)="dismiss()"></ion-icon>
+    <ion-title color="primary" size="large">Localización Finca</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="content-location">
+  <form [formGroup]="registerLocation" (ngSubmit)="validateFormLocation()" class="form-register">
+    <ion-grid padding>
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label position="fixed">Latitud</ion-label>
+            <ion-input type="number" formControlName="latitude" autocomplete="off" required></ion-input>
+            <ion-icon slot="end" style="z-index: 99" name="alert"
+              *ngIf="registerLocation.get('latitude').hasError('required') && registerLocation.get('latitude').touched"
+              color="light" (click)="presentToast('Este campo es requerido')">
+            </ion-icon>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label position="fixed">Longitud</ion-label>
+            <ion-input type="number" formControlName="longitude" autocomplete="off" required></ion-input>
+            <ion-icon slot="end" style="z-index: 99" name="alert"
+              *ngIf="registerLocation.get('longitude').hasError('required') && registerLocation.get('longitude').touched"
+              color="light" (click)="presentToast('Este campo es requerido')">
+            </ion-icon>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+          <ion-button color="primary" expand="block" type="submit">Guardar</ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </form>
+</ion-content>

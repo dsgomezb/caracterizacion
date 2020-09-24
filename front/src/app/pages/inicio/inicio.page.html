@@ -1,0 +1,261 @@
+<ion-header [translucent]="true">
+  <ion-toolbar color="primary">
+    <ion-title ><b>Encuestas</b></ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<!--Enuestas, tener en cuenta agregar direccion paseando-->
+<ion-content [fullscreen]="true">
+  <div>
+      <ion-card>
+        <ion-card-content>
+          <ion-grid>
+            <!--Caracterizacion poblacional-->
+            <ion-row>
+              <ion-col>
+                <ion-list>
+                  <ion-radio-group [(ngModel)]="characterization">
+                    <ion-list-header>
+                      <ion-label><b>{{ "init.characterization" | translate }}</b></ion-label>
+                    </ion-list-header>            
+                    <ion-item>
+                      <ion-label>{{ "init.owner" | translate }}</ion-label>
+                      <ion-radio slot="start" value="1"></ion-radio>
+                    </ion-item>            
+                    <ion-item>
+                      <ion-label>{{ "init.butler" | translate }}</ion-label>
+                      <ion-radio slot="start" value="2"></ion-radio>
+                    </ion-item>
+                  </ion-radio-group>
+                </ion-list>
+              </ion-col>
+            </ion-row>
+            <!--Vive en finca-->
+            <ion-row>
+              <ion-col>
+                <ion-list>
+                  <ion-radio-group [(ngModel)]="live_in_farm">
+                    <ion-list-header>
+                      <ion-label><b>{{ "init.live_in_farm" | translate }}</b></ion-label>
+                    </ion-list-header>            
+                    <ion-item>
+                      <ion-label>{{ "general.yes" | translate }}</ion-label>
+                      <ion-radio slot="start" value="true"></ion-radio>
+                    </ion-item>            
+                    <ion-item>
+                      <ion-label>{{ "general.not" | translate }}</ion-label>
+                      <ion-radio slot="start" value="false"></ion-radio>
+                    </ion-item>
+                  </ion-radio-group>
+                </ion-list>
+              </ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col>
+                <!--Tiempo lleva en finca-->
+                <ion-item>
+                  <ion-label position="floating">{{ "init.time_in_farm" | translate }}<ion-text color="danger" >*</ion-text></ion-label>
+                  <ion-input [(ngModel)]="time_in_farm" type="number" ></ion-input>
+                </ion-item>
+              </ion-col>
+            </ion-row>
+            <!--Tipo Documento-->
+            <ion-row>
+              <ion-col>
+                <ion-item>
+                  <ion-label position="stacked"><b>{{ "init.document_type" | translate }}</b><ion-text color="danger" >*</ion-text></ion-label>
+                  <ion-select [(ngModel)]="document_type" okText="{{ 'general.select' | translate }}" cancelText="{{ 'general.cancel' | translate }}">
+                    <ion-select-option *ngFor="let item of documentType" value="{{item.id}}">{{item.nombre}}</ion-select-option>
+                  </ion-select>
+                </ion-item>
+              </ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col>
+                <!--Documento-->
+                <ion-item>
+                  <ion-label position="floating">{{ "init.dni" | translate }}<ion-text color="danger" >*</ion-text></ion-label>
+                  <ion-input [(ngModel)]="dni" type="text" ></ion-input>
+                </ion-item>
+                <!--Nombres-->
+                <ion-item>
+                  <ion-label position="floating">{{ "init.names" | translate }}<ion-text color="danger" >*</ion-text></ion-label>
+                  <ion-input [(ngModel)]="names" type="text" ></ion-input>
+                </ion-item>
+                <!--Apellidos-->
+                <ion-item>
+                  <ion-label position="floating">{{ "init.lastnames" | translate }}<ion-text color="danger" >*</ion-text></ion-label>
+                  <ion-input [(ngModel)]="lastnames" type="text" ></ion-input>
+                </ion-item>
+
+                <!--Direccion-->
+                <ion-item>
+                  <ion-label position="floating">{{ "init.address" | translate }}<ion-text color="danger" >*</ion-text></ion-label>
+                  <ion-input [(ngModel)]="address" type="text" ></ion-input>
+                </ion-item>
+                <!--Barrio-->
+                <ion-item>
+                  <ion-label position="floating">{{ "init.neighborhood" | translate }}<ion-text color="danger" >*</ion-text></ion-label>
+                  <ion-input [(ngModel)]="neighborhood" type="text" ></ion-input>
+                </ion-item>
+                <!--Telefono-->
+                <ion-item>
+                  <ion-label position="floating">{{ "init.phone" | translate }}<ion-text color="danger" >*</ion-text></ion-label>
+                  <ion-input [(ngModel)]="phone" type="text" ></ion-input>
+                </ion-item>
+                <!--Email-->
+                <ion-item>
+                  <ion-label position="floating">{{ "init.email" | translate }}<ion-text color="danger" >*</ion-text></ion-label>
+                  <ion-input [(ngModel)]="email" type="text" ></ion-input>
+                </ion-item>
+                <!--Fecha Nacimiento-->
+                <ion-item>
+                  <ion-label position="floating">{{ "init.birth_date" | translate }}<ion-text color="danger" >*</ion-text></ion-label>
+                  <ion-datetime [(ngModel)]="birth_date" value="1990-02-19" doneText="{{ 'general.select' | translate }}" cancelText="{{ 'general.cancel' | translate }}"></ion-datetime>
+                </ion-item>
+              </ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col class="d-flex">
+                <ion-item>
+                  <ion-label position="stacked">{{ "init.department_origin" | translate }}<ion-text color="danger" >*</ion-text></ion-label>
+                  <ionic-selectable
+                    [(ngModel)]="department"
+                    [items]="departments"
+                    itemValueField="id_departamento_dane"
+                    itemTextField="nombre_departamento"
+                    [hasVirtualScroll]="true"
+                    closeButtonText="Cancelar"
+                    [canSearch]="true"
+                    (onChange)="getCity($event)">
+                  </ionic-selectable>
+                </ion-item>
+              </ion-col>
+            </ion-row>
+            <!--Municipio-->
+            <ion-row>
+              <ion-col class="d-flex">
+                <ion-item>
+                  <ion-label position="stacked">{{ "init.city_origin" | translate }}<ion-text color="danger" >*</ion-text></ion-label>
+                  <ionic-selectable
+                    [(ngModel)]="city"
+                    [items]="citys"
+                    itemValueField="id_municipio_dane"
+                    itemTextField="nombre_municipio"
+                    [hasVirtualScroll]="true"
+                    closeButtonText="Cancelar"
+                    [canSearch]="true"
+                    >
+                  </ionic-selectable>
+                </ion-item>
+              </ion-col>
+            </ion-row>
+            <!--Genero-->
+            <ion-row>
+              <ion-col>
+                <ion-list>
+                  <ion-radio-group [(ngModel)]="gender">
+                    <ion-list-header>
+                      <ion-label><b>{{ "init.gender" | translate }}</b></ion-label>
+                    </ion-list-header>            
+                    <ion-item>
+                      <ion-label>{{ "init.male" | translate }}</ion-label>
+                      <ion-radio slot="start" value="2"></ion-radio>
+                    </ion-item>            
+                    <ion-item>
+                      <ion-label>{{ "init.female" | translate }}</ion-label>
+                      <ion-radio slot="start" value="1"></ion-radio>
+                    </ion-item>
+                  </ion-radio-group>
+                </ion-list>
+              </ion-col>
+            </ion-row>
+            <!--Estado Civil-->
+            <ion-row>
+              <ion-col>
+                <ion-item>
+                  <ion-label position="stacked"><b>{{ "init.civil_status" | translate }}</b><ion-text color="danger" >*</ion-text></ion-label>
+                  <ion-select [(ngModel)]="civil_status" okText="{{ 'general.select' | translate }}" cancelText="{{ 'general.cancel' | translate }}">
+                    <ion-select-option *ngFor="let item of civilStatus" value="{{item.id}}">{{item.nombre}}</ion-select-option>
+                  </ion-select>
+                </ion-item>
+              </ion-col>
+            </ion-row>
+            <!--Personas a cargo-->
+            <ion-row>
+              <ion-col>
+                <ion-item>
+                  <ion-label position="floating">{{ "init.peopleBurden" | translate }}<ion-text color="danger" >*</ion-text></ion-label>
+                  <ion-input [(ngModel)]="peopleBurden" type="number" ></ion-input>
+                </ion-item>
+              </ion-col>
+            </ion-row>
+            <!--Nivel de Escolaridad-->
+            <ion-row>
+              <ion-col>
+                <ion-item>
+                  <ion-label position="stacked"><b>{{ "init.school_level" | translate }}</b><ion-text color="danger" >*</ion-text></ion-label>
+                  <ion-select [(ngModel)]="school_level" okText="{{ 'general.select' | translate }}" cancelText="{{ 'general.cancel' | translate }}">
+                    <ion-select-option *ngFor="let item of schoolLevel" value="{{item.id}}">{{item.nombre}}</ion-select-option>
+                  </ion-select>
+                </ion-item>
+              </ion-col>
+            </ion-row>
+            <!--Tipo Población-->
+            <ion-row>
+              <ion-col>
+                <ion-item>
+                  <ion-label position="stacked"><b>{{ "init.population_type" | translate }}</b><ion-text color="danger" >*</ion-text></ion-label>
+                  <ion-select [(ngModel)]="population_type" okText="{{ 'general.select' | translate }}" cancelText="{{ 'general.cancel' | translate }}">
+                    <ion-select-option *ngFor="let item of populationType" value="{{item.id}}">{{item.nombre}}</ion-select-option>
+                  </ion-select>
+                </ion-item>
+              </ion-col>
+            </ion-row>
+            <!--Ocupacion-->
+            <ion-row>
+              <ion-col>
+                <ion-item>
+                  <ion-label position="stacked"><b>{{ "init.occupation" | translate }}</b><ion-text color="danger" >*</ion-text></ion-label>
+                  <ion-select [(ngModel)]="occupation" okText="{{ 'general.select' | translate }}" cancelText="{{ 'general.cancel' | translate }}">
+                    <ion-select-option *ngFor="let item of occupations" value="{{item.id}}">{{item.nombre}}</ion-select-option>
+                  </ion-select>
+                </ion-item>
+              </ion-col>
+            </ion-row>
+            <!--Afiliacion-->
+            <ion-row>
+              <ion-col>
+                <ion-item>
+                  <ion-label position="stacked"><b>{{ "init.type_affiliation" | translate }}</b><ion-text color="danger" >*</ion-text></ion-label>
+                  <ion-select [(ngModel)]="type_affiliation" okText="{{ 'general.select' | translate }}" cancelText="{{ 'general.cancel' | translate }}">
+                    <ion-select-option *ngFor="let item of typeAffiliation" value="{{item.id}}">{{item.nombre}}</ion-select-option>
+                  </ion-select>
+                </ion-item>
+              </ion-col>
+            </ion-row>
+            <!--Grupo etnico-->
+            <ion-row>
+              <ion-col>
+                <ion-item>
+                  <ion-label position="stacked"><b>{{ "init.ethnic_group" | translate }}</b><ion-text color="danger" >*</ion-text></ion-label>
+                  <ion-select [(ngModel)]="ethnic_group" okText="{{ 'general.select' | translate }}" cancelText="{{ 'general.cancel' | translate }}">
+                    <ion-select-option *ngFor="let item of ethnicGroup" value="{{item.id}}">{{item.nombre}}</ion-select-option>
+                  </ion-select>
+                </ion-item>
+              </ion-col>
+            </ion-row>
+            <!--Foto Documento-->
+            <ion-row>
+              <ion-col>
+                <ion-item>
+                  <ion-button (click)="hacerFoto()">{{ "init.document_picture" | translate }}</ion-button>
+                  <img [src]="foto" *ngIf="foto" />
+                  </ion-item>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-card-content>
+      </ion-card>
+  </div>
+</ion-content>

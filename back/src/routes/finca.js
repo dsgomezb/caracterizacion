@@ -63,6 +63,7 @@ router.post('/api/get_veredas', async (req, res) => {
 
 //Guardar informacion de finca para carga inicial
 router.post('/api/save_finca_inicial', async (req, res) => {
+    console.log("llega");
     const { nombre, id_vereda, longitud, latitud } = req.body;
     const finca = await pool.query('INSERT INTO finca(nombre, id_vereda, longitud, latitud) VALUES ($1, $2, $3, $4)', [nombre, id_vereda, longitud, latitud]);
     const idFinca = await pool.query('SELECT LASTVAL()');
