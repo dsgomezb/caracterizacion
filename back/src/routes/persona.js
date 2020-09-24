@@ -170,15 +170,15 @@ router.post('/api/save_persona', async (req, res) => {
     const { id_tipo_persona, id_tipo_documento, id_municipio, id_genero, id_estado_civil, id_ocupacion,
         id_nivel_escolaridad, id_tipo_afiliacion, id_grupo_etnico, id_tipo_poblacion, documento, nombre,
         apellidos, direccion, barrio, telefono, email, fecha_nacimiento, num_personas_cargo, foto_documento,
-        vive_finca, tiempo_lleva_finca } = req.body;
+        vive_finca, tiempo_lleva_finca, id_finca } = req.body;
 
     const persona = await pool.query('INSERT INTO persona(id_tipo_persona, id_tipo_documento, id_municipio, id_genero, id_estado_civil, id_ocupacion, \
         id_nivel_escolaridad, id_tipo_afiliacion, id_grupo_etnico, id_tipo_poblacion, documento, nombre, \
         apellidos, direccion, barrio, telefono, email, fecha_nacimiento, num_personas_cargo, foto_documento, \
-        vive_finca, tiempo_lleva_finca) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18, $19, $20, $21, $22)', [id_tipo_persona, id_tipo_documento, id_municipio, id_genero, id_estado_civil, id_ocupacion,
+        vive_finca, tiempo_lleva_finca, id_finca) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18, $19, $20, $21, $22, $23)', [id_tipo_persona, id_tipo_documento, id_municipio, id_genero, id_estado_civil, id_ocupacion,
         id_nivel_escolaridad, id_tipo_afiliacion, id_grupo_etnico, id_tipo_poblacion, documento, nombre,
         apellidos, direccion, barrio, telefono, email, fecha_nacimiento, num_personas_cargo, foto_documento,
-        vive_finca, tiempo_lleva_finca]);
+        vive_finca, tiempo_lleva_finca, id_finca]);
 
     if (persona) {
         data = {
