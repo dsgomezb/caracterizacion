@@ -7,6 +7,7 @@ import { ToastService  } from '../../services/toaster/toast.service';
 import { StorageService } from '../../services/storage/storage.service';
 import { ModalController  } from '@ionic/angular';
 import { ModalLocationPage } from '../modal-location/modal-location.page';
+import { Geolocation, Geoposition, GeolocationOptions  } from '@ionic-native/geolocation/ngx';
 
 @Component({
   selector: 'app-login',
@@ -14,23 +15,30 @@ import { ModalLocationPage } from '../modal-location/modal-location.page';
   styleUrls: ['./login.page.scss'],
 })
 export class LoginPage implements OnInit {
-  //Arreglo para almacenar veredas
+  //Arreglos para almacenar info del back para selects
   departments = [];
   sideWalks = [];
   citys = [];
 
+  //data ingreso
+  department: any;
+  city: any;
+  sideWalk: any;
+  farm_name: any;
+  
   constructor(
-    public navController: NavController,
+    public navCtrl: NavController,
     public request: RequestService,
     private toast: ToastService,
     public storageService: StorageService,
     private platform: Platform,
     private router: Router,
-    public modalCtrl: ModalController
-
+    public modalCtrl: ModalController,
+    public geolocation: Geolocation
   ) {}
 
   ngOnInit() {
+    localStorage.clear();
   }
 
   ionViewWillEnter(){
@@ -84,13 +92,50 @@ export class LoginPage implements OnInit {
     });
     return await modal.present();
   }
- 
-  goHome(){
-    this.navController.navigateForward('/inicio');
+
+  //Obtiene la posicion actual automaticamente
+  getActuallyLocation(){
+    localStorage.clear();
+    this.geolocation.getCurrentPosition().then((geoposition: Geoposition)=>{
+      localStorage.setItem('latitude', String(geoposition.coords.latitude));
+      localStorage.setItem('longitude', String(geoposition.coords.longitude));
+      this.toast.presentToast('Localización almacenada', 'success-toast', 1000);
+    }); 
   }
 
-  /*public openModal(){ 
-    var modalPage = this.modalCtrl.create('ModalPage'); 
-    modalPage.present(); }*/
+  //Validacion de campos requeridos en formulario de inicio
+  validateFormLogin(){
+    if(this.farm_name == undefined){
+      this.toast.presentToast('El Nombre de la Finca es Requerido', 'error-toast', 3000);
+    }else if(this.department == undefined){
+      this.toast.presentToast('El Departamento es Requerido', 'error-toast', 3000);
+    }else if(this.city == undefined){
+      this.toast.presentToast('El Municipio es Requerido', 'error-toast', 3000);
+    }else if(this.sideWalk == undefined){
+      this.toast.presentToast('La Vereda es Requerida', 'error-toast', 3000);
+    }else if(localStorage.getItem('latitude') == null && localStorage.getItem('longitude') == null){
+      this.toast.presentToast('Debe ingresar u obtener la Localización', 'error-toast', 3000);
+    }else{
+      this.saveInfoLogin();
+    }
+  }
 
+  //Metodo para almacenar información del formulario de inicio
+  saveInfoLogin(){
+    let data = {
+      nombre: this.farm_name,
+      id_vereda: this.sideWalk.id,
+      longitud: localStorage.getItem('longitude'),
+      latitud: localStorage.getItem('latitude')
+    }
+    this.request.postData('finca/api/save_finca_inicial', data, {}).then(data => {
+      if(data.code == 0) {
+        localStorage.setItem('farmId', data.idFinca[0].lastval);
+        this.toast.presentToast(data.message, "success-toast", 3000);
+        this.navCtrl.navigateForward('/inicio');
+      } else {
+        this.toast.presentToast(data.error, "error-toast", 3000);
+      }
+    });
+  }
 }

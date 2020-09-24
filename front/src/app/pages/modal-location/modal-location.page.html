@@ -17,14 +17,6 @@
               *ngIf="registerLocation.get('latitude').hasError('required') && registerLocation.get('latitude').touched"
               color="light" (click)="presentToast('Este campo es requerido')">
             </ion-icon>
-            <ion-icon slot="end" style="z-index: 99" name="alert"
-              *ngIf="registerLocation.get('latitude').hasError('maxlength') && registerLocation.get('latitude').touched"
-              color="light" (click)="presentToast('Máximo 20 dígitos')">
-            </ion-icon>
-            <ion-icon slot="end" style="z-index: 99" name="alert"
-              *ngIf="registerLocation.get('latitude').hasError('minlength') && registerLocation.get('latitude').touched"
-              color="light" (click)="presentToast('Mínimo 4 dígitos')">
-            </ion-icon>
           </ion-item>
         </ion-col>
       </ion-row>
@@ -37,14 +29,6 @@
               *ngIf="registerLocation.get('longitude').hasError('required') && registerLocation.get('longitude').touched"
               color="light" (click)="presentToast('Este campo es requerido')">
             </ion-icon>
-            <ion-icon slot="end" style="z-index: 99" name="alert"
-              *ngIf="registerLocation.get('longitude').hasError('maxlength') && registerLocation.get('longitude').touched"
-              color="light" (click)="presentToast('Máximo 20 dígitos')">
-            </ion-icon>
-            <ion-icon slot="end" style="z-index: 99" name="alert"
-              *ngIf="registerLocation.get('longitude').hasError('minlength') && registerLocation.get('longitude').touched"
-              color="light" (click)="presentToast('Mínimo 4 dígitos')">
-            </ion-icon>
           </ion-item>
         </ion-col>
       </ion-row>
@@ -52,7 +36,7 @@
     <ion-grid>
       <ion-row>
         <ion-col>
-          <ion-button color="primary" shape="round" expand="block" type="submit">Guardar</ion-button>
+          <ion-button color="primary" expand="block" type="submit">Guardar</ion-button>
         </ion-col>
       </ion-row>
     </ion-grid>

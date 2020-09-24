@@ -35,8 +35,6 @@ export class ModalLocationPage implements OnInit {
 
   //Se dirpara desde el formulario para asociar las validaciones
   validateFormLocation(){
-    console.log("lega a validar");
-    console.log(this.registerLocation.get('latitude').hasError('maxlength'));
     if (!this.registerLocation.invalid) {
       this.saveLocation();
     }else{
@@ -52,6 +50,8 @@ export class ModalLocationPage implements OnInit {
   saveLocation(){
     localStorage.setItem('latitude', this.registerLocation.get('latitude').value);
     localStorage.setItem('longitude', this.registerLocation.get('longitude').value);
+    this.dismiss();
+    this.toast.presentToast('Localización almacenada', 'success-toast', 3000);
   }
 
   // Función para colocar mensajes desde el html

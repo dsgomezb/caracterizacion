@@ -13,17 +13,17 @@
     <ion-row>
       <ion-col>
         <ion-item>
-          <ion-label position="floating">{{ "farm.name" | translate }}</ion-label>
-          <ion-input type="text" name="farm_name" required autocomplete="off"></ion-input>
+          <ion-label position="floating">{{ "farm.name" | translate }}<ion-text color="danger" >*</ion-text></ion-label>
+          <ion-input type="text" [(ngModel)]="farm_name" required autocomplete="off"></ion-input>
         </ion-item>
       </ion-col>
     </ion-row>
     <ion-row>
       <ion-col class="d-flex">
         <ion-item>
-          <ion-label position="stacked">{{ "general.departments" | translate }}</ion-label>
+          <ion-label position="stacked">{{ "general.departments" | translate }}<ion-text color="danger" >*</ion-text></ion-label>
           <ionic-selectable
-            name="id_departamento_dane"
+            [(ngModel)]="department"
             [items]="departments"
             itemValueField="id_departamento_dane"
             itemTextField="nombre_departamento"
@@ -38,9 +38,9 @@
     <ion-row>
       <ion-col class="d-flex">
         <ion-item>
-          <ion-label position="stacked">{{ "general.city" | translate }}</ion-label>
+          <ion-label position="stacked">{{ "general.city" | translate }}<ion-text color="danger" >*</ion-text></ion-label>
           <ionic-selectable
-            name="id_municipio_dane"
+            [(ngModel)]="city"
             [items]="citys"
             itemValueField="id_municipio_dane"
             itemTextField="nombre_municipio"
@@ -56,9 +56,9 @@
     <ion-row>
       <ion-col class="d-flex">
         <ion-item>
-          <ion-label position="stacked">{{ "general.sideWalk" | translate }}</ion-label>
+          <ion-label position="stacked">{{ "general.sideWalk" | translate }}<ion-text color="danger" >*</ion-text></ion-label>
           <ionic-selectable
-            name="id_muni"
+            [(ngModel)]="sideWalk"
             [items]="sideWalks"
             itemValueField="id"
             itemTextField="nombre"
@@ -78,17 +78,17 @@
     </ion-row>
     <ion-row>
       <ion-col>
-        <ion-button color="success" shape="round" expand="block" size="small">{{ "button.get" | translate }}</ion-button>
+        <ion-button color="success" expand="block" size="small" (click)="getActuallyLocation()">{{ "button.get" | translate }}</ion-button>
       </ion-col>
       <ion-col>
-        <ion-button color="warning" shape="round" expand="block" size="small" (click)="modalEnterLocation()">{{ "button.enter" | translate }}</ion-button>
+        <ion-button color="warning" expand="block" size="small" (click)="modalEnterLocation()">{{ "button.enter" | translate }}</ion-button>
       </ion-col>
     </ion-row>
   </ion-grid>
   <ion-grid>
     <ion-row>
       <ion-col>
-        <ion-button color="primary" shape="round" expand="block" type="submit" (click)="goHome()">{{ "button.init" | translate }}</ion-button>
+        <ion-button color="primary" expand="block" type="submit" (click)="validateFormLogin()">{{ "button.init" | translate }}</ion-button>
       </ion-col>
     </ion-row>
   </ion-grid>

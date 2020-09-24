@@ -8,7 +8,9 @@
         "departments": "Departamentos",
         "city": "Municipios",
         "sideWalk": "Vereda",
-        "location": "Localización"
+        "location": "Localización",
+        "yes": "Si",
+        "not": "No"
     },
     "farm": {
         "name": "Nombre de la finca"
@@ -17,5 +19,33 @@
         "get": "OBTENER",
         "enter": "INGRESAR",
         "init": "INICIAR"
+    },
+    "init":{
+        "characterization": "Caracterización Poblacional Beneficiario",
+        "live_in_farm": "Vive en Finca",
+        "document_type": "Tipo de Documento",
+        "owner": "Propietario",
+        "butler":"Mayordomo",
+        "names": "Nombres",
+        "lastnames": "Apeliidos",
+        "dni": "Número de Documento",
+        "gender": "Género",
+        "male": "Masculino",
+        "female": "Femenino",
+        "civil_status": "Estado Civil",
+        "peopleBurden": "Personas a Cargo",
+        "school_level": "Nivel de Escolaridad",
+        "population_type": "Tipo de población",
+        "occupation": "Ocupación",
+        "type_affiliation": "Tipo de Afiliación",
+        "ethnic_group": "Grupo Étnico",
+        "address": "Dirección",
+        "neighborhood": "Barrio",
+        "phone": "Teléfono",
+        "email": "Correo electrónico",
+        "birth_date": "Fecha de Nacimiento",
+        "time_in_farm": "Tiempo en finca N° meses",
+        "city_origin": "Ciudad de Origen",
+        "department_origin": "Departamento de Origen"
     }
 }
