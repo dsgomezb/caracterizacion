@@ -1,6 +1,7 @@
 {
     "login": {
-        "login": "INGRESO"
+        "login": "INGRESO",
+        "save": "GUARDAR"
     },
     "general": {
         "select": "Seleccionar",
@@ -13,14 +14,39 @@
         "not": "No"
     },
     "farm": {
-        "name": "Nombre de la finca"
+        "name": "Nombre de la finca",
+        "title": "Encuesta Finca",
+        "via_type": "Tipo de Via",
+        "via_status": "Estado via",
+        "gas": "Gas",
+        "latitude": "Latitud",
+        "longitude": "Longitud",
+        "altitude": "Altitud",
+        "soil_analysis": "Análisis de suelo 2 últimos años",
+        "total_hectares": "Área Total de Hectáreas",
+        "access_roads_availability": "Disponibilidad de Vias de acceso",
+        "municipal_head_distance": "KM a Cabecera Municipal",
+        "water": "Agua",
+        "electricity": "Electricidad",
+        "aqueduct": "Acueducto",
+        "septic_tank": "Pozo Séptico",
+        "internet": "Internet",
+        "cellphone": "Celular",
+        "television": "Televisión",
+        "operator_tv_type": "Operador de Televisión",
+        "productive_infrastructure": "Infraestructura Productiva Existente",
+        "earth_trend": "Estado tendencia Tierra",
+        "public_service": "Servicios públicos",
+        "products_activities": "Actividades productivas"
     },
     "button": {
         "get": "OBTENER",
         "enter": "INGRESAR",
-        "init": "INICIAR"
+        "init": "INICIAR",
+        "save": "GUARDAR"
     },
     "init":{
+        "title": "Encuesta Caracterización",
         "characterization": "Caracterización Poblacional Beneficiario",
         "live_in_farm": "Vive en Finca",
         "document_type": "Tipo de Documento",
@@ -48,5 +74,21 @@
         "city_origin": "Ciudad de Origen",
         "department_origin": "Departamento de Origen",
         "document_picture": "Foto del Documento"
+    },
+    "organization":{
+        "title": "Encuesta Organización",
+        "name": "Nombre",
+        "nit": "NIT",
+        "organization_type": "Tipo",
+        "constitution_date": "Fecha de constitución",
+        "object": "Objeto de la Organización",
+        "address": "Dirección",
+        "phone": "teléfono",
+        "email": "Correo electrónico",
+        "legal_representative_name": "Nombre del Representante Legal",
+        "legal_representative_dni": "Documento del Representante Legal",
+        "legal_representative_phone": "Teléfono del Representante Legal",
+        "legal_representative_email": "Email del Representante Legal",
+        "experience": "Experiencia N° meses"
     }
 }

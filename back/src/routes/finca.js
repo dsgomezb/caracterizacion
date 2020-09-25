@@ -63,7 +63,6 @@ router.post('/api/get_veredas', async (req, res) => {
 
 //Guardar informacion de finca para carga inicial
 router.post('/api/save_finca_inicial', async (req, res) => {
-    console.log("llega");
     const { nombre, id_vereda, longitud, latitud } = req.body;
     const finca = await pool.query('INSERT INTO finca(nombre, id_vereda, longitud, latitud) VALUES ($1, $2, $3, $4)', [nombre, id_vereda, longitud, latitud]);
     const idFinca = await pool.query('SELECT LASTVAL()');
@@ -137,6 +136,39 @@ router.post('/api/get_tipos_gases', async (req, res) => {
     res.status(200).json(data);
 });
 
+//Api para obtener los tipos de agua
+router.post('/api/get_tipos_agua', async (req, res) => {
+    let tiposAgua = await pool.query("SELECT id, nombre FROM agua where estado is true order by nombre");
+    if (tiposAgua.rows.length > 0) {
+        data = {
+            "code": "0",
+            "data": tiposAgua.rows
+        };
+    } else {
+        data = {
+            "code": "1",
+            "error": "No existen tipos de agua"
+        };
+    }
+    res.status(200).json(data);
+});
+
+//Api para obtener los de operadores de television
+router.post('/api/get_operator_tv', async (req, res) => {
+    let operadorTv = await pool.query("SELECT id, nombre FROM operador_tv where estado is true order by nombre");
+    if (operadorTv.rows.length > 0) {
+        data = {
+            "code": "0",
+            "data": operadorTv.rows
+        };
+    } else {
+        data = {
+            "code": "1",
+            "error": "No existen tipos de operadores"
+        };
+    }
+    res.status(200).json(data);
+});
 
 //Api para obtener las actividades Productivas activas de la base de datos
 router.post('/api/get_actividades_productivas', async (req, res) => {
@@ -233,8 +265,8 @@ router.post('/api/update_finca', async (req, res) => {
         altitud, analisis_suelos_2_anos, area_total_hectareas,
         disponibilidad_vias_acceso, distancia_cabecera, id_agua, electricidad,
         acueducto, pozo_septico, internet, celular, infraestructura_productiva_existente,
-        fecha, television, id_opeador_tv, id_estado_tendencia_tierra, id } = req.body;
-
+        television, id_opeador_tv, id_estado_tendencia_tierra, id } = req.body;
+    let fecha = new Date();
     const finca = await pool.query('UPDATE finca SET   id_tipo_via=$1, id_estado_via=$2, \
         id_gas=$3, altitud=$4, analisis_suelos_2_anos=$5, \
         area_total_hectareas=$6, disponibilidad_vias_acceso=$7, distancia_cabecera=$8, \

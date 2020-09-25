@@ -214,4 +214,49 @@ export class InicioPage implements OnInit {
       }
     });
   }
+
+  //Funcion para validar formulario de caracterizacion
+  validateFormInit(){
+    if(this.characterization == undefined){
+      this.toast.presentToast('El Nombre de la Finca es Requerido', 'error-toast', 3000);
+    }else{
+      this.saveInfoInitialQuiz();
+    }
+  }
+
+  //Metodo para almacenar información de la encuensta inicial
+  saveInfoInitialQuiz(){
+    let data = {
+      id_tipo_persona: this.characterization,
+      id_tipo_documento: this.document_type,
+      id_municipio: this.city.id,
+      id_genero: this.gender,
+      id_estado_civil: this.civil_status,
+      id_ocupacion: this.occupation,
+      id_nivel_escolaridad: this.school_level,
+      id_tipo_afiliacion: this.type_affiliation,
+      id_grupo_etnico: this.ethnic_group,
+      id_tipo_poblacion: this.population_type,
+      documento: this.dni,
+      nombre: this.names,
+      apellidos: this.lastnames,
+      direccion: this.address,
+      barrio: this.neighborhood,
+      telefono: this.phone,
+      email: this.email,
+      fecha_nacimiento: this.birth_date,
+      num_personas_cargo: this.peopleBurden,
+      vive_finca: this.live_in_farm,
+      tiempo_lleva_finca: this.time_in_farm,
+      id_finca: localStorage.getItem('farmId')
+    }
+    this.request.postData('persona/api/save_persona', data, {}).then(data => {
+      if(data.code == 0) {
+        this.toast.presentToast(data.message, "success-toast", 3000);
+        this.navCtrl.navigateForward('/organization');
+      } else {
+        this.toast.presentToast(data.error, "error-toast", 3000);
+      }
+    });
+  }
 }

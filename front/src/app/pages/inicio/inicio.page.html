@@ -1,10 +1,10 @@
 <ion-header [translucent]="true">
   <ion-toolbar color="primary">
-    <ion-title ><b>Encuestas</b></ion-title>
+    <ion-title ><b>{{ "init.title" | translate }}</b></ion-title>
   </ion-toolbar>
 </ion-header>
 
-<!--Enuestas, tener en cuenta agregar direccion paseando-->
+<!--Encuesta inicial de Caracterización-->
 <ion-content [fullscreen]="true">
   <div>
       <ion-card>
@@ -252,6 +252,14 @@
                   <ion-button (click)="hacerFoto()">{{ "init.document_picture" | translate }}</ion-button>
                   <img [src]="foto" *ngIf="foto" />
                   </ion-item>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+          <!--Boton para almacenar-->
+          <ion-grid>
+            <ion-row>
+              <ion-col>
+                <ion-button color="primary" expand="block" type="submit" (click)="validateFormInit()">{{ "button.save" | translate }}</ion-button>
               </ion-col>
             </ion-row>
           </ion-grid>
