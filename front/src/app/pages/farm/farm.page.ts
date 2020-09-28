@@ -230,12 +230,14 @@ export class FarmPage implements OnInit {
       infraestructura_productiva_existente: this.productive_infrastructure,
       television: this.television,
       id_opeador_tv: this.operator_tv_type,
-      id_estado_tendencia_tierra: this.earth_trend
+      id_estado_tendencia_tierra: this.earth_trend,
+      public_service: this.public_service,
+      products_activities: this.products_activities
     };
     this.request.postData('finca/api/update_finca', data, {}).then(data => {
       if(data.code == 0) {
         this.toast.presentToast(data.message, "success-toast", 3000);
-        this.navCtrl.navigateForward('/farm');
+        this.navCtrl.navigateForward('/inquest');
       } else {
         this.toast.presentToast(data.error, "error-toast", 3000);
       }

@@ -218,7 +218,7 @@ export class InicioPage implements OnInit {
   //Funcion para validar formulario de caracterizacion
   validateFormInit(){
     if(this.characterization == undefined){
-      this.toast.presentToast('El Nombre de la Finca es Requerido', 'error-toast', 3000);
+      this.toast.presentToast('La caracterización Poblacional es requerida', 'error-toast', 3000);
     }else{
       this.saveInfoInitialQuiz();
     }

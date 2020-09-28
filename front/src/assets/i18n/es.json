@@ -90,5 +90,8 @@
         "legal_representative_phone": "Teléfono del Representante Legal",
         "legal_representative_email": "Email del Representante Legal",
         "experience": "Experiencia N° meses"
+    },
+    "inquest": {
+        "title":"Encuesta"
     }
 }

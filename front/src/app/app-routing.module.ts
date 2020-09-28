@@ -20,6 +20,10 @@ const routes: Routes = [
   {
     path: 'farm',
     loadChildren: () => import('./pages/farm/farm.module').then( m => m.FarmPageModule)
+  },
+  {
+    path: 'inquest',
+    loadChildren: () => import('./pages/inquest/inquest.module').then( m => m.InquestPageModule)
   }
 
 ];
