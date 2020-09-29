@@ -1,0 +1,338 @@
+<ion-header [translucent]="true">
+  <ion-toolbar color="primary">
+    <ion-title><b>{{ "farm.title" | translate }}</b></ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<!--Encuesta de Organizacion-->
+<ion-content [fullscreen]="true">
+  <div>
+    <ion-card>
+      <ion-card-content>
+        <ion-grid>
+          <!--Nombre finca-->
+          <ion-row>
+            <ion-label color="primary">{{ "farm.name" | translate }}: </ion-label><ion-label *ngIf="initial_name">{{ initial_name }}</ion-label>
+          </ion-row>
+          <!--Tipo via-->
+          <ion-row>
+            <ion-col>
+              <ion-item>
+                <ion-label position="stacked"><b>{{ "farm.via_type" | translate }}</b><ion-text color="danger" >*</ion-text></ion-label>
+                <ion-select [(ngModel)]="via_type" okText="{{ 'general.select' | translate }}" cancelText="{{ 'general.cancel' | translate }}">
+                  <ion-select-option *ngFor="let item of typeVia" value="{{item.id}}">{{item.nombre}}</ion-select-option>
+                </ion-select>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+          <!--Estado via-->
+          <ion-row>
+            <ion-col>
+              <ion-item>
+                <ion-label position="stacked"><b>{{ "farm.via_status" | translate }}</b><ion-text color="danger" >*</ion-text></ion-label>
+                <ion-select [(ngModel)]="via_status" okText="{{ 'general.select' | translate }}" cancelText="{{ 'general.cancel' | translate }}">
+                  <ion-select-option *ngFor="let item of statusVia" value="{{item.id}}">{{item.nombre}}</ion-select-option>
+                </ion-select>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+          <!--Gas-->
+          <ion-row>
+            <ion-col>
+              <ion-item>
+                <ion-label position="stacked"><b>{{ "farm.gas" | translate }}</b><ion-text color="danger" >*</ion-text></ion-label>
+                <ion-select [(ngModel)]="gas" okText="{{ 'general.select' | translate }}" cancelText="{{ 'general.cancel' | translate }}">
+                  <ion-select-option *ngFor="let item of gasTypes" value="{{item.id}}">{{item.nombre}}</ion-select-option>
+                </ion-select>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              <!--Latitud-->
+              <ion-item>
+                <ion-label position="floating">{{ "farm.latitude" | translate }}<ion-text color="danger" >*</ion-text></ion-label>
+                <ion-input [(ngModel)]="latitude" type="text" value="{{ initial_latitude }}" ></ion-input>
+              </ion-item>
+              <!--Longitud-->
+              <ion-item>
+                <ion-label position="floating">{{ "farm.longitude" | translate }}<ion-text color="danger" >*</ion-text></ion-label>
+                <ion-input [(ngModel)]="longitude" type="text" value="{{ initial_longitude }}" ></ion-input>
+              </ion-item>
+              <!--Altitud-->
+              <ion-item>
+                <ion-label position="floating">{{ "farm.altitude" | translate }}<ion-text color="danger" >*</ion-text></ion-label>
+                <ion-input [(ngModel)]="altitude" type="text" ></ion-input>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+          <!--Analisis de suelo en los ulimos dos años-->
+          <ion-row>
+            <ion-col>
+              <ion-list>
+                <ion-radio-group [(ngModel)]="soil_analysis">
+                  <ion-list-header>
+                    <ion-label><b>{{ "farm.soil_analysis" | translate }}</b></ion-label>
+                  </ion-list-header>            
+                  <ion-item>
+                    <ion-label>{{ "general.yes" | translate }}</ion-label>
+                    <ion-radio slot="start" value="true"></ion-radio>
+                  </ion-item>            
+                  <ion-item>
+                    <ion-label>{{ "general.not" | translate }}</ion-label>
+                    <ion-radio slot="start" value="false"></ion-radio>
+                  </ion-item>
+                </ion-radio-group>
+              </ion-list>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              <!--Area total de hectareas-->
+              <ion-item>
+                <ion-label position="floating">{{ "farm.total_hectares" | translate }}<ion-text color="danger" >*</ion-text></ion-label>
+                <ion-input [(ngModel)]="total_hectares" type="text" ></ion-input>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+          <!--Disponibilidad vias de acceso-->
+          <ion-row>
+            <ion-col>
+              <ion-list>
+                <ion-radio-group [(ngModel)]="access_roads_availability">
+                  <ion-list-header>
+                    <ion-label><b>{{ "farm.access_roads_availability" | translate }}</b></ion-label>
+                  </ion-list-header>            
+                  <ion-item>
+                    <ion-label>{{ "general.yes" | translate }}</ion-label>
+                    <ion-radio slot="start" value="true"></ion-radio>
+                  </ion-item>            
+                  <ion-item>
+                    <ion-label>{{ "general.not" | translate }}</ion-label>
+                    <ion-radio slot="start" value="false"></ion-radio>
+                  </ion-item>
+                </ion-radio-group>
+              </ion-list>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              <!--Distancia a cabecera municipal-->
+              <ion-item>
+                <ion-label position="floating">{{ "farm.municipal_head_distance" | translate }}<ion-text color="danger" >*</ion-text></ion-label>
+                <ion-input [(ngModel)]="municipal_head_distance" type="text" ></ion-input>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+          <!--Tipo de Agua-->
+          <ion-row>
+            <ion-col>
+              <ion-item>
+                <ion-label position="stacked"><b>{{ "farm.water" | translate }}</b><ion-text color="danger" >*</ion-text></ion-label>
+                <ion-select [(ngModel)]="water" okText="{{ 'general.select' | translate }}" cancelText="{{ 'general.cancel' | translate }}">
+                  <ion-select-option *ngFor="let item of waterTypes" value="{{item.id}}">{{item.nombre}}</ion-select-option>
+                </ion-select>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+          <!--Electricidad-->
+          <ion-row>
+            <ion-col>
+              <ion-list>
+                <ion-radio-group [(ngModel)]="electricity">
+                  <ion-list-header>
+                    <ion-label><b>{{ "farm.electricity" | translate }}</b></ion-label>
+                  </ion-list-header>            
+                  <ion-item>
+                    <ion-label>{{ "general.yes" | translate }}</ion-label>
+                    <ion-radio slot="start" value="true"></ion-radio>
+                  </ion-item>            
+                  <ion-item>
+                    <ion-label>{{ "general.not" | translate }}</ion-label>
+                    <ion-radio slot="start" value="false"></ion-radio>
+                  </ion-item>
+                </ion-radio-group>
+              </ion-list>
+            </ion-col>
+          </ion-row>
+          <!--Acueducto-->
+          <ion-row>
+            <ion-col>
+              <ion-list>
+                <ion-radio-group [(ngModel)]="aqueduct">
+                  <ion-list-header>
+                    <ion-label><b>{{ "farm.aqueduct" | translate }}</b></ion-label>
+                  </ion-list-header>            
+                  <ion-item>
+                    <ion-label>{{ "general.yes" | translate }}</ion-label>
+                    <ion-radio slot="start" value="true"></ion-radio>
+                  </ion-item>            
+                  <ion-item>
+                    <ion-label>{{ "general.not" | translate }}</ion-label>
+                    <ion-radio slot="start" value="false"></ion-radio>
+                  </ion-item>
+                </ion-radio-group>
+              </ion-list>
+            </ion-col>
+          </ion-row>
+          <!--Pozo Septico-->
+          <ion-row>
+            <ion-col>
+              <ion-list>
+                <ion-radio-group [(ngModel)]="septic_tank">
+                  <ion-list-header>
+                    <ion-label><b>{{ "farm.septic_tank" | translate }}</b></ion-label>
+                  </ion-list-header>            
+                  <ion-item>
+                    <ion-label>{{ "general.yes" | translate }}</ion-label>
+                    <ion-radio slot="start" value="true"></ion-radio>
+                  </ion-item>            
+                  <ion-item>
+                    <ion-label>{{ "general.not" | translate }}</ion-label>
+                    <ion-radio slot="start" value="false"></ion-radio>
+                  </ion-item>
+                </ion-radio-group>
+              </ion-list>
+            </ion-col>
+          </ion-row>
+          <!--Internet-->
+          <ion-row>
+            <ion-col>
+              <ion-list>
+                <ion-radio-group [(ngModel)]="internet">
+                  <ion-list-header>
+                    <ion-label><b>{{ "farm.internet" | translate }}</b></ion-label>
+                  </ion-list-header>            
+                  <ion-item>
+                    <ion-label>{{ "general.yes" | translate }}</ion-label>
+                    <ion-radio slot="start" value="true"></ion-radio>
+                  </ion-item>            
+                  <ion-item>
+                    <ion-label>{{ "general.not" | translate }}</ion-label>
+                    <ion-radio slot="start" value="false"></ion-radio>
+                  </ion-item>
+                </ion-radio-group>
+              </ion-list>
+            </ion-col>
+          </ion-row>
+          <!--Celular-->
+          <ion-row>
+            <ion-col>
+              <ion-list>
+                <ion-radio-group [(ngModel)]="cellphone">
+                  <ion-list-header>
+                    <ion-label><b>{{ "farm.cellphone" | translate }}</b></ion-label>
+                  </ion-list-header>            
+                  <ion-item>
+                    <ion-label>{{ "general.yes" | translate }}</ion-label>
+                    <ion-radio slot="start" value="true"></ion-radio>
+                  </ion-item>            
+                  <ion-item>
+                    <ion-label>{{ "general.not" | translate }}</ion-label>
+                    <ion-radio slot="start" value="false"></ion-radio>
+                  </ion-item>
+                </ion-radio-group>
+              </ion-list>
+            </ion-col>
+          </ion-row>
+          <!--Televisión-->
+          <ion-row>
+            <ion-col>
+              <ion-list>
+                <ion-radio-group [(ngModel)]="television">
+                  <ion-list-header>
+                    <ion-label><b>{{ "farm.television" | translate }}</b></ion-label>
+                  </ion-list-header>            
+                  <ion-item>
+                    <ion-label>{{ "general.yes" | translate }}</ion-label>
+                    <ion-radio slot="start" value="true"></ion-radio>
+                  </ion-item>            
+                  <ion-item>
+                    <ion-label>{{ "general.not" | translate }}</ion-label>
+                    <ion-radio slot="start" value="false"></ion-radio>
+                  </ion-item>
+                </ion-radio-group>
+              </ion-list>
+            </ion-col>
+          </ion-row>
+          <!--Tipo de Operador de television-->
+          <ion-row>
+            <ion-col>
+              <ion-item>
+                <ion-label position="stacked"><b>{{ "farm.operator_tv_type" | translate }}</b><ion-text color="danger" >*</ion-text></ion-label>
+                <ion-select [(ngModel)]="operator_tv_type" okText="{{ 'general.select' | translate }}" cancelText="{{ 'general.cancel' | translate }}">
+                  <ion-select-option *ngFor="let item of OperatorTvType" value="{{item.id}}">{{item.nombre}}</ion-select-option>
+                </ion-select>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              <!--Infraestructura productiva-->
+              <ion-item>
+                <ion-label position="floating">{{ "farm.productive_infrastructure" | translate }}<ion-text color="danger" >*</ion-text></ion-label>
+                <ion-input [(ngModel)]="productive_infrastructure" type="text" ></ion-input>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+          <!--Estado tendencia tierra-->
+          <ion-row>
+            <ion-col>
+              <ion-item>
+                <ion-label position="stacked"><b>{{ "farm.earth_trend" | translate }}</b><ion-text color="danger" >*</ion-text></ion-label>
+                <ion-select [(ngModel)]="earth_trend" okText="{{ 'general.select' | translate }}" cancelText="{{ 'general.cancel' | translate }}">
+                  <ion-select-option *ngFor="let item of earthTrend" value="{{item.id}}">{{item.nombre}}</ion-select-option>
+                </ion-select>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+          <!--Servicios públicos-->
+          <ion-row>
+            <ion-col class="d-flex">
+              <ion-item>
+                <ion-label position="stacked">{{ "farm.public_service" | translate }}<ion-text color="danger" >*</ion-text></ion-label>
+                <ionic-selectable
+                  [(ngModel)]="public_service"
+                  [items]="publicService"
+                  itemValueField="id"
+                  itemTextField="nombre"
+                  [hasVirtualScroll]="true"
+                  closeButtonText="Cancelar"
+                  [canSearch]="true"
+                  [isMultiple]="true"
+                  >
+                </ionic-selectable>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+          <!--Actividades productivas-->
+          <ion-row>
+            <ion-col class="d-flex">
+              <ion-item>
+                <ion-label position="stacked">{{ "farm.products_activities" | translate }}<ion-text color="danger" >*</ion-text></ion-label>
+                <ionic-selectable
+                  [(ngModel)]="products_activities"
+                  [items]="productsActivities"
+                  itemValueField="id"
+                  itemTextField="nombre"
+                  [hasVirtualScroll]="true"
+                  closeButtonText="Cancelar"
+                  [canSearch]="true"
+                  [isMultiple]="true"
+                  >
+                </ionic-selectable>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+        <ion-grid>
+          <ion-row>
+            <ion-col>
+              <ion-button color="primary" expand="block" type="submit" (click)="validateFormFarm()">{{ "button.save" | translate }}</ion-button>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-card-content>
+    </ion-card>
+  </div>
+</ion-content>

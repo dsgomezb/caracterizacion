@@ -120,7 +120,7 @@ export class LoginPage implements OnInit {
     }
   }
 
-  //Metodo para almacenar información del formulario de inicio
+  //Metodo para almacenar información del formulario de login
   saveInfoLogin(){
     let data = {
       nombre: this.farm_name,

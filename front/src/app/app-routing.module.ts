@@ -12,6 +12,18 @@ const routes: Routes = [
   },  {
     path: 'modal-location',
     loadChildren: () => import('./pages/modal-location/modal-location.module').then( m => m.ModalLocationPageModule)
+  },
+  {
+    path: 'organization',
+    loadChildren: () => import('./pages/organization/organization.module').then( m => m.OrganizationPageModule)
+  },
+  {
+    path: 'farm',
+    loadChildren: () => import('./pages/farm/farm.module').then( m => m.FarmPageModule)
+  },
+  {
+    path: 'inquest',
+    loadChildren: () => import('./pages/inquest/inquest.module').then( m => m.InquestPageModule)
   }
 
 ];
