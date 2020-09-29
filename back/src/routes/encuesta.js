@@ -66,47 +66,33 @@ router.post('/api/get_pregutas_respuestas_separado', async (req, res) => {
     let preguntas = await pool.query(" SELECT p.id as id, p.descripcion as pregunta, p.tipo_pregunta as tipo_pregunta, ap.id_agrupador_pregunta as agrupador  FROM pregunta as p \
     left join agrupador_pregunta as ap on ap.id = p.id_agrupador_pregunta \
     where ap.id_agrupador_pregunta = $1 order by id", [id_agrupador]);
-
-
-
     //console.log(preguntas);
-
+    var todas = [];
     if (preguntas.rows.length > 0) {
-        console.log(1);
-
-
         var arr2 = [];
 
         for (const element of preguntas.rows) {
+            tablarespuesta = { 'id_pregunta': element.id, 'pregunta': element.pregunta, 'respuestas': [] };
 
             let respuestas = await pool.query(" SELECT  p.id as id_pregunta, ore.id as id_respuesta, ore.descripcion as descripcion FROM opcion_respuesta as ore \
             left join pregunta as p on p.id = ore.id_pregunta where p.id = $1 order by ore.id", [element.id]);
 
-            console.log(respuestas.rows);
-          }
+            for (const respuesta of respuestas.rows) {
 
-        preguntas.rows.forEach(async element => {
+                let id = respuesta.id_respuesta;
+                tablarespuesta.respuestas.push({ id: respuesta.id_respuesta, respuesta: respuesta.descripcion });
 
-            //  console.log(element.pregunta);
-            //console.log(preguntas.rows[element.id].pregunta);
+            }
 
+            //console.log(tablarespuesta);
+            todas.push(tablarespuesta);
 
-            let respuestas = await pool.query(" SELECT  p.id as id_pregunta, ore.id as id_respuesta, ore.descripcion as descripcion FROM opcion_respuesta as ore \
-            left join pregunta as p on p.id = ore.id_pregunta where p.id = $1 order by ore.id", [element.id]);
+        }
 
-
-            arr2.push({ 'pregunta': element.pregunta });
-            arr2.push(respuestas.rows);
-
-            //console.log(arr2);
-
-        });
-
-       // console.log(arr2);
 
         data = {
             "code": "0",
-            "data2": preguntas.rows,
+            "data2": todas,
         };
 
 
