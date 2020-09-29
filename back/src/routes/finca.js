@@ -26,7 +26,7 @@ router.post('/api/get_departamentos', async (req, res) => {
 //Api para obtener los municipios por departamento
 router.post('/api/get_municipios', async (req, res) => {
     const { id_departamento } = req.body;
-    let municipios = await pool.query("SELECT id_municipio_dane, nombre_municipio FROM municipio where id_departamento_dane = $1 order by nombre_municipio", [id_departamento]);
+    let municipios = await pool.query("SELECT id, id_municipio_dane, nombre_municipio FROM municipio where id_departamento_dane = $1 order by nombre_municipio", [id_departamento]);
     if (municipios.rows.length > 0) {
         data = {
             "code": "0",
