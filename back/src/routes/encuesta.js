@@ -62,17 +62,28 @@ router.post('/api/get_pregutas_respuestas', async (req, res) => {
 
 //Api para obtener preguntas con opciones de respuesta by agrupador
 router.post('/api/get_pregutas_respuestas_separado', async (req, res) => {
-    const { id_agrupador } = req.body;
+    const { id_finca } = req.body;
+
+    let actividades_productivas = await pool.query(" SELECT id, id_finca, id_actividades_productivas, fecha \
+     FROM finca_actividades_productivas where id_finca = $1 order by id", [id_finca]);
+   
+    var actividadesComa = [];
+    for (const actividades of actividades_productivas.rows) {       
+        actividadesComa.push(actividades.id_actividades_productivas);
+      
+    }       
+   
     let preguntas = await pool.query(" SELECT p.id as id, p.descripcion as pregunta, p.tipo_pregunta as tipo_pregunta, ap.id_agrupador_pregunta as agrupador  FROM pregunta as p \
     left join agrupador_pregunta as ap on ap.id = p.id_agrupador_pregunta \
-    where ap.id_agrupador_pregunta = $1 order by id", [id_agrupador]);
-    //console.log(preguntas);
+    where ap.id_agrupador_pregunta = ANY($1::int[]) order by id", [actividadesComa]);
+    
+   
     var todas = [];
     if (preguntas.rows.length > 0) {
         var arr2 = [];
 
         for (const element of preguntas.rows) {
-            tablarespuesta = { 'id_pregunta': element.id, 'pregunta': element.pregunta, 'respuestas': [] };
+            tablarespuesta = {'id_agrupador': element.agrupador, 'tipo_pregunta': element.tipo_pregunta, 'id_pregunta': element.id, 'pregunta': element.pregunta, 'respuestas': [] };
 
             let respuestas = await pool.query(" SELECT  p.id as id_pregunta, ore.id as id_respuesta, ore.descripcion as descripcion FROM opcion_respuesta as ore \
             left join pregunta as p on p.id = ore.id_pregunta where p.id = $1 order by ore.id", [element.id]);
