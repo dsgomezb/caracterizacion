@@ -200,8 +200,6 @@ export class FarmPage implements OnInit {
 
   //Validacion de formulario de Finca
   validateFormFarm(){
-    console.log(this.public_service);
-    console.log(this.products_activities);
     if(this.via_type == undefined){
       this.toast.presentToast('El tipo de via es requerido', 'error-toast', 3000);
     }else{

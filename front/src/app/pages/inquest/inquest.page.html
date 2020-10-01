@@ -4,6 +4,31 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
-
+<ion-content [fullscreen]="true">
+  <div>
+    <ion-grid *ngIf="inquestData">
+      <!--Encuesta Dinámica-->
+      <ion-row *ngFor="let items of inquestData">
+        <ion-col>
+          <ion-item *ngIf="items.tipo_pregunta == 1 || items.tipo_pregunta == 2">
+            <ion-label position="stacked" class="show"><b>{{ items.pregunta }}</b></ion-label>
+            <ion-select class="padding-top" okText="{{ 'general.select' | translate }}" cancelText="{{ 'general.cancel' | translate }}">
+              <ion-select-option *ngFor="let item of items.respuestas" value="{{item.id}}">{{item.respuesta}}</ion-select-option>
+            </ion-select>
+          </ion-item>
+          <ion-item *ngIf="items.tipo_pregunta == 3">
+            <ion-label position="floating" class="show"><b>{{ items.pregunta }}</b></ion-label>
+            <ion-input type="text" ></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+          <ion-button color="primary" expand="block" type="submit" (click)="validateFormInquest()">{{ "button.save" | translate }}</ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
 </ion-content>

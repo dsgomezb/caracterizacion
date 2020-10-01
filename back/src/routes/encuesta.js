@@ -63,7 +63,6 @@ router.post('/api/get_pregutas_respuestas', async (req, res) => {
 //Api para obtener preguntas con opciones de respuesta by agrupador
 router.post('/api/get_pregutas_respuestas_separado', async (req, res) => {
     const { id_finca } = req.body;
-
     let actividades_productivas = await pool.query(" SELECT id, id_finca, id_actividades_productivas, fecha \
      FROM finca_actividades_productivas where id_finca = $1 order by id", [id_finca]);
    
@@ -103,7 +102,7 @@ router.post('/api/get_pregutas_respuestas_separado', async (req, res) => {
 
         data = {
             "code": "0",
-            "data2": todas,
+            "data": todas,
         };
 
 

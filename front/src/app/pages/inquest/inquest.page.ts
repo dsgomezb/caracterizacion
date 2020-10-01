@@ -23,8 +23,34 @@ export class InquestPage implements OnInit {
     private router: Router,
     public modalCtrl: ModalController
   ) { }
-
+  inquestData: any;
   ngOnInit() {
   }
 
+  ionViewWillEnter(){
+    this.getInquest();
+  }
+
+  //Obtener preguntas y respuestas dinamicas para formulario de encuesta
+  getInquest(){
+    let data = {
+      id_finca: localStorage.getItem('farmId'),
+    }
+    this.request.postData('encuesta/api/get_pregutas_respuestas_separado', data, {}).then(data => {
+      if(data.code == 0){
+        this.inquestData = data.data;
+      }else{
+        this.toast.presentToast(data.error, "error-toast", 3000);
+      }
+    });
+  }
+
+  validateFormInquest(){
+    this.saveFormInquest();
+  }
+
+  saveFormInquest(){
+    this.toast.presentToast("Encuesta almacenada satisfactoriamente", "success-toast", 3000);
+    this.navCtrl.navigateForward('');
+  }
 }
