@@ -63,8 +63,8 @@ router.post('/api/get_veredas', async (req, res) => {
 
 //Guardar informacion de finca para carga inicial
 router.post('/api/save_finca_inicial', async (req, res) => {
-    const { nombre, id_vereda, longitud, latitud } = req.body;
-    const finca = await pool.query('INSERT INTO finca(nombre, id_vereda, longitud, latitud) VALUES ($1, $2, $3, $4)', [nombre, id_vereda, longitud, latitud]);
+    const { nombre, id_vereda, longitud, latitud, documento_tecnico } = req.body;
+    const finca = await pool.query('INSERT INTO finca(nombre, id_vereda, longitud, latitud, documento_tecnico) VALUES ($1, $2, $3, $4, $5)', [nombre, id_vereda, longitud, latitud, documento_tecnico]);
     const idFinca = await pool.query('SELECT LASTVAL()');
 
     if (finca) {
@@ -244,7 +244,7 @@ router.post('/api/get_tendencias_tierra', async (req, res) => {
 //Api para obtener los datos iniciales guardados de la finca para mostrarlos  y mostrar el restode info de la finca
 router.post('/api/get_finca_id', async (req, res) => {
     const { id_finca } = req.body;
-    let finca = await pool.query("SELECT id, nombre, id_vereda, longitud, latitud FROM finca where id = $1", [id_finca]);
+    let finca = await pool.query("SELECT id, nombre, id_vereda, longitud, latitud, documento_tecnico FROM finca where id = $1", [id_finca]);
     if (finca.rows.length > 0) {
         data = {
             "code": "0",
