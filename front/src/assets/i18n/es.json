@@ -37,7 +37,8 @@
         "productive_infrastructure": "Infraestructura Productiva Existente",
         "earth_trend": "Estado tendencia Tierra",
         "public_service": "Servicios públicos",
-        "products_activities": "Actividades productivas"
+        "products_activities": "Actividades productivas",
+        "documento_tecnico": "Documento del Técnico"
     },
     "button": {
         "get": "OBTENER",
