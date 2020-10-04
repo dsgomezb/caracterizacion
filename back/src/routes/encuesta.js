@@ -33,26 +33,15 @@ router.post('/api/get_pregutas_respuestas', async (req, res) => {
     left join pregunta as p on p.id = ore.id_pregunta  left join agrupador_pregunta as ap on ap.id = p.id_agrupador_pregunta \
     where ap.id_agrupador_pregunta = $1", [id_agrupador]);
     if (preguntasRespuestas.rows.length > 0) {
-
-        /*preguntasRespuestas.rows.forEach(element => {
-            console.log(element.id_pregunta);
-            console.log(JSON.stringify({pregunta:[element.pregunta], opcion_respuesta:[element.opcion_respuesta]}));
-        });*/
-
-
-
         data = {
             "code": "0",
             "data": preguntasRespuestas.rows
 
         };
-
-
     } else {
         data = {
             "code": "1",
             "error": "No existen encuestas activas"
-
         };
     }
     res.status(200).json(data);
@@ -84,56 +73,33 @@ router.post('/api/get_pregutas_respuestas_separado', async (req, res) => {
             left join agrupador_pregunta as app on ap.id_agrupador_pregunta= app.id \
             where ap.id_agrupador_pregunta = $1 order by  ap.id_agrupador_pregunta, ap.id ", [ap.agrupador]);
 
-          
             tablarespuesta = { 'id_agrupador': ap.agrupador, 'nombre_agrupador': ap.descripcion, 'preguntas': [] };
             var i = 0;
-            console.log(ap.descripcion);
 
             for (const element of preguntas.rows) {
-
                 tablarespuesta.preguntas.push({ 'tipo_pregunta': element.tipo_pregunta, 'id_pregunta': element.id, 'pregunta': element.pregunta, 'respuestaspreguntas': [] });
-
                 let respuestas = await pool.query(" SELECT  p.id as id_pregunta, ore.id as id_respuesta, ore.descripcion as descripcion FROM opcion_respuesta as ore \
-            left join pregunta as p on p.id = ore.id_pregunta where p.id = $1 order by ore.id", [element.id]);
-
+                                                    left join pregunta as p on p.id = ore.id_pregunta where p.id = $1 order by ore.id", [element.id]);
                 for (const respuesta of respuestas.rows) {
-
                     let id = respuesta.id_respuesta;
                     tablarespuesta.preguntas[i].respuestaspreguntas.push({ id: respuesta.id_respuesta, respuesta: respuesta.descripcion });
-
                 }
                 i++;
-
-                //console.log(tablarespuesta);
-               
-
             } 
             todas.push(tablarespuesta);
-
         }
-
-
         data = {
             "code": "0",
             "data": todas,
         };
-
-
-
-
     } else {
         data = {
             "code": "1",
             "error": "No existen preguntas"
-
         };
     }
     res.status(200).json(data);
 
 });
-
-
-
-
 
 module.exports = router;
