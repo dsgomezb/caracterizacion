@@ -38,7 +38,9 @@
         "earth_trend": "Estado tendencia Tierra",
         "public_service": "Servicios públicos",
         "products_activities": "Actividades productivas",
-        "documento_tecnico": "Documento del Técnico"
+        "documento_tecnico": "Documento del Técnico",
+        "attached_organization": "La finca se encuentra adscrita a alguna Organización",
+        "id_organization": "Organización"
     },
     "button": {
         "get": "OBTENER",
@@ -74,7 +76,8 @@
         "time_in_farm": "Tiempo en finca N° meses",
         "city_origin": "Ciudad de Origen",
         "department_origin": "Departamento de Origen",
-        "document_picture": "Foto del Documento"
+        "document_picture": "Foto del Documento",
+        "other": "Otro"
     },
     "organization":{
         "title": "Encuesta Organización",
