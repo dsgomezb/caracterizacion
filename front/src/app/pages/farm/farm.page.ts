@@ -262,7 +262,6 @@ export class FarmPage implements OnInit {
 
   //Almacenar formulario de finca
   saveFarmQuiz(){
-    console.log(this.id_organization);
     let data = {
       id: localStorage.getItem('farmId'),
       id_tipo_via: this.via_type,
@@ -288,9 +287,7 @@ export class FarmPage implements OnInit {
       adscrita_organizacion: this.attached_organization,
       id_organizacion: this.id_organization
     };
-    console.log(data);
     this.request.postData('finca/api/update_finca', data, {}).then(data => {
-      console.log(this.id_organization);
       if(data.code == 0) {
         this.toast.presentToast(data.message, "success-toast", 3000);
         if(this.attached_organization == 'true' && this.id_organization.id == 0){

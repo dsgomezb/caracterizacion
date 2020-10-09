@@ -9,18 +9,20 @@
     <ion-grid *ngIf="inquestData">
       <!--Encuesta Dinámica-->
       <div *ngFor="let items of inquestData">
-
         <ion-row *ngIf="items.preguntas.length > 0">
           <ion-col class="center">
             <ion-title color="primary" class="title"><b>{{ items.nombre_agrupador}}</b></ion-title>
           </ion-col>
         </ion-row>
-        
-        <ion-row *ngFor="let items2 of items.preguntas">
+      
+        <ion-row *ngFor="let items2 of items.preguntas; let i = index;">
           <ion-col>
+            <ion-item>
+              <ion-input type="text"  value="{{ items2.id_pregunta }}"></ion-input>
+            </ion-item>
             <ion-item *ngIf="items2.tipo_pregunta == 1 || items2.tipo_pregunta == 2">
-              <ion-label position="stacked" class="show">{{ items2.pregunta }}</ion-label>
-              <ion-select class="padding-top" okText="{{ 'general.select' | translate }}" cancelText="{{ 'general.cancel' | translate }}">
+              <ion-label position="stacked" class="show">{{ items2.id_pregunta }} {{ items2.pregunta }}</ion-label>
+              <ion-select  (ionChange)="setValue(items2.id_pregunta,$event)" class="padding-top" okText="{{ 'general.select' | translate }}" cancelText="{{ 'general.cancel' | translate }}">
                 <ion-select-option *ngFor="let item of items2.respuestaspreguntas" value="{{item.id}}">{{item.respuesta}}</ion-select-option>
               </ion-select>
             </ion-item>
