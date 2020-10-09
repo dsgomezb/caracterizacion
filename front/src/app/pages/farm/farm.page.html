@@ -324,6 +324,45 @@
               </ion-item>
             </ion-col>
           </ion-row>
+          <!--Adscrita a organizacion-->
+          <ion-row>
+            <ion-col>
+              <ion-list>
+                <ion-radio-group [(ngModel)]="attached_organization">
+                  <ion-list-header>
+                    <ion-label><b>{{ "farm.attached_organization" | translate }}</b></ion-label>
+                  </ion-list-header>            
+                  <ion-item>
+                    <ion-label>{{ "general.yes" | translate }}</ion-label>
+                    <ion-radio slot="start" value="true" (click)="showInputOrganization(true)"></ion-radio>
+                  </ion-item>            
+                  <ion-item>
+                    <ion-label>{{ "general.not" | translate }}</ion-label>
+                    <ion-radio slot="start" value="false" (click)="showInputOrganization(false)"></ion-radio>
+                  </ion-item>
+                </ion-radio-group>
+              </ion-list>
+            </ion-col>
+          </ion-row>
+          <!--Organizacion-->
+          <ion-row *ngIf="show_input_organization">
+            <ion-col class="d-flex">
+              <ion-item>
+                <ion-label position="stacked">{{ "farm.id_organization" | translate }}<ion-text color="danger" >*</ion-text></ion-label>
+                <ionic-selectable
+                  [(ngModel)]="id_organization"
+                  [items]="organizations"
+                  itemValueField="id"
+                  itemTextField="nombre"
+                  [hasVirtualScroll]="true"
+                  closeButtonText="Cancelar"
+                  [canSearch]="true"
+                  [isMultiple]="false"
+                  >
+                </ionic-selectable>
+              </ion-item>
+            </ion-col>
+          </ion-row>
         </ion-grid>
         <ion-grid>
           <ion-row>

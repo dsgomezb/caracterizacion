@@ -261,11 +261,14 @@ router.post('/api/get_finca_id', async (req, res) => {
 
 //Update informacion de finca todos los datos
 router.post('/api/update_finca', async (req, res) => {
-    const { id_tipo_via, id_estado_via, id_gas,
+    let { id_tipo_via, id_estado_via, id_gas,
         altitud, analisis_suelos_2_anos, area_total_hectareas,
         disponibilidad_vias_acceso, distancia_cabecera, id_agua, electricidad,
         acueducto, pozo_septico, internet, celular, infraestructura_productiva_existente,
-        television, id_opeador_tv, id_estado_tendencia_tierra, public_service, products_activities, id } = req.body;
+        television, id_opeador_tv, id_estado_tendencia_tierra, public_service, products_activities, id, 
+        adscrita_organizacion, id_organizacion } = req.body;
+    //console.log(id_organizacion);
+    let organiza = id_organizacion != undefined ? id_organizacion.id : undefined
     let fecha = new Date();
     public_service.forEach(async element => {
         try {
@@ -284,18 +287,17 @@ router.post('/api/update_finca', async (req, res) => {
             console.log(err);
         }
     });
-
+    
     const finca = await pool.query("UPDATE finca SET   id_tipo_via=$1, id_estado_via=$2, \
         id_gas=$3, altitud=$4, analisis_suelos_2_anos=$5, \
         area_total_hectareas=$6, disponibilidad_vias_acceso=$7, distancia_cabecera=$8, \
         id_agua=$9, electricidad=$10, acueducto=$11, pozo_septico=$12, internet=$13, \
         celular=$14, infraestructura_productiva_existente=$15, fecha=$16, television=$17, \
-        id_opeador_tv=$18, id_estado_tendencia_tierra=$19 WHERE id = $20", [id_tipo_via, id_estado_via, id_gas,
+        id_opeador_tv=$18, id_estado_tendencia_tierra=$19, id_organizacion=$20, adscrita_organizacion=$21 WHERE id = $22", [id_tipo_via, id_estado_via, id_gas,
         altitud, analisis_suelos_2_anos, area_total_hectareas,
         disponibilidad_vias_acceso, distancia_cabecera, id_agua, electricidad,
         acueducto, pozo_septico, internet, celular, infraestructura_productiva_existente,
-        fecha, television, id_opeador_tv, id_estado_tendencia_tierra, id]);
-
+        fecha, television, id_opeador_tv, id_estado_tendencia_tierra, organiza, adscrita_organizacion, id]);
 
     if (finca) {
         data = {

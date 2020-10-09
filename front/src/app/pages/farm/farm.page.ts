@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router, RouterModule } from "@angular/router";
 
 import { Platform, MenuController, NavController } from '@ionic/angular';
@@ -7,7 +7,6 @@ import { ToastService  } from '../../services/toaster/toast.service';
 import { StorageService } from '../../services/storage/storage.service';
 import { ModalController  } from '@ionic/angular';
 import { ParseLocation } from '@angular/compiler';
-
 @Component({
   selector: 'app-farm',
   templateUrl: './farm.page.html',
@@ -25,6 +24,7 @@ export class FarmPage implements OnInit {
   gasTypes = [];
   waterTypes = [];
   OperatorTvType = [];
+  organizations = [];
 
   //data ingreso ngModels
   via_type: any; //ya
@@ -47,14 +47,18 @@ export class FarmPage implements OnInit {
   television: any; //ya
   operator_tv_type: any //ya
   earth_trend: any; //ya
+  attached_organization: any;
+  id_organization : any;
   public_service = [];
   products_activities = [];
-
+  
   //Variables para llenar campo inciales
   initial_name: any;
   farm_id: any;
   initial_latitude: any;
   initial_longitude: any;
+
+  show_input_organization = false;
 
   constructor(    
     public navCtrl: NavController,
@@ -64,13 +68,39 @@ export class FarmPage implements OnInit {
     private platform: Platform,
     private router: Router,
     public modalCtrl: ModalController
-    ) { }
+    ) {
+     }
 
   ngOnInit() {
-    this.getFarmInformation();
   }
 
   ionViewWillEnter(){
+    this.via_type = undefined;
+    this.via_status = undefined;
+    this.gas = undefined;
+    this.latitude = undefined;
+    this.longitude = undefined;
+    this.altitude = undefined;
+    this.soil_analysis = undefined;
+    this.total_hectares = undefined;
+    this.access_roads_availability = undefined;
+    this.municipal_head_distance = undefined;
+    this.water_type = undefined;
+    this.electricity = undefined;
+    this.aqueduct = undefined;
+    this.septic_tank = undefined;
+    this.internet = undefined;
+    this.cellphone = undefined;
+    this.productive_infrastructure = undefined;
+    this.operator_tv_type = undefined;
+    this.earth_trend = undefined
+    this.attached_organization = undefined
+    this.television = undefined;
+    this.public_service = [];
+    this.products_activities = [];
+    this.id_organization = undefined;
+    this.show_input_organization = false;
+
     this.getTypeProperties();
     this.getProductsActivities();
     this.getEarthTrend();
@@ -80,7 +110,26 @@ export class FarmPage implements OnInit {
     this.getGasTypes();
     this.getWaterTypes();
     this.getOperatorTvType();
+    this.getOrganizations();
+    this.getFarmInformation();
   }
+
+  showInputOrganization(value){
+    this.show_input_organization = value;
+  }
+
+  //Organizaciones
+  getOrganizations(){
+    this.request.postData('organizacion/api/get_all_organizacion', null, {}).then(data => {
+      if(data.code == 0){
+        this.organizations = data.data;
+        this.organizations.unshift({id:0, nombre: "No esta en la lista"});
+      }else{
+        this.toast.presentToast(data.error, "error-toast", 3000);
+      }
+    });
+  }
+
   //Tipos de operadores
   getOperatorTvType(){
     this.request.postData('finca/api/get_operator_tv', null, {}).then(data => {
@@ -202,6 +251,10 @@ export class FarmPage implements OnInit {
   validateFormFarm(){
     if(this.via_type == undefined){
       this.toast.presentToast('El tipo de via es requerido', 'error-toast', 3000);
+    }else if(this.attached_organization == undefined){
+      this.toast.presentToast('Adscrito a Organización requerido', 'error-toast', 3000);
+    }else if(this.attached_organization == 'true' && this.id_organization == undefined){
+      this.toast.presentToast('La Organización es requerida', 'error-toast', 3000);
     }else{
       this.saveFarmQuiz();
     }
@@ -230,12 +283,18 @@ export class FarmPage implements OnInit {
       id_opeador_tv: this.operator_tv_type,
       id_estado_tendencia_tierra: this.earth_trend,
       public_service: this.public_service,
-      products_activities: this.products_activities
+      products_activities: this.products_activities,
+      adscrita_organizacion: this.attached_organization,
+      id_organizacion: this.id_organization
     };
     this.request.postData('finca/api/update_finca', data, {}).then(data => {
       if(data.code == 0) {
         this.toast.presentToast(data.message, "success-toast", 3000);
-        this.navCtrl.navigateForward('/inquest');
+        if(this.attached_organization == 'true' && this.id_organization.id == 0){
+          this.navCtrl.navigateForward('/organization');
+        }else{
+          this.navCtrl.navigateForward('/inquest');
+        }
       } else {
         this.toast.presentToast(data.error, "error-toast", 3000);
       }

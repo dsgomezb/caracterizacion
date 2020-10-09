@@ -25,6 +25,7 @@ export class LoginPage implements OnInit {
   city: any;
   sideWalk: any;
   farm_name: any;
+  documento_tecnico: any;
   
   constructor(
     public navCtrl: NavController,
@@ -105,7 +106,9 @@ export class LoginPage implements OnInit {
 
   //Validacion de campos requeridos en formulario de inicio
   validateFormLogin(){
-    if(this.farm_name == undefined){
+    if(this.documento_tecnico == undefined){
+      this.toast.presentToast('El Documento del Técnico es Requerido', 'error-toast', 3000);
+    }else if(this.farm_name == undefined){
       this.toast.presentToast('El Nombre de la Finca es Requerido', 'error-toast', 3000);
     }else if(this.department == undefined){
       this.toast.presentToast('El Departamento es Requerido', 'error-toast', 3000);
@@ -126,7 +129,8 @@ export class LoginPage implements OnInit {
       nombre: this.farm_name,
       id_vereda: this.sideWalk.id,
       longitud: localStorage.getItem('longitude'),
-      latitud: localStorage.getItem('latitude')
+      latitud: localStorage.getItem('latitude'),
+      documento_tecnico: this.documento_tecnico
     }
     this.request.postData('finca/api/save_finca_inicial', data, {}).then(data => {
       if(data.code == 0) {

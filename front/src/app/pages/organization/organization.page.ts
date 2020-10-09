@@ -89,7 +89,7 @@ export class OrganizationPage implements OnInit {
     this.request.postData('organizacion/api/save_organizacion', data, {}).then(data => {
       if(data.code == 0) {
         this.toast.presentToast(data.message, "success-toast", 3000);
-        this.navCtrl.navigateForward('/farm');
+        this.navCtrl.navigateForward('/inquest');
       } else {
         this.toast.presentToast(data.error, "error-toast", 3000);
       }

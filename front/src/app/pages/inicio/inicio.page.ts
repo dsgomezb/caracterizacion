@@ -253,7 +253,7 @@ export class InicioPage implements OnInit {
     this.request.postData('persona/api/save_persona', data, {}).then(data => {
       if(data.code == 0) {
         this.toast.presentToast(data.message, "success-toast", 3000);
-        this.navCtrl.navigateForward('/organization');
+        this.navCtrl.navigateForward('/farm');
       } else {
         this.toast.presentToast(data.error, "error-toast", 3000);
       }

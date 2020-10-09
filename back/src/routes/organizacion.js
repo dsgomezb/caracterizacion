@@ -5,7 +5,22 @@ const { isNotLoggedIn } = require('../lib/auth');
 const pool = require('../database');
 const helpers = require('../lib/helpers');
 
-
+//Api para obtener todas las organizaciones
+router.post('/api/get_all_organizacion', async (req, res) => {
+    let organizacion = await pool.query("SELECT id, CONCAT(nit,'-',nombre) AS nombre FROM organizacion ORDER BY nombre");
+    if (organizacion.rows.length > 0) {
+        data = {
+            "code": "0",
+            "data": organizacion.rows
+        };
+    } else {
+        data = {
+            "code": "1",
+            "error": "No existen tipos de organizaciones"
+        };
+    }
+    res.status(200).json(data);
+});
 
 //Api para obtener los tipo organizaciones activos de la base de datos
 router.post('/api/get_tipo_organizacion', async (req, res) => {
@@ -36,15 +51,14 @@ router.post('/api/save_organizacion', async (req, res) => {
 
     const organizacion = await pool.query('INSERT INTO organizacion(id_tipo_organizacion, nit, nombre, fecha_organizacion, objeto, \
         direccion, telefono, email, nombre_representante_legal, cedula_representante_legal, \
-        telefono_representante_legal, email_representante_legal, experiencia_organizacion, \
-        id_finca) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14)', [id_tipo_organizacion, nit, nombre, fecha_organizacion, objeto,
+        telefono_representante_legal, email_representante_legal, experiencia_organizacion) \
+        VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13)', [id_tipo_organizacion, nit, nombre, fecha_organizacion, objeto,
         direccion, telefono, email, nombre_representante_legal, cedula_representante_legal,
-        telefono_representante_legal, email_representante_legal, experiencia_organizacion,
-        id_finca]);
-
+        telefono_representante_legal, email_representante_legal, experiencia_organizacion]);
        
     const idOrganizacion =  await pool.query('SELECT LASTVAL()');
-
+    let organizationId = idOrganizacion.rows[0].lastval;
+    const finca = await pool.query('UPDATE finca SET id_organizacion = $1, adscrita_organizacion = true WHERE id = $2',[organizationId, id_finca]);
   
     if (organizacion) {
 

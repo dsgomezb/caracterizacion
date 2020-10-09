@@ -13,6 +13,14 @@
     <ion-row>
       <ion-col>
         <ion-item>
+          <ion-label position="floating">{{ "farm.documento_tecnico" | translate }}<ion-text color="danger" >*</ion-text></ion-label>
+          <ion-input type="text" [(ngModel)]="documento_tecnico" required autocomplete="off"></ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-item>
           <ion-label position="floating">{{ "farm.name" | translate }}<ion-text color="danger" >*</ion-text></ion-label>
           <ion-input type="text" [(ngModel)]="farm_name" required autocomplete="off"></ion-input>
         </ion-item>
