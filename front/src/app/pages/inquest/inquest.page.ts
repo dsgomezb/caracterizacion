@@ -58,6 +58,5 @@ export class InquestPage implements OnInit {
 
   setValue(id_pregunta, event){
     this.data_questions[id_pregunta] = event.detail.value;
-    console.log(this.data_questions);
   }
 }
