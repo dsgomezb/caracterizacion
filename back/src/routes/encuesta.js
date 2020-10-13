@@ -71,7 +71,7 @@ router.post('/api/get_pregutas_respuestas_separado', async (req, res) => {
             let preguntas = await pool.query(" SELECT p.id as id, p.descripcion as pregunta, p.tipo_pregunta as tipo_pregunta, ap.id_agrupador_pregunta as id_agrupador, \
             app.descripcion as agrupador  FROM pregunta as p left join agrupador_pregunta as ap on ap.id = p.id_agrupador_pregunta \
             left join agrupador_pregunta as app on ap.id_agrupador_pregunta= app.id \
-            where ap.id_agrupador_pregunta = $1 order by  ap.id_agrupador_pregunta, ap.id ", [ap.agrupador]);
+            where ap.id_agrupador_pregunta = $1 order by  ap.id_agrupador_pregunta, p.orden ", [ap.agrupador]);
 
             tablarespuesta = { 'id_agrupador': ap.agrupador, 'nombre_agrupador': ap.descripcion, 'preguntas': [] };
             var i = 0;
