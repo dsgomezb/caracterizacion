@@ -7,6 +7,9 @@ import { ToastService  } from '../../services/toaster/toast.service';
 import { StorageService } from '../../services/storage/storage.service';
 import { ModalController  } from '@ionic/angular';
 import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
+import { FileChooser } from '@ionic-native/file-chooser/ngx';
+import { FilePath } from '@ionic-native/file-path/ngx';
+import { Base64 } from '@ionic-native/base64/ngx';
 
 @Component({
   selector: 'app-inicio',
@@ -61,7 +64,10 @@ export class InicioPage implements OnInit {
     private platform: Platform,
     private router: Router,
     public modalCtrl: ModalController,
-    private camera: Camera
+    private camera: Camera,
+    public fileChooser: FileChooser,
+    public filePath: FilePath,
+    public base64: Base64
   ) { }
 
   ngOnInit() {
@@ -80,7 +86,7 @@ export class InicioPage implements OnInit {
     this.getEthnicGroup();
   }
 
-  hacerFoto() {
+  /*hacerFoto() {
     const options: CameraOptions = {
       destinationType: this.camera.DestinationType.DATA_URL
     }
@@ -89,7 +95,7 @@ export class InicioPage implements OnInit {
     }, (err) => {
       console.log(err);
     });
-  }
+  }*/
 
   //Obtener la caracterización poblacional
   getCharacterization(){
@@ -219,6 +225,16 @@ export class InicioPage implements OnInit {
   validateFormInit(){
     if(this.characterization == undefined){
       this.toast.presentToast('La caracterización Poblacional es requerida', 'error-toast', 3000);
+    }else if(this.document_type == undefined){
+      this.toast.presentToast('El tipo de documento es requerido', 'error-toast', 3000);
+    }else if(this.dni == undefined){
+      this.toast.presentToast('El Documento es requerido', 'error-toast', 3000);
+    }else if(this.names == undefined){
+      this.toast.presentToast('El Nombre es requerido', 'error-toast', 3000);
+    }else if(this.department == undefined){
+      this.toast.presentToast('El Departamento es requerido', 'error-toast', 3000);
+    }else if(this.city == undefined){
+      this.toast.presentToast('La Ciudad de Origen es requerida', 'error-toast', 3000);
     }else{
       this.saveInfoInitialQuiz();
     }
@@ -248,7 +264,8 @@ export class InicioPage implements OnInit {
       num_personas_cargo: this.peopleBurden,
       vive_finca: this.live_in_farm,
       tiempo_lleva_finca: this.time_in_farm,
-      id_finca: localStorage.getItem('farmId')
+      id_finca: localStorage.getItem('farmId'),
+      foto_documento: this.foto
     }
     this.request.postData('persona/api/save_persona', data, {}).then(data => {
       if(data.code == 0) {
@@ -258,5 +275,15 @@ export class InicioPage implements OnInit {
         this.toast.presentToast(data.error, "error-toast", 3000);
       }
     });
+  }
+
+  image_base(){
+    this.fileChooser.open().then((fileuri)=>{
+      this.filePath.resolveNativePath(fileuri).then((nativepath)=>{
+        this.base64.encodeFile(nativepath).then((base64string)=>{
+          this.foto = base64string;
+        })
+      })
+    })
   }
 }

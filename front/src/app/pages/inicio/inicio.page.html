@@ -253,8 +253,8 @@
             <ion-row>
               <ion-col>
                 <ion-item>
-                  <ion-button (click)="hacerFoto()">{{ "init.document_picture" | translate }}</ion-button>
-                  <img [src]="foto" *ngIf="foto" />
+                  <ion-label  class="show small">{{ "init.document_picture" | translate }}</ion-label>
+                  <ion-button color="success" size="small" expand="block" (ionChange)="image_base()">{{ "init.attached" | translate }}</ion-button>
                   </ion-item>
               </ion-col>
             </ion-row>

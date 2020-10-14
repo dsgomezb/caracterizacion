@@ -6,6 +6,9 @@ import { RequestService } from '../../services/http/request.service';
 import { ToastService  } from '../../services/toaster/toast.service';
 import { StorageService } from '../../services/storage/storage.service';
 import { ModalController  } from '@ionic/angular';
+import { FileChooser } from '@ionic-native/file-chooser/ngx';
+import { FilePath } from '@ionic-native/file-path/ngx';
+import { Base64 } from '@ionic-native/base64/ngx';
 
 @Component({
   selector: 'app-inquest',
@@ -21,7 +24,10 @@ export class InquestPage implements OnInit {
     public storageService: StorageService,
     private platform: Platform,
     private router: Router,
-    public modalCtrl: ModalController
+    public modalCtrl: ModalController,
+    public fileChooser: FileChooser,
+    public filePath: FilePath,
+    public base64: Base64
   ) { }
   inquestData: any;
   ngOnInit() {
@@ -54,9 +60,22 @@ export class InquestPage implements OnInit {
     console.log(this.data_questions);
     this.toast.presentToast("Encuesta almacenada satisfactoriamente", "success-toast", 3000);
     //this.navCtrl.navigateForward('');
+    console.log("FINAL:");
+    console.log(this.data_questions);
   }
 
-  setValue(id_pregunta, event){
+  setValue(id_pregunta, event, tipo_pregunta){
     this.data_questions[id_pregunta] = event.detail.value;
+    console.log(this.data_questions);
+  }
+
+  image_base(id_pregunta,  tipo_pregunta){
+    this.fileChooser.open().then((fileuri)=>{
+      this.filePath.resolveNativePath(fileuri).then((nativepath)=>{
+        this.base64.encodeFile(nativepath).then((base64string)=>{
+          this.data_questions[id_pregunta] = base64string;
+        })
+      })
+    })
   }
 }

@@ -77,7 +77,8 @@
         "city_origin": "Ciudad de Origen",
         "department_origin": "Departamento de Origen",
         "document_picture": "Foto del Documento",
-        "other": "Otro"
+        "other": "Otro",
+        "attached": "Adjunto"
     },
     "organization":{
         "title": "Encuesta Organización",

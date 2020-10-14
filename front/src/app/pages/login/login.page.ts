@@ -8,6 +8,10 @@ import { StorageService } from '../../services/storage/storage.service';
 import { ModalController  } from '@ionic/angular';
 import { ModalLocationPage } from '../modal-location/modal-location.page';
 import { Geolocation, Geoposition, GeolocationOptions  } from '@ionic-native/geolocation/ngx';
+import { FileChooser } from '@ionic-native/file-chooser/ngx';
+import { FilePath } from '@ionic-native/file-path/ngx';
+import { Base64 } from '@ionic-native/base64/ngx';
+import { NetworkService } from 'src/app/services/network.service';
 
 @Component({
   selector: 'app-login',
@@ -26,7 +30,8 @@ export class LoginPage implements OnInit {
   sideWalk: any;
   farm_name: any;
   documento_tecnico: any;
-  
+
+  isConnected = false;
   constructor(
     public navCtrl: NavController,
     public request: RequestService,
@@ -35,7 +40,11 @@ export class LoginPage implements OnInit {
     private platform: Platform,
     private router: Router,
     public modalCtrl: ModalController,
-    public geolocation: Geolocation
+    public geolocation: Geolocation,
+    public fileChooser: FileChooser,
+    public filePath: FilePath,
+    public base64: Base64,
+    private networkService: NetworkService
   ) {}
 
   ngOnInit() {
@@ -44,6 +53,14 @@ export class LoginPage implements OnInit {
 
   ionViewWillEnter(){
     this.getDepartment();
+    this.networkService.getNetworkStatus().subscribe((connected: boolean) => {
+      this.isConnected = connected;
+      if (!this.isConnected) {
+          console.log('Por favor enciende tu conexión a Internet');
+      }else{
+        console.log("conectado");
+      }
+});
   }
   
   //Obtener los departamentos
@@ -142,4 +159,5 @@ export class LoginPage implements OnInit {
       }
     });
   }
+
 }
