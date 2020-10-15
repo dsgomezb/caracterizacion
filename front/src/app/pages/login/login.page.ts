@@ -12,6 +12,7 @@ import { FileChooser } from '@ionic-native/file-chooser/ngx';
 import { FilePath } from '@ionic-native/file-path/ngx';
 import { Base64 } from '@ionic-native/base64/ngx';
 import { NetworkService } from 'src/app/services/network.service';
+import { DatabaseService } from '../../services/database.service';
 
 @Component({
   selector: 'app-login',
@@ -44,23 +45,28 @@ export class LoginPage implements OnInit {
     public fileChooser: FileChooser,
     public filePath: FilePath,
     public base64: Base64,
-    private networkService: NetworkService
+    private networkService: NetworkService,
+    private db: DatabaseService
   ) {}
 
   ngOnInit() {
     localStorage.clear();
+    this.networkService.getNetworkStatus().subscribe((connected: boolean) => {
+      this.isConnected = connected;
+      if (!this.isConnected) {
+        this.db.getDatabaseState().subscribe(rdy => {
+          if (rdy) {
+            console.log("lista");
+          }
+        });
+      }else{
+        console.log("conectado");
+      }
+    });
   }
 
   ionViewWillEnter(){
     this.getDepartment();
-    this.networkService.getNetworkStatus().subscribe((connected: boolean) => {
-      this.isConnected = connected;
-      if (!this.isConnected) {
-          console.log('Por favor enciende tu conexión a Internet');
-      }else{
-        console.log("conectado");
-      }
-});
   }
   
   //Obtener los departamentos
@@ -149,15 +155,28 @@ export class LoginPage implements OnInit {
       latitud: localStorage.getItem('latitude'),
       documento_tecnico: this.documento_tecnico
     }
-    this.request.postData('finca/api/save_finca_inicial', data, {}).then(data => {
-      if(data.code == 0) {
-        localStorage.setItem('farmId', data.idFinca[0].lastval);
-        this.toast.presentToast(data.message, "success-toast", 3000);
-        this.navCtrl.navigateForward('/inicio');
-      } else {
-        this.toast.presentToast(data.error, "error-toast", 3000);
+
+    this.networkService.getNetworkStatus().subscribe((connected: boolean) => {
+      this.isConnected = connected;
+      if (!this.isConnected) {
+        this.db.addFarm(data)
+        .then(_ => {
+            console.log("lo hizo");
+        });
+      }else{
+        this.request.postData('finca/api/save_finca_inicial', data, {}).then(data => {
+          if(data.code == 0) {
+            localStorage.setItem('farmId', data.idFinca[0].lastval);
+            this.toast.presentToast(data.message, "success-toast", 3000);
+            this.navCtrl.navigateForward('/inicio');
+          } else {
+            this.toast.presentToast(data.error, "error-toast", 3000);
+          }
+        });
       }
     });
+
+
   }
 
 }

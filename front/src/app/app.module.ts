@@ -19,6 +19,8 @@ import { Base64 } from '@ionic-native/base64/ngx';
 import { FilePath } from '@ionic-native/file-path/ngx';
 import { FileChooser } from '@ionic-native/file-chooser/ngx';
 import { Network } from '@ionic-native/network/ngx';
+import { SQLitePorter } from '@ionic-native/sqlite-porter/ngx';
+import { SQLite } from '@ionic-native/sqlite/ngx';
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -53,7 +55,9 @@ export function createTranslateLoader(http: HttpClient) {
     Base64,
     FilePath,
     FileChooser,
-    Network
+    Network,
+    SQLite,
+    SQLitePorter
   ],
   bootstrap: [AppComponent]
 })
