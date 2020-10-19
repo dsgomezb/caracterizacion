@@ -66,7 +66,14 @@ router.post('/api/save_finca_inicial', async (req, res) => {
     const { nombre, id_vereda, longitud, latitud, documento_tecnico } = req.body;
     const finca = await pool.query('INSERT INTO finca(nombre, id_vereda, longitud, latitud, documento_tecnico) VALUES ($1, $2, $3, $4, $5)', [nombre, id_vereda, longitud, latitud, documento_tecnico]);
     const idFinca = await pool.query('SELECT LASTVAL()');
+   
 
+    let fecha = new Date();
+    const encuesta = await pool.query("SELECT id, nombre FROM encuesta where activo is true order by nombre");
+    console.log(idFinca.rows[0].lastval);
+    const encuesta_finca = await pool.query('INSERT INTO encuesta_respuesta(terminada, fecha, id_finca, id_encuesta) VALUES (false, $1, $2, $3)', [fecha, idFinca.rows[0].lastval, encuesta.rows[0].id]);
+
+    
     if (finca) {
         data = {
             "code": "0",
@@ -265,7 +272,7 @@ router.post('/api/update_finca', async (req, res) => {
         altitud, analisis_suelos_2_anos, area_total_hectareas,
         disponibilidad_vias_acceso, distancia_cabecera, id_agua, electricidad,
         acueducto, pozo_septico, internet, celular, infraestructura_productiva_existente,
-        television, id_opeador_tv, id_estado_tendencia_tierra, public_service, products_activities, id, 
+        television, id_opeador_tv, id_estado_tendencia_tierra, public_service, products_activities, id,
         adscrita_organizacion, id_organizacion } = req.body;
     //console.log(id_organizacion);
     let organiza = id_organizacion != undefined ? id_organizacion.id : undefined
@@ -273,7 +280,7 @@ router.post('/api/update_finca', async (req, res) => {
     public_service.forEach(async element => {
         try {
             const insert_public_services_farm = await pool.query("INSERT INTO finca_servicios_publicos(id_finca, id_servicios_publicos, fecha) \
-            VALUES ($1, $2, $3)",[id, element.id ,fecha]);
+            VALUES ($1, $2, $3)", [id, element.id, fecha]);
         } catch (err) {
             console.log(err);
         }
@@ -282,12 +289,12 @@ router.post('/api/update_finca', async (req, res) => {
     products_activities.forEach(async element2 => {
         try {
             const insert_products_activities_farm = await pool.query("INSERT INTO finca_actividades_productivas(id_finca, id_actividades_productivas, fecha) \
-            VALUES ($1, $2, $3)",[id, element2.id ,fecha]);
+            VALUES ($1, $2, $3)", [id, element2.id, fecha]);
         } catch (err) {
             console.log(err);
         }
     });
-    
+
     const finca = await pool.query("UPDATE finca SET   id_tipo_via=$1, id_estado_via=$2, \
         id_gas=$3, altitud=$4, analisis_suelos_2_anos=$5, \
         area_total_hectareas=$6, disponibilidad_vias_acceso=$7, distancia_cabecera=$8, \

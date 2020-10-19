@@ -67,7 +67,7 @@ router.post('/api/get_pregutas_respuestas_separado', async (req, res) => {
         var arr2 = [];
 
         for (const ap of actividades_productivas.rows) {
-           
+
             let preguntas = await pool.query(" SELECT p.id as id, p.descripcion as pregunta, p.tipo_pregunta as tipo_pregunta, ap.id_agrupador_pregunta as id_agrupador, \
             app.descripcion as agrupador  FROM pregunta as p left join agrupador_pregunta as ap on ap.id = p.id_agrupador_pregunta \
             left join agrupador_pregunta as app on ap.id_agrupador_pregunta= app.id \
@@ -85,7 +85,7 @@ router.post('/api/get_pregutas_respuestas_separado', async (req, res) => {
                     tablarespuesta.preguntas[i].respuestaspreguntas.push({ id: respuesta.id_respuesta, respuesta: respuesta.descripcion });
                 }
                 i++;
-            } 
+            }
             todas.push(tablarespuesta);
         }
         data = {
@@ -101,5 +101,57 @@ router.post('/api/get_pregutas_respuestas_separado', async (req, res) => {
     res.status(200).json(data);
 
 });
+
+
+
+//Agregar informacion de la organizacion
+router.post('/api/save_encuesta', async (req, res) => {
+    var data = req.body;
+    const id_finca = data.id_finca;//req.body;
+
+    const finca;
+
+    const encuesta_respuesta = await pool.query("SELECT * FROM encuesta_respuesta where id_finca = $1 ", [id_finca]);
+
+    for (let i in data.answers) {
+
+        var pregunta = i;
+        var respuesta = data.answers[i];
+              
+       var tem = respuesta * 1
+
+        if (!isNaN(tem)) {
+             finca = await pool.query('INSERT INTO encuesta_detalle_respuesta(id_encuesta_respuesta, id_pregunta, id_opcion_respuesta) VALUES ($1, $2, $3)', [encuesta_respuesta.rows[0].id, pregunta, respuesta]);
+
+        } else {
+          
+             finca = await pool.query('INSERT INTO encuesta_detalle_respuesta(id_encuesta_respuesta, id_pregunta, texto) VALUES ($1, $2, $3)', [encuesta_respuesta.rows[0].id, pregunta, respuesta]);
+
+        }
+
+
+    }
+
+
+    if (finca) {
+
+
+        data = {
+            "code": "0",
+            "message": "Información de la encuesta guardada correctamente",           
+            "save": true
+        };
+    } else {
+        data = {
+            "code": "1",
+            "update": false,
+            "error": "Error al guardar los datos dela encuesta"
+        };
+    }
+
+
+    res.status(200).json(data);
+});
+
 
 module.exports = router;
