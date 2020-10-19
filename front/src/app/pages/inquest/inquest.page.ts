@@ -17,6 +17,7 @@ import { Base64 } from '@ionic-native/base64/ngx';
 })
 export class InquestPage implements OnInit {
   data_questions = {};
+  id_finca : any;
   constructor(
     public navCtrl: NavController,
     public request: RequestService,
@@ -28,7 +29,9 @@ export class InquestPage implements OnInit {
     public fileChooser: FileChooser,
     public filePath: FilePath,
     public base64: Base64
-  ) { }
+  ) { 
+    this.id_finca = localStorage.getItem('farmId');
+  }
   inquestData: any;
   ngOnInit() {
   }
@@ -45,7 +48,6 @@ export class InquestPage implements OnInit {
     this.request.postData('encuesta/api/get_pregutas_respuestas_separado', data, {}).then(data => {
       if(data.code == 0){
         this.inquestData = data.data;
-        console.log(this.inquestData);
       }else{
         this.toast.presentToast(data.error, "error-toast", 3000);
       }
@@ -57,16 +59,16 @@ export class InquestPage implements OnInit {
   }
 
   saveFormInquest(){
-    console.log(this.data_questions);
+    let data = {
+      id_finca: this.id_finca,
+      answers: this.data_questions
+    };
     this.toast.presentToast("Encuesta almacenada satisfactoriamente", "success-toast", 3000);
     //this.navCtrl.navigateForward('');
-    console.log("FINAL:");
-    console.log(this.data_questions);
   }
 
   setValue(id_pregunta, event, tipo_pregunta){
     this.data_questions[id_pregunta] = event.detail.value;
-    console.log(this.data_questions);
   }
 
   image_base(id_pregunta,  tipo_pregunta){
