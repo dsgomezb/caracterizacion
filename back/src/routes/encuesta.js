@@ -109,7 +109,7 @@ router.post('/api/save_encuesta', async (req, res) => {
     var data = req.body;
     const id_finca = data.id_finca;//req.body;
 
-    const finca;
+    let finca;
 
     const encuesta_respuesta = await pool.query("SELECT * FROM encuesta_respuesta where id_finca = $1 ", [id_finca]);
 

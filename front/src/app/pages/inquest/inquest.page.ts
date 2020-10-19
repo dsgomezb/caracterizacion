@@ -64,12 +64,18 @@ export class InquestPage implements OnInit {
       "answers": this.data_questions
     };
     console.log(data);
-    this.toast.presentToast("Encuesta almacenada satisfactoriamente", "success-toast", 3000);
-    //this.navCtrl.navigateForward('');
+    this.request.postData('encuesta/api/save_encuesta', data, {}).then(data => {
+      if(data.code == 0){
+        this.toast.presentToast(data.message, "success-toast", 3000);
+      }else{
+        this.toast.presentToast(data.error, "error-toast", 3000);
+      }
+    });
+    this.navCtrl.navigateForward('');
   }
 
   setValue(id_pregunta, event, tipo_pregunta){
-    this.data_questions['"'+id_pregunta+'"'] = event.detail.value;
+    this.data_questions[id_pregunta] = event.detail.value;
   }
 
   image_base(id_pregunta,  tipo_pregunta){
