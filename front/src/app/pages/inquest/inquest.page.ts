@@ -60,15 +60,16 @@ export class InquestPage implements OnInit {
 
   saveFormInquest(){
     let data = {
-      id_finca: this.id_finca,
-      answers: this.data_questions
+      "id_finca": this.id_finca,
+      "answers": this.data_questions
     };
+    console.log(data);
     this.toast.presentToast("Encuesta almacenada satisfactoriamente", "success-toast", 3000);
     //this.navCtrl.navigateForward('');
   }
 
   setValue(id_pregunta, event, tipo_pregunta){
-    this.data_questions[id_pregunta] = event.detail.value;
+    this.data_questions['"'+id_pregunta+'"'] = event.detail.value;
   }
 
   image_base(id_pregunta,  tipo_pregunta){
