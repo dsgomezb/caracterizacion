@@ -1,5 +1,8 @@
 const express = require('express');
 const morgan = require('morgan');
+const path = require('path');
+var bodyParser  = require('body-parser');
+
 //const flash = require('connect-flash');
 /*const exphbs = require('express-handlebars');
 const path = require('path');
@@ -41,6 +44,10 @@ app.use(express.static(path.join(__dirname, 'lib')));*/
     saveUninitialized: false,
     store:  new MySQLStore(database)
 }));*/
+app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'lib')));
+app.use(bodyParser.json({ limit: '10mb', extended: true }));
+app.use(bodyParser.urlencoded({ limit: '10mb', extended: true }));
 
 app.use((req, res, next) => {
 
