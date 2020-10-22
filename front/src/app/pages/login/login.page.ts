@@ -68,6 +68,16 @@ export class LoginPage implements OnInit {
   ionViewWillEnter(){
     this.getDepartment();
   }
+
+  image_base(){
+    this.fileChooser.open().then((fileuri)=>{
+      this.filePath.resolveNativePath(fileuri).then((nativepath)=>{
+        this.base64.encodeFile(nativepath).then((base64string)=>{
+          alert(base64string);
+        })
+      })
+    })
+  }
   
   //Obtener los departamentos
   getDepartment(){
