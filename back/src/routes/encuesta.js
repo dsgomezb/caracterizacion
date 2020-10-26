@@ -104,12 +104,57 @@ router.post('/api/get_pregutas_respuestas_separado', async (req, res) => {
 
 
 
+//Api para obtener preguntas de agrupador PERFIL ORGANIZACION
+router.post('/api/get_pregutas_perfil_organizacion', async (req, res) => {
+    var id_agrupador_perfil_organizacion = 30;
+
+    var todas = [];
+
+    let preguntas = await pool.query(" SELECT p.id as id, p.descripcion as pregunta, p.tipo_pregunta as tipo_pregunta, ap.id as id_agrupador, ap.descripcion as agrupador \
+         FROM pregunta as p left join agrupador_pregunta as ap on ap.id = p.id_agrupador_pregunta \
+         where p.id_agrupador_pregunta = $1 order by  ap.id_agrupador_pregunta, p.orden ", [id_agrupador_perfil_organizacion]);
+
+    
+    if (preguntas.rows.length > 0) {
+        tablarespuesta = { 'id_agrupador': preguntas.id_agrupador, 'nombre_agrupador': preguntas.agrupador, 'preguntas': [] };
+        var i = 0;
+
+        for (const element of preguntas.rows) {
+            tablarespuesta.preguntas.push({ 'tipo_pregunta': element.tipo_pregunta, 'id_pregunta': element.id, 'pregunta': element.pregunta, 'respuestaspreguntas': [] });
+            let respuestas = await pool.query(" SELECT  p.id as id_pregunta, ore.id as id_respuesta, ore.descripcion as descripcion FROM opcion_respuesta as ore \
+                                                    left join pregunta as p on p.id = ore.id_pregunta where p.id = $1 order by ore.id", [element.id]);
+            for (const respuesta of respuestas.rows) {
+                let id = respuesta.id_respuesta;
+                tablarespuesta.preguntas[i].respuestaspreguntas.push({ id: respuesta.id_respuesta, respuesta: respuesta.descripcion });
+            }
+            i++;
+        }
+        todas.push(tablarespuesta);
+
+
+
+
+        data = {
+            "code": "0",
+            "data": todas,
+        };
+    } else {
+        data = {
+            "code": "1",
+            "error": "No existen preguntas"
+        };
+    }
+    res.status(200).json(data);
+
+});
+
+
+
+
 //Agregar informacion de la organizacion
 router.post('/api/save_encuesta', async (req, res) => {
     var data = req.body;
     const id_finca = data.id_finca;//req.body;
-
-    const finca;
 
     const encuesta_respuesta = await pool.query("SELECT * FROM encuesta_respuesta where id_finca = $1 ", [id_finca]);
 
@@ -117,15 +162,15 @@ router.post('/api/save_encuesta', async (req, res) => {
 
         var pregunta = i;
         var respuesta = data.answers[i];
-              
-       var tem = respuesta * 1
+
+        var tem = respuesta * 1
 
         if (!isNaN(tem)) {
-             finca = await pool.query('INSERT INTO encuesta_detalle_respuesta(id_encuesta_respuesta, id_pregunta, id_opcion_respuesta) VALUES ($1, $2, $3)', [encuesta_respuesta.rows[0].id, pregunta, respuesta]);
+            finca = await pool.query('INSERT INTO encuesta_detalle_respuesta(id_encuesta_respuesta, id_pregunta, id_opcion_respuesta) VALUES ($1, $2, $3)', [encuesta_respuesta.rows[0].id, pregunta, respuesta]);
 
         } else {
-          
-             finca = await pool.query('INSERT INTO encuesta_detalle_respuesta(id_encuesta_respuesta, id_pregunta, texto) VALUES ($1, $2, $3)', [encuesta_respuesta.rows[0].id, pregunta, respuesta]);
+
+            finca = await pool.query('INSERT INTO encuesta_detalle_respuesta(id_encuesta_respuesta, id_pregunta, texto) VALUES ($1, $2, $3)', [encuesta_respuesta.rows[0].id, pregunta, respuesta]);
 
         }
 
@@ -138,7 +183,7 @@ router.post('/api/save_encuesta', async (req, res) => {
 
         data = {
             "code": "0",
-            "message": "Información de la encuesta guardada correctamente",           
+            "message": "Información de la encuesta guardada correctamente",
             "save": true
         };
     } else {
