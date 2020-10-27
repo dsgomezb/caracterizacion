@@ -64,7 +64,6 @@ export class InquestPage implements OnInit {
       "id_finca": this.id_finca,
       "answers": this.data_questions
     };
-    console.log(data);
     this.request.postData('encuesta/api/save_encuesta', data, {}).then(data => {
       if(data.code == 0){
         this.toast.presentToast(data.message, "success-toast", 3000);
@@ -84,7 +83,6 @@ export class InquestPage implements OnInit {
     for(let item of event.value){
       this.data_questions[id_pregunta].push(item.id.toString());
     }
-    console.log(this.data_questions);
   }
 
   setValueImage(id_pregunta, image){
@@ -108,7 +106,6 @@ export class InquestPage implements OnInit {
       resultType: CameraResultType.Base64,
       promptLabelHeader: "Imagen"
     });
-    console.log(image.format);
     let base = 'data:image/'+image.format+'base64,'
     this.setValueImage(id_pregunta, image.format);
   }
