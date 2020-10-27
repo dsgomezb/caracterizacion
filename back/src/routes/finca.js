@@ -70,7 +70,7 @@ router.post('/api/save_finca_inicial', async (req, res) => {
 
     let fecha = new Date();
     const encuesta = await pool.query("SELECT id, nombre FROM encuesta where activo is true order by nombre");
-    console.log(idFinca.rows[0].lastval);
+
     const encuesta_finca = await pool.query('INSERT INTO encuesta_respuesta(terminada, fecha, id_finca, id_encuesta) VALUES (false, $1, $2, $3)', [fecha, idFinca.rows[0].lastval, encuesta.rows[0].id]);
 
     
@@ -338,8 +338,6 @@ router.post('/api/get_tipo_predios', async (req, res) => {
     }
     res.status(200).json(data);
 });
-
-
 
 //Faltan llenar las tabla n a n, pedende de como envíe la info en front
 

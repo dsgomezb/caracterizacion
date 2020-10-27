@@ -10,6 +10,7 @@ import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
 import { FileChooser } from '@ionic-native/file-chooser/ngx';
 import { FilePath } from '@ionic-native/file-path/ngx';
 import { Base64 } from '@ionic-native/base64/ngx';
+import { Plugins, CameraResultType, CameraSource, Filesystem, FilesystemDirectory, FilesystemEncoding } from '@capacitor/core';
 
 @Component({
   selector: 'app-inicio',
@@ -55,6 +56,7 @@ export class InicioPage implements OnInit {
   type_affiliation: any;
   ethnic_group: any;
   foto: any;
+  extension_documento: any;
   
   constructor(
     public navCtrl: NavController,
@@ -85,17 +87,6 @@ export class InicioPage implements OnInit {
     this.getTypeAffiliation();
     this.getEthnicGroup();
   }
-
-  /*hacerFoto() {
-    const options: CameraOptions = {
-      destinationType: this.camera.DestinationType.DATA_URL
-    }
-    this.camera.getPicture(options).then((imageData) => {
-      this.foto = 'data:image/jpeg;base64,' + imageData;
-    }, (err) => {
-      console.log(err);
-    });
-  }*/
 
   //Obtener la caracterización poblacional
   getCharacterization(){
@@ -265,7 +256,8 @@ export class InicioPage implements OnInit {
       vive_finca: this.live_in_farm,
       tiempo_lleva_finca: this.time_in_farm,
       id_finca: localStorage.getItem('farmId'),
-      foto_documento: this.foto
+      foto_documento: this.foto,
+      extension_documento: this.extension_documento
     }
     this.request.postData('persona/api/save_persona', data, {}).then(data => {
       if(data.code == 0) {
@@ -277,13 +269,14 @@ export class InicioPage implements OnInit {
     });
   }
 
-  image_base(){
-    this.fileChooser.open().then((fileuri)=>{
-      this.filePath.resolveNativePath(fileuri).then((nativepath)=>{
-        this.base64.encodeFile(nativepath).then((base64string)=>{
-          this.foto = base64string;
-        })
-      })
-    })
+  async takePhoto(){
+    const image = await Plugins.Camera.getPhoto({
+      quality: 60,
+      allowEditing: false,
+      resultType: CameraResultType.Base64,
+      promptLabelHeader: "Imagen"
+    });
+    this.foto = image.base64String;
+    this.extension_documento = image.format;
   }
 }

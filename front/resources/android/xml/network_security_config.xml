@@ -3,4 +3,5 @@
     <domain-config cleartextTrafficPermitted="true">
         <domain includeSubdomains="true">localhost</domain>
     </domain-config>
+    <domain includeSubdomains = "true"> www.google.com </domain> 
 </network-security-config>

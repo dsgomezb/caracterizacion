@@ -9,6 +9,7 @@ import { ModalController  } from '@ionic/angular';
 import { FileChooser } from '@ionic-native/file-chooser/ngx';
 import { FilePath } from '@ionic-native/file-path/ngx';
 import { Base64 } from '@ionic-native/base64/ngx';
+import { Plugins, CameraResultType, CameraSource, Filesystem, FilesystemDirectory, FilesystemEncoding } from '@capacitor/core';
 
 @Component({
   selector: 'app-inquest',
@@ -60,18 +61,31 @@ export class InquestPage implements OnInit {
 
   saveFormInquest(){
     let data = {
-      id_finca: this.id_finca,
-      answers: this.data_questions
+      "id_finca": this.id_finca,
+      "answers": this.data_questions
     };
-    this.toast.presentToast("Encuesta almacenada satisfactoriamente", "success-toast", 3000);
-    //this.navCtrl.navigateForward('');
+    console.log(data);
+    this.request.postData('encuesta/api/save_encuesta', data, {}).then(data => {
+      if(data.code == 0){
+        this.toast.presentToast(data.message, "success-toast", 3000);
+      }else{
+        this.toast.presentToast(data.error, "error-toast", 3000);
+      }
+    });
+    this.navCtrl.navigateForward('');
   }
 
-  setValue(id_pregunta, event, tipo_pregunta){
+  setValue(id_pregunta, event, tipo_pregunta = null){
     this.data_questions[id_pregunta] = event.detail.value;
+    console.log(this.data_questions);
   }
 
-  image_base(id_pregunta,  tipo_pregunta){
+  setValueImage(id_pregunta, image){
+    this.data_questions[id_pregunta] = image;
+    console.log(this.data_questions);
+  }
+
+  image_base(id_pregunta){
     this.fileChooser.open().then((fileuri)=>{
       this.filePath.resolveNativePath(fileuri).then((nativepath)=>{
         this.base64.encodeFile(nativepath).then((base64string)=>{
@@ -79,5 +93,19 @@ export class InquestPage implements OnInit {
         })
       })
     })
+  }
+
+  async takePhoto(id_pregunta){
+    const image = await Plugins.Camera.getPhoto({
+      quality: 60,
+      allowEditing: false,
+      resultType: CameraResultType.Base64,
+      promptLabelHeader: "Imagen"
+    });
+    console.log(image.format);
+    let base = 'data:image/'+image.format+'base64,'
+    this.setValueImage(id_pregunta, image.format);
+    //this.foto = image.base64String;
+    //this.extension_documento = image.format;
   }
 }

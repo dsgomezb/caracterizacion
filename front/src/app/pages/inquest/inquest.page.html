@@ -33,7 +33,7 @@
             </ion-item>
             <ion-item *ngIf="items2.tipo_pregunta == 5">
               <ion-label  class="show small">{{ items2.pregunta }}</ion-label>
-              <ion-button color="success" size="small" expand="block" (ionChange)="image_base(items2.id_pregunta, items2.tipo_pregunta)">{{ "init.attached" | translate }}</ion-button>
+              <ion-button color="success" size="small" expand="block" (click)="takePhoto(items2.id_pregunta)">{{ "init.attached" | translate }}</ion-button>
             </ion-item>
           </ion-col>
         </ion-row>

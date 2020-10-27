@@ -253,9 +253,9 @@
             <ion-row>
               <ion-col>
                 <ion-item>
-                  <ion-label  class="show small">{{ "init.document_picture" | translate }}</ion-label>
-                  <ion-button color="success" size="small" expand="block" (ionChange)="image_base()">{{ "init.attached" | translate }}</ion-button>
-                  </ion-item>
+                  <ion-label class="show small">{{ "init.document_picture" | translate }}<ion-icon *ngIf="foto" color="tertiary" name="document-attach-outline"></ion-icon></ion-label>
+                  <ion-button (click)="takePhoto()" color="primary" size="small"><ion-icon name="camera"></ion-icon></ion-button>
+                </ion-item>
               </ion-col>
             </ion-row>
           </ion-grid>

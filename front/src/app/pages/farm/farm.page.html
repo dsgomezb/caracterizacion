@@ -129,7 +129,7 @@
             <ion-col>
               <ion-item>
                 <ion-label position="stacked"><b>{{ "farm.water" | translate }}</b><ion-text color="danger" >*</ion-text></ion-label>
-                <ion-select [(ngModel)]="water" okText="{{ 'general.select' | translate }}" cancelText="{{ 'general.cancel' | translate }}">
+                <ion-select [(ngModel)]="water_type" okText="{{ 'general.select' | translate }}" cancelText="{{ 'general.cancel' | translate }}">
                   <ion-select-option *ngFor="let item of waterTypes" value="{{item.id}}">{{item.nombre}}</ion-select-option>
                 </ion-select>
               </ion-item>

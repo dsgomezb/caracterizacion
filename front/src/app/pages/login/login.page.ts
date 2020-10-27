@@ -13,6 +13,7 @@ import { FilePath } from '@ionic-native/file-path/ngx';
 import { Base64 } from '@ionic-native/base64/ngx';
 import { NetworkService } from 'src/app/services/network.service';
 import { DatabaseService } from '../../services/database.service';
+import { Plugins, CameraResultType, CameraSource, Filesystem, FilesystemDirectory, FilesystemEncoding } from '@capacitor/core';
 
 @Component({
   selector: 'app-login',
@@ -24,6 +25,7 @@ export class LoginPage implements OnInit {
   departments = [];
   sideWalks = [];
   citys = [];
+  photoSed: any;
 
   //data ingreso
   department: any;
@@ -175,8 +177,6 @@ export class LoginPage implements OnInit {
         });
       }
     });
-
-
   }
 
 }
