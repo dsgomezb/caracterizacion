@@ -13,6 +13,7 @@ import { FilePath } from '@ionic-native/file-path/ngx';
 import { Base64 } from '@ionic-native/base64/ngx';
 import { NetworkService } from 'src/app/services/network.service';
 import { DatabaseService } from '../../services/database.service';
+import { Plugins, CameraResultType, CameraSource, Filesystem, FilesystemDirectory, FilesystemEncoding } from '@capacitor/core';
 
 @Component({
   selector: 'app-login',
@@ -24,6 +25,7 @@ export class LoginPage implements OnInit {
   departments = [];
   sideWalks = [];
   citys = [];
+  photoSed: any;
 
   //data ingreso
   department: any;
@@ -67,16 +69,6 @@ export class LoginPage implements OnInit {
 
   ionViewWillEnter(){
     this.getDepartment();
-  }
-
-  image_base(){
-    this.fileChooser.open().then((fileuri)=>{
-      this.filePath.resolveNativePath(fileuri).then((nativepath)=>{
-        this.base64.encodeFile(nativepath).then((base64string)=>{
-          alert(base64string);
-        })
-      })
-    })
   }
   
   //Obtener los departamentos
@@ -185,8 +177,6 @@ export class LoginPage implements OnInit {
         });
       }
     });
-
-
   }
 
 }

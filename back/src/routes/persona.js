@@ -4,7 +4,7 @@ const passport = require('passport');
 const { isNotLoggedIn } = require('../lib/auth');
 const pool = require('../database');
 const helpers = require('../lib/helpers');
-
+var fs = require('fs');
 
 //Api para obtener los tipo person activos de la base de datos: Mayordomo - propietario
 router.post('/api/get_tipo_persona', async (req, res) => {
@@ -169,17 +169,36 @@ router.post('/api/save_persona', async (req, res) => {
     const { id_tipo_persona, id_tipo_documento, id_municipio, id_genero, id_estado_civil, id_ocupacion,
         id_nivel_escolaridad, id_tipo_afiliacion, id_grupo_etnico, id_tipo_poblacion, documento, nombre,
         apellidos, direccion, barrio, telefono, email, fecha_nacimiento, num_personas_cargo, foto_documento,
-        vive_finca, tiempo_lleva_finca, id_finca } = req.body;
+        vive_finca, tiempo_lleva_finca, id_finca, extension_documento } = req.body;
     const persona = await pool.query('INSERT INTO persona(id_tipo_persona, id_tipo_documento, id_genero, id_estado_civil, id_ocupacion, \
         id_nivel_escolaridad, id_tipo_afiliacion, id_grupo_etnico, id_tipo_poblacion, documento, nombre, \
-        apellidos, direccion, barrio, telefono, email, fecha_nacimiento, num_personas_cargo, foto_documento, \
-        vive_finca, tiempo_lleva_finca, id_municipio, id_finca) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18, $19, $20, $21, $22, $23)', 
+        apellidos, direccion, barrio, telefono, email, fecha_nacimiento, num_personas_cargo, \
+        vive_finca, tiempo_lleva_finca, id_municipio, id_finca) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18, $19, $20, $21, $22)', 
         [id_tipo_persona, id_tipo_documento, id_genero, id_estado_civil, id_ocupacion,
         id_nivel_escolaridad, id_tipo_afiliacion, id_grupo_etnico, id_tipo_poblacion, documento, nombre,
-        apellidos, direccion, barrio, telefono, email, fecha_nacimiento, num_personas_cargo, foto_documento,
+        apellidos, direccion, barrio, telefono, email, fecha_nacimiento, num_personas_cargo,
         vive_finca, tiempo_lleva_finca, id_municipio, id_finca]);
 
     if (persona) {
+        if(foto_documento && extension_documento){
+            const idPersona = await pool.query('SELECT LASTVAL()');
+            let ultimoIdPersona = idPersona.rows[0].lastval;
+            let base64String = foto_documento;
+            //creo carpeta de la finca
+            let path = "src/public/fincas/"+id_finca;
+            if(!fs.existsSync(path)){
+                fs.mkdirSync(path, 0777);
+            }
+            let file = path+"/"+ultimoIdPersona+'.'+extension_documento;
+            let name_file = 'http://31.220.56.195:3000/fincas/'+id_finca+"/"+ultimoIdPersona+'.'+extension_documento;
+            fs.writeFile(file, base64String, {encoding: 'base64'}, async function(err) {
+                if (err) {
+                    console.log("Error al crear la imagen");
+                } else {
+                    let image = await pool.query('UPDATE persona SET foto_documento = $1 WHERE id = $2', [name_file, ultimoIdPersona]);
+                }
+            });
+        }
         data = {
             "code": "0",
             "message": "Información de la persona guardada correctamente",
