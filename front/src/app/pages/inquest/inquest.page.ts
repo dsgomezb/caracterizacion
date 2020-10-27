@@ -75,14 +75,20 @@ export class InquestPage implements OnInit {
     this.navCtrl.navigateForward('');
   }
 
-  setValue(id_pregunta, event, tipo_pregunta = null){
+  setValue(id_pregunta, event){
     this.data_questions[id_pregunta] = event.detail.value;
+  }
+
+  setValueIonSelectable(id_pregunta, event){
+    this.data_questions[id_pregunta] = [];
+    for(let item of event.value){
+      this.data_questions[id_pregunta].push(item.id.toString());
+    }
     console.log(this.data_questions);
   }
 
   setValueImage(id_pregunta, image){
     this.data_questions[id_pregunta] = image;
-    console.log(this.data_questions);
   }
 
   image_base(id_pregunta){
@@ -105,7 +111,5 @@ export class InquestPage implements OnInit {
     console.log(image.format);
     let base = 'data:image/'+image.format+'base64,'
     this.setValueImage(id_pregunta, image.format);
-    //this.foto = image.base64String;
-    //this.extension_documento = image.format;
   }
 }
