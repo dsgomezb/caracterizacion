@@ -114,7 +114,7 @@ router.post('/api/get_pregutas_perfil_organizacion', async (req, res) => {
          FROM pregunta as p left join agrupador_pregunta as ap on ap.id = p.id_agrupador_pregunta \
          where p.id_agrupador_pregunta = $1 order by  ap.id_agrupador_pregunta, p.orden ", [id_agrupador_perfil_organizacion]);
 
-    
+
     if (preguntas.rows.length > 0) {
         tablarespuesta = { 'id_agrupador': preguntas.id_agrupador, 'nombre_agrupador': preguntas.agrupador, 'preguntas': [] };
         var i = 0;
@@ -165,20 +165,28 @@ router.post('/api/save_encuesta', async (req, res) => {
         var pregunta = i;
         var respuesta = data.answers[i];
 
-        var tem = respuesta * 1
+        let tipo_pregunta = await pool.query(" SELECT id, descripcion, tipo_pregunta,  id_agrupador_pregunta   FROM pregunta where id = $1", [pregunta]);
 
-        if (!isNaN(tem)) {
-            finca = await pool.query('INSERT INTO encuesta_detalle_respuesta(id_encuesta_respuesta, id_pregunta, id_opcion_respuesta) VALUES ($1, $2, $3)', [encuesta_respuesta.rows[0].id, pregunta, respuesta]);
 
-        } else {
+        if (tipo_pregunta.rows[0].tipo_pregunta == 2) {
+
+            respuesta.forEach(async element => {
+                try {
+                    finca = await pool.query('INSERT INTO encuesta_detalle_respuesta(id_encuesta_respuesta, id_pregunta, id_opcion_respuesta) VALUES ($1, $2, $3)',
+                        [encuesta_respuesta.rows[0].id, pregunta, element]);
+                } catch (err) {
+                    console.log(err);
+                }
+            });
+
+        } else if (tipo_pregunta.rows[0].tipo_pregunta == 3 || tipo_pregunta.rows[0].tipo_pregunta == 4 || tipo_pregunta.rows[0].tipo_pregunta == 5) {
 
             finca = await pool.query('INSERT INTO encuesta_detalle_respuesta(id_encuesta_respuesta, id_pregunta, texto) VALUES ($1, $2, $3)', [encuesta_respuesta.rows[0].id, pregunta, respuesta]);
-
+        } else {
+            finca = await pool.query('INSERT INTO encuesta_detalle_respuesta(id_encuesta_respuesta, id_pregunta, id_opcion_respuesta) VALUES ($1, $2, $3)', [encuesta_respuesta.rows[0].id, pregunta, respuesta]);
         }
 
-
     }
-
 
     if (finca) {
 
