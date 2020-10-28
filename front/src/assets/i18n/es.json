@@ -94,9 +94,18 @@
         "legal_representative_dni": "Documento del Representante Legal",
         "legal_representative_phone": "Teléfono del Representante Legal",
         "legal_representative_email": "Email del Representante Legal",
-        "experience": "Experiencia N° meses"
+        "experience": "Experiencia N° meses",
+        "initials": "Sigla",
+        "cell_phone": "Teléfono Celular",
+        "web_site": "Sitio Web",
+        "productive_guideline": "Lineamiento Productivo",
+        "financing_line": "Linea de Confinanciación",
+        "proyect_type": "Tipo de Proyecto"
     },
     "inquest": {
         "title":"Encuesta"
+    },
+    "organization_profile": {
+        "title": "Perfil Organizacional"
     }
 }

@@ -57,7 +57,7 @@
               <!--Telefono de organizacion-->
               <ion-item>
                 <ion-label position="floating">{{ "organization.phone" | translate }}<ion-text color="danger" >*</ion-text></ion-label>
-                <ion-input [(ngModel)]="phone" type="text" ></ion-input>
+                <ion-input [(ngModel)]="phone" type="number" ></ion-input>
               </ion-item>
               <!--Email de organizacion-->
               <ion-item>
@@ -88,6 +88,54 @@
               <ion-item>
                 <ion-label position="floating">{{ "organization.experience" | translate }}</ion-label>
                 <ion-input [(ngModel)]="experience" type="number" ></ion-input>
+              </ion-item>
+              <!--Sigla de la Organizacion-->
+              <ion-item>
+                <ion-label position="floating">{{ "organization.initials" | translate }}</ion-label>
+                <ion-input [(ngModel)]="initials" type="text" ></ion-input>
+              </ion-item>
+              <!--Telefono Celular de la Organizacion-->
+              <ion-item>
+                <ion-label position="floating">{{ "organization.cell_phone" | translate }}</ion-label>
+                <ion-input [(ngModel)]="cell_phone" type="number" ></ion-input>
+              </ion-item>
+              <!--Sitio Web de la Organizacion-->
+              <ion-item>
+                <ion-label position="floating">{{ "organization.web_site" | translate }}</ion-label>
+                <ion-input [(ngModel)]="web_site" type="text" ></ion-input>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+          <!--Lineamiento Productivo-->
+          <ion-row>
+            <ion-col>
+              <ion-item>
+                <ion-label position="stacked"><b>{{ "organization.productive_guideline" | translate }}</b><ion-text color="danger" >*</ion-text></ion-label>
+                <ion-select [(ngModel)]="id_productive_guideline" okText="{{ 'general.select' | translate }}" cancelText="{{ 'general.cancel' | translate }}">
+                  <ion-select-option *ngFor="let item of productive_guideline" value="{{item.id}}">{{item.nombre}}</ion-select-option>
+                </ion-select>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+          <!--Linea de confinanciación-->
+          <ion-row>
+            <ion-col>
+              <ion-item>
+                <ion-label position="stacked"><b>{{ "organization.financing_line" | translate }}</b><ion-text color="danger" >*</ion-text></ion-label>
+                <ion-select [(ngModel)]="id_financing_line" okText="{{ 'general.select' | translate }}" cancelText="{{ 'general.cancel' | translate }}">
+                  <ion-select-option *ngFor="let item of financing_line" value="{{item.id}}">{{item.nombre}}</ion-select-option>
+                </ion-select>
+              </ion-item>
+            </ion-col>
+          </ion-row>                    
+          <!--Tipo de proyecto-->
+          <ion-row>
+            <ion-col>
+              <ion-item>
+                <ion-label position="stacked"><b>{{ "organization.proyect_type" | translate }}</b><ion-text color="danger" >*</ion-text></ion-label>
+                <ion-select [(ngModel)]="id_proyect_type" okText="{{ 'general.select' | translate }}" cancelText="{{ 'general.cancel' | translate }}">
+                  <ion-select-option *ngFor="let item of proyect_type" value="{{item.id}}">{{item.nombre}}</ion-select-option>
+                </ion-select>
               </ion-item>
             </ion-col>
           </ion-row>

@@ -293,7 +293,8 @@ export class FarmPage implements OnInit {
         if(this.attached_organization == 'true' && this.id_organization.id == 0){
           this.navCtrl.navigateForward('/organization');
         }else{
-          this.navCtrl.navigateForward('/inquest');
+          //this.navCtrl.navigateForward('/inquest');
+          this.navCtrl.navigateForward('/organization-profile');
         }
       } else {
         this.toast.presentToast(data.error, "error-toast", 3000);

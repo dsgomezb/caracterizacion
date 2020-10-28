@@ -24,6 +24,10 @@ const routes: Routes = [
   {
     path: 'inquest',
     loadChildren: () => import('./pages/inquest/inquest.module').then( m => m.InquestPageModule)
+  },
+  {
+    path: 'organization-profile',
+    loadChildren: () => import('./pages/organization-profile/organization-profile.module').then( m => m.OrganizationProfilePageModule)
   }
 
 ];
