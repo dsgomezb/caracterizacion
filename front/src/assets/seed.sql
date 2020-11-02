@@ -27,3 +27,16 @@ CREATE TABLE IF NOT EXISTS finca(
   id_organizacion integer,
   adscrita_organizacion boolean
 );
+
+CREATE TABLE municipio
+(
+  id serial NOT NULL,
+  id_departamento_dane character varying(7) NOT NULL,
+  id_municipio_dane character varying(10) NOT NULL,
+  nombre_departamento character varying(50) NOT NULL,
+  nombre_municipio character varying(60),
+  CONSTRAINT municipio_pkey PRIMARY KEY (id)
+);
+
+INSERT INTO municipio (id_departamento_dane, id_municipio_dane, nombre_departamento, nombre_municipio) VALUES 
+("5","5001","Antioquia","Medellín"), ("5","5002","Antioquia","Abejorral");

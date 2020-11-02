@@ -7,7 +7,7 @@ const helpers = require('../lib/helpers');
 
 //Api para obtener los departamentos
 router.post('/api/get_departamentos', async (req, res) => {
-    let departamentos = await pool.query("SELECT DISTINCT  id_departamento_dane, nombre_departamento FROM municipio order by nombre_departamento");
+    let departamentos = await pool.query("SELECT DISTINCT id_departamento_dane, nombre_departamento FROM municipio order by nombre_departamento");
     if (departamentos.rows.length > 0) {
         data = {
             "code": "0",

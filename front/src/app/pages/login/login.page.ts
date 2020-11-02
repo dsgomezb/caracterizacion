@@ -55,7 +55,9 @@ export class LoginPage implements OnInit {
     localStorage.clear();
     this.networkService.getNetworkStatus().subscribe((connected: boolean) => {
       this.isConnected = connected;
+      console.log(this.isConnected);
       if (!this.isConnected) {
+        console.log("NO conectado");
         this.db.getDatabaseState().subscribe(rdy => {
           if (rdy) {
             console.log("lista");
@@ -68,7 +70,18 @@ export class LoginPage implements OnInit {
   }
 
   ionViewWillEnter(){
-    this.getDepartment();
+    this.networkService.getNetworkStatus().subscribe((connected: boolean) => {
+      this.isConnected = connected;
+      if (!this.isConnected) {
+        this.db.getDatabaseState().subscribe(rdy => {
+          if (rdy) {
+            console.log("lista");
+          }
+        });
+      }else{
+        this.getDepartment();
+      }
+    });
   }
   
   //Obtener los departamentos

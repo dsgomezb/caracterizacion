@@ -64,4 +64,10 @@ export class DatabaseService {
     });
   }
 
+  getDepartments() {
+    return this.database.executeSql('SELECT * FROM SELECT DISTINCT id_departamento_dane, nombre_departamento FROM municipio order by nombre_departamento').then(data => {
+      return data;
+    });
+  }
+
 }
