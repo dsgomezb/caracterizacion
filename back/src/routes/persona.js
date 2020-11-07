@@ -190,7 +190,7 @@ router.post('/api/save_persona', async (req, res) => {
                 fs.mkdirSync(path, 0777);
             }
             let file = path+"/"+ultimoIdPersona+'.'+extension_documento;
-            let name_file = 'http://31.220.56.195:3000/fincas/'+id_finca+"/"+ultimoIdPersona+'.'+extension_documento;
+            let name_file = 'http://181.129.226.226:3000/fincas/'+id_finca+"/"+ultimoIdPersona+'.'+extension_documento;
             fs.writeFile(file, base64String, {encoding: 'base64'}, async function(err) {
                 if (err) {
                     console.log("Error al crear la imagen");
