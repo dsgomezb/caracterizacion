@@ -5,7 +5,7 @@ import { Platform } from '@ionic/angular';
 import { Observable, fromEvent, merge, of, BehaviorSubject } from 'rxjs';
 import { mapTo } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
-
+import { ToastService  } from './toaster/toast.service';
 
 @Injectable({
     providedIn: 'root'
@@ -18,17 +18,19 @@ export class NetworkService {
     constructor(
         private network: Network,
         private platform: Platform,
-        private http: HttpClient) {
+        private http: HttpClient,
+        private toast: ToastService
+    ) {
 
         if (this.platform.is('cordova')) {
             // on Device
             this.network.onConnect().subscribe(() => {
-                console.log('Conectado Dispositivo');
+                this.toast.presentToast("Dispositivo Conectado Internet", "info-toast", 3000);
                 this.hasConnection.next(true);
                 return;
             });
             this.network.onDisconnect().subscribe(() => {
-                console.log('No conectado Dispositivo');
+                this.toast.presentToast("Dispositivo no cuenta con acceso a Internet", "error-toast", 3000);
                 this.hasConnection.next(false);
                 return;
             });
@@ -45,7 +47,6 @@ export class NetworkService {
                     this.hasConnection.next(true);
                 } else {
                     this.hasConnection.next(false);
-                    console.log(isOnline);
                   }
               });
         }
@@ -68,11 +69,9 @@ export class NetworkService {
         try {
             this.getNetworkTestRequest().subscribe(
             success => {
-                // console.log('Request to Google Test  success', success);
                     this.hasConnection.next(true);
                 return;
             }, error => {
-                // console.log('Request to Google Test fails', error);
                 this.hasConnection.next(false);
                 return;
             });
