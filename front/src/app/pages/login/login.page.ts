@@ -53,11 +53,17 @@ export class LoginPage implements OnInit {
 
   ngOnInit() {
     localStorage.clear();
+    this.documento_tecnico = '';
+    this.farm_name = '';
+    this.sideWalk = '';
+    this.city = '';
+    this.department = '';
+
     this.networkService.getNetworkStatus().subscribe((connected: boolean) => {
       this.isConnected = connected;
       console.log(this.isConnected);
       if (!this.isConnected) {
-        console.log("NO conectado");
+        console.log("No conectado");
         this.db.getDatabaseState().subscribe(rdy => {
           if (rdy) {
             console.log("lista");

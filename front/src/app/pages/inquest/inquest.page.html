@@ -7,6 +7,14 @@
 <ion-content [fullscreen]="true">
   <div>
     <ion-grid *ngIf="inquestData">
+      <!--Id de la finca-->
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label color="success">{{ "farm.id" | translate }}: </ion-label><ion-label *ngIf="id_finca"><b> {{ id_finca }}</b></ion-label>
+          </ion-item>
+        </ion-col>
+      </ion-row>
       <!--Encuesta Dinámica-->
       <div *ngFor="let items of inquestData">
         <ion-row *ngIf="items.preguntas.length > 0">
@@ -39,7 +47,7 @@
             </ion-item>
             <ion-item *ngIf="items2.tipo_pregunta == 3">
               <ion-label position="floating" class="show small content">{{ items2.pregunta }}</ion-label>
-              <ion-input type="text" (ionChange)="setValue(items2.id_pregunta, $event)" ></ion-input>
+              <ion-input type="text" (ionChange)="setValue(items2.id_pregunta, $event)" class="mayus"></ion-input>
             </ion-item>
             <ion-item *ngIf="items2.tipo_pregunta == 4">
               <ion-label position="floating" class="show small">{{ items2.pregunta }}</ion-label>

@@ -6,14 +6,12 @@ import { ToastService } from 'src/app/services/toaster/toast.service';
   providedIn: 'root'
 })
 export class GlobalVariablesService {
-  nameUser: any;
-  typeUser: any;
-  items: any;
-  userAndPet: any;
-  petsAssignment: boolean = true;
+  idFarm: any;
   constructor(
     public request: RequestService, 
     private toast: ToastService
-  ) { }
+  ) {
+    this.idFarm = localStorage.getItem('farmId');
+   }
 
 }

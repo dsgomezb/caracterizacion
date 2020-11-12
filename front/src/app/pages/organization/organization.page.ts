@@ -41,7 +41,7 @@ export class OrganizationPage implements OnInit {
   id_productive_guideline: any;
   id_financing_line: any;
   id_proyect_type: any;
-
+  id_finca: any;
   constructor(
     public navCtrl: NavController,
     public request: RequestService,
@@ -50,17 +50,18 @@ export class OrganizationPage implements OnInit {
     private platform: Platform,
     private router: Router,
     public modalCtrl: ModalController
-  ) { }
+  ) {
+    this.id_finca = localStorage.getItem('farmId');
+   }
 
   ngOnInit() {
-  }
-
-  ionViewWillEnter(){
     this.getCharacterization();
     this.getProductiveGuideline();
     this.getFinancingLine();
     this.getProyectType();
+  }
 
+  ionViewWillEnter(){
   }
 
   getProductiveGuideline(){
@@ -116,7 +117,7 @@ export class OrganizationPage implements OnInit {
     }
   }
 
-  //Metodo para almacenar información de la encuensta de la organizacion
+  //Metodo para almacenar información de la encuesta de la organizacion
   saveOrganizationQuiz(){
     let data = {
       nombre: this.name,

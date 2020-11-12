@@ -10,13 +10,17 @@
       <ion-card>
         <ion-card-content>
           <ion-grid>
+          <!--Id de la finca-->
+          <ion-row>
+            <ion-label color="success">{{ "farm.id" | translate }}: </ion-label><ion-label *ngIf="id_finca"><b> {{ id_finca }}</b></ion-label>
+          </ion-row>
             <!--Caracterizacion poblacional-->
             <ion-row>
               <ion-col>
                 <ion-list>
                   <ion-radio-group [(ngModel)]="characterization">
                     <ion-list-header>
-                      <ion-label><b>{{ "init.characterization" | translate }}</b></ion-label>
+                      <ion-label><b>{{ "init.characterization" | translate }}</b><ion-text color="danger" >*</ion-text></ion-label>
                     </ion-list-header>            
                     <ion-item>
                       <ion-label>{{ "init.owner" | translate }}</ion-label>
@@ -58,7 +62,7 @@
               <ion-col>
                 <!--Tiempo lleva en finca-->
                 <ion-item>
-                  <ion-label position="floating">{{ "init.time_in_farm" | translate }}<ion-text color="danger" >*</ion-text></ion-label>
+                  <ion-label position="floating">{{ "init.time_in_farm" | translate }}</ion-label>
                   <ion-input [(ngModel)]="time_in_farm" type="number" ></ion-input>
                 </ion-item>
               </ion-col>
@@ -79,42 +83,42 @@
                 <!--Documento-->
                 <ion-item>
                   <ion-label position="floating">{{ "init.dni" | translate }}<ion-text color="danger" >*</ion-text></ion-label>
-                  <ion-input [(ngModel)]="dni" type="text" ></ion-input>
+                  <ion-input [(ngModel)]="dni" type="number" ></ion-input>
                 </ion-item>
                 <!--Nombres-->
                 <ion-item>
                   <ion-label position="floating">{{ "init.names" | translate }}<ion-text color="danger" >*</ion-text></ion-label>
-                  <ion-input [(ngModel)]="names" type="text" ></ion-input>
+                  <ion-input [(ngModel)]="names" type="text" class="mayus"></ion-input>
                 </ion-item>
                 <!--Apellidos-->
                 <ion-item>
-                  <ion-label position="floating">{{ "init.lastnames" | translate }}<ion-text color="danger" >*</ion-text></ion-label>
-                  <ion-input [(ngModel)]="lastnames" type="text" ></ion-input>
+                  <ion-label position="floating">{{ "init.lastnames" | translate }}</ion-label>
+                  <ion-input [(ngModel)]="lastnames" type="text" class="mayus"></ion-input>
                 </ion-item>
 
                 <!--Direccion-->
                 <ion-item>
-                  <ion-label position="floating">{{ "init.address" | translate }}<ion-text color="danger" >*</ion-text></ion-label>
-                  <ion-input [(ngModel)]="address" type="text" ></ion-input>
+                  <ion-label position="floating">{{ "init.address" | translate }}</ion-label>
+                  <ion-input [(ngModel)]="address" type="text" class="mayus"></ion-input>
                 </ion-item>
                 <!--Barrio-->
                 <ion-item>
-                  <ion-label position="floating">{{ "init.neighborhood" | translate }}<ion-text color="danger" >*</ion-text></ion-label>
-                  <ion-input [(ngModel)]="neighborhood" type="text" ></ion-input>
+                  <ion-label position="floating">{{ "init.neighborhood" | translate }}</ion-label>
+                  <ion-input [(ngModel)]="neighborhood" type="text" class="mayus"></ion-input>
                 </ion-item>
                 <!--Telefono-->
                 <ion-item>
-                  <ion-label position="floating">{{ "init.phone" | translate }}<ion-text color="danger" >*</ion-text></ion-label>
-                  <ion-input [(ngModel)]="phone" type="text" ></ion-input>
+                  <ion-label position="floating">{{ "init.phone" | translate }}</ion-label>
+                  <ion-input [(ngModel)]="phone" type="number" ></ion-input>
                 </ion-item>
                 <!--Email-->
                 <ion-item>
-                  <ion-label position="floating">{{ "init.email" | translate }}<ion-text color="danger" >*</ion-text></ion-label>
-                  <ion-input [(ngModel)]="email" type="text" ></ion-input>
+                  <ion-label position="floating">{{ "init.email" | translate }}</ion-label>
+                  <ion-input [(ngModel)]="email" type="text" class="mayus"></ion-input>
                 </ion-item>
                 <!--Fecha Nacimiento-->
                 <ion-item>
-                  <ion-label position="floating">{{ "init.birth_date" | translate }}<ion-text color="danger" >*</ion-text></ion-label>
+                  <ion-label position="floating">{{ "init.birth_date" | translate }}</ion-label>
                   <ion-datetime [(ngModel)]="birth_date" value="1990-02-19" doneText="{{ 'general.select' | translate }}" cancelText="{{ 'general.cancel' | translate }}"></ion-datetime>
                 </ion-item>
               </ion-col>
@@ -178,7 +182,7 @@
             <ion-row>
               <ion-col>
                 <ion-item>
-                  <ion-label position="stacked"><b>{{ "init.civil_status" | translate }}</b><ion-text color="danger" >*</ion-text></ion-label>
+                  <ion-label position="stacked"><b>{{ "init.civil_status" | translate }}</b></ion-label>
                   <ion-select [(ngModel)]="civil_status" okText="{{ 'general.select' | translate }}" cancelText="{{ 'general.cancel' | translate }}">
                     <ion-select-option *ngFor="let item of civilStatus" value="{{item.id}}">{{item.nombre}}</ion-select-option>
                   </ion-select>
@@ -189,7 +193,7 @@
             <ion-row>
               <ion-col>
                 <ion-item>
-                  <ion-label position="floating">{{ "init.peopleBurden" | translate }}<ion-text color="danger" >*</ion-text></ion-label>
+                  <ion-label position="floating">{{ "init.peopleBurden" | translate }}</ion-label>
                   <ion-input [(ngModel)]="peopleBurden" type="number" ></ion-input>
                 </ion-item>
               </ion-col>
@@ -198,7 +202,7 @@
             <ion-row>
               <ion-col>
                 <ion-item>
-                  <ion-label position="stacked"><b>{{ "init.school_level" | translate }}</b><ion-text color="danger" >*</ion-text></ion-label>
+                  <ion-label position="stacked"><b>{{ "init.school_level" | translate }}</b></ion-label>
                   <ion-select [(ngModel)]="school_level" okText="{{ 'general.select' | translate }}" cancelText="{{ 'general.cancel' | translate }}">
                     <ion-select-option *ngFor="let item of schoolLevel" value="{{item.id}}">{{item.nombre}}</ion-select-option>
                   </ion-select>
@@ -209,7 +213,7 @@
             <ion-row>
               <ion-col>
                 <ion-item>
-                  <ion-label position="stacked"><b>{{ "init.population_type" | translate }}</b><ion-text color="danger" >*</ion-text></ion-label>
+                  <ion-label position="stacked"><b>{{ "init.population_type" | translate }}</b></ion-label>
                   <ion-select [(ngModel)]="population_type" okText="{{ 'general.select' | translate }}" cancelText="{{ 'general.cancel' | translate }}">
                     <ion-select-option *ngFor="let item of populationType" value="{{item.id}}">{{item.nombre}}</ion-select-option>
                   </ion-select>
@@ -220,7 +224,7 @@
             <ion-row>
               <ion-col>
                 <ion-item>
-                  <ion-label position="stacked"><b>{{ "init.occupation" | translate }}</b><ion-text color="danger" >*</ion-text></ion-label>
+                  <ion-label position="stacked"><b>{{ "init.occupation" | translate }}</b></ion-label>
                   <ion-select [(ngModel)]="occupation" okText="{{ 'general.select' | translate }}" cancelText="{{ 'general.cancel' | translate }}">
                     <ion-select-option *ngFor="let item of occupations" value="{{item.id}}">{{item.nombre}}</ion-select-option>
                   </ion-select>
@@ -231,7 +235,7 @@
             <ion-row>
               <ion-col>
                 <ion-item>
-                  <ion-label position="stacked"><b>{{ "init.type_affiliation" | translate }}</b><ion-text color="danger" >*</ion-text></ion-label>
+                  <ion-label position="stacked"><b>{{ "init.type_affiliation" | translate }}</b></ion-label>
                   <ion-select [(ngModel)]="type_affiliation" okText="{{ 'general.select' | translate }}" cancelText="{{ 'general.cancel' | translate }}">
                     <ion-select-option *ngFor="let item of typeAffiliation" value="{{item.id}}">{{item.nombre}}</ion-select-option>
                   </ion-select>
@@ -242,7 +246,7 @@
             <ion-row>
               <ion-col>
                 <ion-item>
-                  <ion-label position="stacked"><b>{{ "init.ethnic_group" | translate }}</b><ion-text color="danger" >*</ion-text></ion-label>
+                  <ion-label position="stacked"><b>{{ "init.ethnic_group" | translate }}</b></ion-label>
                   <ion-select [(ngModel)]="ethnic_group" okText="{{ 'general.select' | translate }}" cancelText="{{ 'general.cancel' | translate }}">
                     <ion-select-option *ngFor="let item of ethnicGroup" value="{{item.id}}">{{item.nombre}}</ion-select-option>
                   </ion-select>

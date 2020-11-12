@@ -12,7 +12,7 @@
         <ion-col>
           <ion-item>
             <ion-label position="fixed">Latitud</ion-label>
-            <ion-input type="number" formControlName="latitude" autocomplete="off" required></ion-input>
+            <ion-input type="number" formControlName="latitude" autocomplete="off" required placeholder="5.0701691"></ion-input>
             <ion-icon slot="end" style="z-index: 99" name="alert"
               *ngIf="registerLocation.get('latitude').hasError('required') && registerLocation.get('latitude').touched"
               color="light" (click)="presentToast('Este campo es requerido')">
@@ -24,7 +24,7 @@
         <ion-col>
           <ion-item>
             <ion-label position="fixed">Longitud</ion-label>
-            <ion-input type="number" formControlName="longitude" autocomplete="off" required></ion-input>
+            <ion-input type="number" formControlName="longitude" autocomplete="off" required placeholder="-75.53201829999999"></ion-input>
             <ion-icon slot="end" style="z-index: 99" name="alert"
               *ngIf="registerLocation.get('longitude').hasError('required') && registerLocation.get('longitude').touched"
               color="light" (click)="presentToast('Este campo es requerido')">

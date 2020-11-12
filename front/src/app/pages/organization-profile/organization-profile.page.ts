@@ -30,10 +30,10 @@ export class OrganizationProfilePage implements OnInit {
   }
 
   ngOnInit() {
+    this.getInquest();
   }
 
   ionViewWillEnter(){
-    this.getInquest();
   }
 
     //Obtener preguntas y respuestas dinamicas para formulario de encuesta

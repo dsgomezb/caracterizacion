@@ -11,6 +11,7 @@ import { FileChooser } from '@ionic-native/file-chooser/ngx';
 import { FilePath } from '@ionic-native/file-path/ngx';
 import { Base64 } from '@ionic-native/base64/ngx';
 import { Plugins, CameraResultType, CameraSource, Filesystem, FilesystemDirectory, FilesystemEncoding } from '@capacitor/core';
+import { iif } from 'rxjs';
 
 @Component({
   selector: 'app-inicio',
@@ -57,7 +58,8 @@ export class InicioPage implements OnInit {
   ethnic_group: any;
   foto: any;
   extension_documento: any;
-  
+  id_finca: any;
+
   constructor(
     public navCtrl: NavController,
     public request: RequestService,
@@ -70,13 +72,12 @@ export class InicioPage implements OnInit {
     public fileChooser: FileChooser,
     public filePath: FilePath,
     public base64: Base64
-  ) { }
+  ) {
+    this.id_finca = localStorage.getItem('farmId');
+   }
 
   ngOnInit() {
     this.getDepartment();
-  }
-
-  ionViewWillEnter(){
     this.getCivilStatus();
     this.getSchoolLevel();
     this.getPopulationType();
@@ -86,6 +87,10 @@ export class InicioPage implements OnInit {
     this.getOccupation();
     this.getTypeAffiliation();
     this.getEthnicGroup();
+  }
+
+  ionViewWillEnter(){
+
   }
 
   //Obtener la caracterización poblacional
@@ -215,7 +220,7 @@ export class InicioPage implements OnInit {
   //Funcion para validar formulario de caracterizacion
   validateFormInit(){
     if(this.characterization == undefined){
-      this.toast.presentToast('La caracterización Poblacional es requerida', 'error-toast', 3000);
+      this.toast.presentToast('La Caracterización Poblacional es requerida', 'error-toast', 3000);
     }else if(this.document_type == undefined){
       this.toast.presentToast('El tipo de documento es requerido', 'error-toast', 3000);
     }else if(this.dni == undefined){
@@ -270,13 +275,22 @@ export class InicioPage implements OnInit {
   }
 
   async takePhoto(){
-    const image = await Plugins.Camera.getPhoto({
+    await Plugins.Camera.getPhoto({
       quality: 60,
       allowEditing: false,
       resultType: CameraResultType.Base64,
       promptLabelHeader: "Imagen"
+    }).then(res=>{
+      if(res){
+        this.foto = res.base64String;
+        this.extension_documento = res.format;
+        this.toast.presentToast("Imagen almacenada correctamente", "success-toast", 3000);
+      }
+    }).catch(err=>{
+      if(err){
+        this.toast.presentToast("Error al guardar la imagen", "error-toast", 3000);
+      }
     });
-    this.foto = image.base64String;
-    this.extension_documento = image.format;
+
   }
 }

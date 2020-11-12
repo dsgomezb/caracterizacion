@@ -15,6 +15,7 @@
     },
     "farm": {
         "name": "Nombre de la finca",
+        "id": "Identificador Finca",
         "title": "Encuesta Finca",
         "via_type": "Tipo de Via",
         "via_status": "Estado via",
@@ -40,7 +41,8 @@
         "products_activities": "Actividades productivas",
         "documento_tecnico": "Documento del Técnico",
         "attached_organization": "La finca se encuentra adscrita a alguna Organización",
-        "id_organization": "Organización"
+        "id_organization": "Organización",
+        "otherOperator": "Especifique el operador"
     },
     "button": {
         "get": "OBTENER",
@@ -56,7 +58,7 @@
         "owner": "Propietario",
         "butler":"Mayordomo",
         "names": "Nombres",
-        "lastnames": "Apeliidos",
+        "lastnames": "Apellidos",
         "dni": "Número de Documento",
         "gender": "Género",
         "male": "Masculino",
@@ -73,7 +75,7 @@
         "phone": "Teléfono",
         "email": "Correo electrónico",
         "birth_date": "Fecha de Nacimiento",
-        "time_in_farm": "Tiempo en finca N° meses",
+        "time_in_farm": "Tiempo en finca N° Años",
         "city_origin": "Ciudad de Origen",
         "department_origin": "Departamento de Origen",
         "document_picture": "Foto del Documento",

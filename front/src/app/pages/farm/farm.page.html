@@ -29,7 +29,7 @@
           <ion-row>
             <ion-col>
               <ion-item>
-                <ion-label position="stacked"><b>{{ "farm.via_status" | translate }}</b><ion-text color="danger" >*</ion-text></ion-label>
+                <ion-label position="stacked"><b>{{ "farm.via_status" | translate }}</b></ion-label>
                 <ion-select [(ngModel)]="via_status" okText="{{ 'general.select' | translate }}" cancelText="{{ 'general.cancel' | translate }}">
                   <ion-select-option *ngFor="let item of statusVia" value="{{item.id}}">{{item.nombre}}</ion-select-option>
                 </ion-select>
@@ -40,7 +40,7 @@
           <ion-row>
             <ion-col>
               <ion-item>
-                <ion-label position="stacked"><b>{{ "farm.gas" | translate }}</b><ion-text color="danger" >*</ion-text></ion-label>
+                <ion-label position="stacked"><b>{{ "farm.gas" | translate }}</b></ion-label>
                 <ion-select [(ngModel)]="gas" okText="{{ 'general.select' | translate }}" cancelText="{{ 'general.cancel' | translate }}">
                   <ion-select-option *ngFor="let item of gasTypes" value="{{item.id}}">{{item.nombre}}</ion-select-option>
                 </ion-select>
@@ -51,18 +51,18 @@
             <ion-col>
               <!--Latitud-->
               <ion-item>
-                <ion-label position="floating">{{ "farm.latitude" | translate }}<ion-text color="danger" >*</ion-text></ion-label>
-                <ion-input [(ngModel)]="latitude" type="text" value="{{ initial_latitude }}" ></ion-input>
+                <ion-label position="floating">{{ "farm.latitude" | translate }}</ion-label>
+                <ion-input [(ngModel)]="latitude" type="number" value="{{ initial_latitude }}" placeholder="5.0701691"></ion-input>
               </ion-item>
               <!--Longitud-->
               <ion-item>
-                <ion-label position="floating">{{ "farm.longitude" | translate }}<ion-text color="danger" >*</ion-text></ion-label>
-                <ion-input [(ngModel)]="longitude" type="text" value="{{ initial_longitude }}" ></ion-input>
+                <ion-label position="floating">{{ "farm.longitude" | translate }}</ion-label>
+                <ion-input [(ngModel)]="longitude" type="number" value="{{ initial_longitude }}" placeholder="-75.53201829999999"></ion-input>
               </ion-item>
               <!--Altitud-->
               <ion-item>
-                <ion-label position="floating">{{ "farm.altitude" | translate }}<ion-text color="danger" >*</ion-text></ion-label>
-                <ion-input [(ngModel)]="altitude" type="text" ></ion-input>
+                <ion-label position="floating">{{ "farm.altitude" | translate }}</ion-label>
+                <ion-input [(ngModel)]="altitude" type="number" placeholder="5.321"></ion-input>
               </ion-item>
             </ion-col>
           </ion-row>
@@ -90,8 +90,8 @@
             <ion-col>
               <!--Area total de hectareas-->
               <ion-item>
-                <ion-label position="floating">{{ "farm.total_hectares" | translate }}<ion-text color="danger" >*</ion-text></ion-label>
-                <ion-input [(ngModel)]="total_hectares" type="text" ></ion-input>
+                <ion-label position="floating">{{ "farm.total_hectares" | translate }}</ion-label>
+                <ion-input [(ngModel)]="total_hectares" type="number" ></ion-input>
               </ion-item>
             </ion-col>
           </ion-row>
@@ -119,8 +119,8 @@
             <ion-col>
               <!--Distancia a cabecera municipal-->
               <ion-item>
-                <ion-label position="floating">{{ "farm.municipal_head_distance" | translate }}<ion-text color="danger" >*</ion-text></ion-label>
-                <ion-input [(ngModel)]="municipal_head_distance" type="text" ></ion-input>
+                <ion-label position="floating">{{ "farm.municipal_head_distance" | translate }}</ion-label>
+                <ion-input [(ngModel)]="municipal_head_distance" type="text" class="mayus"></ion-input>
               </ion-item>
             </ion-col>
           </ion-row>
@@ -128,7 +128,7 @@
           <ion-row>
             <ion-col>
               <ion-item>
-                <ion-label position="stacked"><b>{{ "farm.water" | translate }}</b><ion-text color="danger" >*</ion-text></ion-label>
+                <ion-label position="stacked"><b>{{ "farm.water" | translate }}</b></ion-label>
                 <ion-select [(ngModel)]="water_type" okText="{{ 'general.select' | translate }}" cancelText="{{ 'general.cancel' | translate }}">
                   <ion-select-option *ngFor="let item of waterTypes" value="{{item.id}}">{{item.nombre}}</ion-select-option>
                 </ion-select>
@@ -245,33 +245,44 @@
                   </ion-list-header>            
                   <ion-item>
                     <ion-label>{{ "general.yes" | translate }}</ion-label>
-                    <ion-radio slot="start" value="true"></ion-radio>
+                    <ion-radio slot="start" value="true" (click)="showInputOperator(true)"></ion-radio>
                   </ion-item>            
                   <ion-item>
                     <ion-label>{{ "general.not" | translate }}</ion-label>
-                    <ion-radio slot="start" value="false"></ion-radio>
+                    <ion-radio slot="start" value="false" (click)="showInputOperator(false)"></ion-radio>
                   </ion-item>
                 </ion-radio-group>
               </ion-list>
             </ion-col>
           </ion-row>
           <!--Tipo de Operador de television-->
-          <ion-row>
+          <ion-row *ngIf="show_input_operator">
             <ion-col>
               <ion-item>
-                <ion-label position="stacked"><b>{{ "farm.operator_tv_type" | translate }}</b><ion-text color="danger" >*</ion-text></ion-label>
-                <ion-select [(ngModel)]="operator_tv_type" okText="{{ 'general.select' | translate }}" cancelText="{{ 'general.cancel' | translate }}">
+                <ion-label position="stacked"><b>{{ "farm.operator_tv_type" | translate }}</b></ion-label>
+                <ion-select (ionChange)="otherValue($event)" [(ngModel)]="operator_tv_type" okText="{{ 'general.select' | translate }}" cancelText="{{ 'general.cancel' | translate }}">
                   <ion-select-option *ngFor="let item of OperatorTvType" value="{{item.id}}">{{item.nombre}}</ion-select-option>
                 </ion-select>
               </ion-item>
             </ion-col>
           </ion-row>
+
+          <!--Especifique el otro operador-->
+          <ion-row *ngIf="show_other_operator">
+            <ion-col>
+              <ion-item>
+                <ion-label position="floating">{{ "farm.otherOperator" | translate }}</ion-label>
+                <ion-input [(ngModel)]="other_operator" type="text" class="mayus" ></ion-input>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+
+          <!--Infraestructura productiva-->
           <ion-row>
             <ion-col>
-              <!--Infraestructura productiva-->
               <ion-item>
-                <ion-label position="floating">{{ "farm.productive_infrastructure" | translate }}<ion-text color="danger" >*</ion-text></ion-label>
-                <ion-input [(ngModel)]="productive_infrastructure" type="text" ></ion-input>
+                <ion-label position="floating">{{ "farm.productive_infrastructure" | translate }}</ion-label>
+                <ion-input [(ngModel)]="productive_infrastructure" type="text" class="mayus" ></ion-input>
               </ion-item>
             </ion-col>
           </ion-row>
@@ -279,7 +290,7 @@
           <ion-row>
             <ion-col>
               <ion-item>
-                <ion-label position="stacked"><b>{{ "farm.earth_trend" | translate }}</b><ion-text color="danger" >*</ion-text></ion-label>
+                <ion-label position="stacked"><b>{{ "farm.earth_trend" | translate }}</b></ion-label>
                 <ion-select [(ngModel)]="earth_trend" okText="{{ 'general.select' | translate }}" cancelText="{{ 'general.cancel' | translate }}">
                   <ion-select-option *ngFor="let item of earthTrend" value="{{item.id}}">{{item.nombre}}</ion-select-option>
                 </ion-select>
@@ -290,7 +301,7 @@
           <ion-row>
             <ion-col class="d-flex">
               <ion-item>
-                <ion-label position="stacked">{{ "farm.public_service" | translate }}<ion-text color="danger" >*</ion-text></ion-label>
+                <ion-label position="stacked">{{ "farm.public_service" | translate }}</ion-label>
                 <ionic-selectable
                   [(ngModel)]="public_service"
                   [items]="publicService"
@@ -309,7 +320,7 @@
           <ion-row>
             <ion-col class="d-flex">
               <ion-item>
-                <ion-label position="stacked">{{ "farm.products_activities" | translate }}<ion-text color="danger" >*</ion-text></ion-label>
+                <ion-label position="stacked">{{ "farm.products_activities" | translate }}</ion-label>
                 <ionic-selectable
                   [(ngModel)]="products_activities"
                   [items]="productsActivities"
@@ -330,7 +341,7 @@
               <ion-list>
                 <ion-radio-group [(ngModel)]="attached_organization">
                   <ion-list-header>
-                    <ion-label><b>{{ "farm.attached_organization" | translate }}</b></ion-label>
+                    <ion-label><b>{{ "farm.attached_organization" | translate }}</b><ion-text color="danger" >*</ion-text></ion-label>
                   </ion-list-header>            
                   <ion-item>
                     <ion-label>{{ "general.yes" | translate }}</ion-label>

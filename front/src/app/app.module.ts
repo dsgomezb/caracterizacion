@@ -21,6 +21,7 @@ import { FileChooser } from '@ionic-native/file-chooser/ngx';
 import { Network } from '@ionic-native/network/ngx';
 import { SQLitePorter } from '@ionic-native/sqlite-porter/ngx';
 import { SQLite } from '@ionic-native/sqlite/ngx';
+import { GuardiaGuard } from './guardia.guard';
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -44,7 +45,10 @@ export function createTranslateLoader(http: HttpClient) {
       }
     }),
     HttpClientModule,
-    IonicSelectableModule
+    IonicSelectableModule,
+    IonicModule.forRoot({
+      hardwareBackButton: false
+    }),
   ],
   providers: [
     StatusBar,
@@ -57,7 +61,8 @@ export function createTranslateLoader(http: HttpClient) {
     FileChooser,
     Network,
     SQLite,
-    SQLitePorter
+    SQLitePorter,
+    GuardiaGuard
   ],
   bootstrap: [AppComponent]
 })

@@ -10,18 +10,22 @@
     <ion-card>
       <ion-card-content>
         <ion-grid>
+          <!--Id de la finca-->
+          <ion-row>
+            <ion-label color="success">{{ "farm.id" | translate }}: </ion-label><ion-label *ngIf="id_finca"><b> {{ id_finca }}</b></ion-label>
+          </ion-row>
           <!--Caracterizacion poblacional-->
           <ion-row>
             <ion-col>
               <!--Nombre organizacion-->
               <ion-item>
                 <ion-label position="floating">{{ "organization.name" | translate }}<ion-text color="danger" >*</ion-text></ion-label>
-                <ion-input [(ngModel)]="name" type="text" ></ion-input>
+                <ion-input [(ngModel)]="name" type="text" class="mayus"></ion-input>
               </ion-item>
               <!--Nit organizacion-->
               <ion-item>
-                <ion-label position="floating">{{ "organization.nit" | translate }}<ion-text color="danger" >*</ion-text></ion-label>
-                <ion-input [(ngModel)]="nit" type="text" ></ion-input>
+                <ion-label position="floating">{{ "organization.nit" | translate }}</ion-label>
+                <ion-input [(ngModel)]="nit" type="text" class="mayus"></ion-input>
               </ion-item>
             </ion-col>
           </ion-row>
@@ -29,7 +33,7 @@
           <ion-row>
             <ion-col>
               <ion-item>
-                <ion-label position="stacked"><b>{{ "organization.organization_type" | translate }}</b><ion-text color="danger" >*</ion-text></ion-label>
+                <ion-label position="stacked"><b>{{ "organization.organization_type" | translate }}</b></ion-label>
                 <ion-select [(ngModel)]="organization_type" okText="{{ 'general.select' | translate }}" cancelText="{{ 'general.cancel' | translate }}">
                   <ion-select-option *ngFor="let item of organization_types" value="{{item.id}}">{{item.nombre}}</ion-select-option>
                 </ion-select>
@@ -41,48 +45,48 @@
             <ion-col>
               <!--Fecha Constitucion-->
               <ion-item>
-                <ion-label position="floating">{{ "organization.constitution_date" | translate }}<ion-text color="danger" >*</ion-text></ion-label>
+                <ion-label position="floating">{{ "organization.constitution_date" | translate }}</ion-label>
                 <ion-datetime [(ngModel)]="constitution_date" value="1990-02-19" doneText="{{ 'general.select' | translate }}" cancelText="{{ 'general.cancel' | translate }}"></ion-datetime>
               </ion-item>
               <!--Objeto de organizacion-->
               <ion-item>
-                <ion-label position="floating">{{ "organization.object" | translate }}<ion-text color="danger" >*</ion-text></ion-label>
-                <ion-input [(ngModel)]="object" type="text" ></ion-input>
+                <ion-label position="floating">{{ "organization.object" | translate }}</ion-label>
+                <ion-input [(ngModel)]="object" type="text" class="mayus"></ion-input>
               </ion-item>
               <!--Dirección de organizacion-->
               <ion-item>
-                <ion-label position="floating">{{ "organization.address" | translate }}<ion-text color="danger" >*</ion-text></ion-label>
-                <ion-input [(ngModel)]="address" type="text" ></ion-input>
+                <ion-label position="floating">{{ "organization.address" | translate }}</ion-label>
+                <ion-input [(ngModel)]="address" type="text" class="mayus"></ion-input>
               </ion-item>
               <!--Telefono de organizacion-->
               <ion-item>
-                <ion-label position="floating">{{ "organization.phone" | translate }}<ion-text color="danger" >*</ion-text></ion-label>
+                <ion-label position="floating">{{ "organization.phone" | translate }}</ion-label>
                 <ion-input [(ngModel)]="phone" type="number" ></ion-input>
               </ion-item>
               <!--Email de organizacion-->
               <ion-item>
                 <ion-label position="floating">{{ "organization.email" | translate }}</ion-label>
-                <ion-input [(ngModel)]="email" type="text" ></ion-input>
+                <ion-input [(ngModel)]="email" type="text"class="mayus" ></ion-input>
               </ion-item>
               <!--Nombre del representante legal-->
               <ion-item>
                 <ion-label position="floating">{{ "organization.legal_representative_name" | translate }}<ion-text color="danger" >*</ion-text></ion-label>
-                <ion-input [(ngModel)]="legal_representative_name" type="text" ></ion-input>
+                <ion-input [(ngModel)]="legal_representative_name" type="text" class="mayus"></ion-input>
               </ion-item>
               <!--Cedula del representante legal-->
               <ion-item>
-                <ion-label position="floating">{{ "organization.legal_representative_dni" | translate }}<ion-text color="danger" >*</ion-text></ion-label>
-                <ion-input [(ngModel)]="legal_representative_dni" type="text" ></ion-input>
+                <ion-label position="floating">{{ "organization.legal_representative_dni" | translate }}</ion-label>
+                <ion-input [(ngModel)]="legal_representative_dni" type="text" class="mayus"></ion-input>
               </ion-item>
               <!--Telefono del representante legal-->
               <ion-item>
-                <ion-label position="floating">{{ "organization.legal_representative_phone" | translate }}<ion-text color="danger" >*</ion-text></ion-label>
-                <ion-input [(ngModel)]="legal_representative_phone" type="text" ></ion-input>
+                <ion-label position="floating">{{ "organization.legal_representative_phone" | translate }}</ion-label>
+                <ion-input [(ngModel)]="legal_representative_phone" type="text" class="mayus"></ion-input>
               </ion-item>
               <!--Email del representante legal-->
               <ion-item>
-                <ion-label position="floating">{{ "organization.legal_representative_email" | translate }}<ion-text color="danger" >*</ion-text></ion-label>
-                <ion-input [(ngModel)]="legal_representative_email" type="text" ></ion-input>
+                <ion-label position="floating">{{ "organization.legal_representative_email" | translate }}</ion-label>
+                <ion-input [(ngModel)]="legal_representative_email" type="text" class="mayus"></ion-input>
               </ion-item>
               <!--Meses de experiencia de la organizacion-->
               <ion-item>
@@ -92,7 +96,7 @@
               <!--Sigla de la Organizacion-->
               <ion-item>
                 <ion-label position="floating">{{ "organization.initials" | translate }}</ion-label>
-                <ion-input [(ngModel)]="initials" type="text" ></ion-input>
+                <ion-input [(ngModel)]="initials" type="text" class="mayus"></ion-input>
               </ion-item>
               <!--Telefono Celular de la Organizacion-->
               <ion-item>
@@ -102,7 +106,7 @@
               <!--Sitio Web de la Organizacion-->
               <ion-item>
                 <ion-label position="floating">{{ "organization.web_site" | translate }}</ion-label>
-                <ion-input [(ngModel)]="web_site" type="text" ></ion-input>
+                <ion-input [(ngModel)]="web_site" type="text" class="mayus"></ion-input>
               </ion-item>
             </ion-col>
           </ion-row>
@@ -110,7 +114,7 @@
           <ion-row>
             <ion-col>
               <ion-item>
-                <ion-label position="stacked"><b>{{ "organization.productive_guideline" | translate }}</b><ion-text color="danger" >*</ion-text></ion-label>
+                <ion-label position="stacked"><b>{{ "organization.productive_guideline" | translate }}</b></ion-label>
                 <ion-select [(ngModel)]="id_productive_guideline" okText="{{ 'general.select' | translate }}" cancelText="{{ 'general.cancel' | translate }}">
                   <ion-select-option *ngFor="let item of productive_guideline" value="{{item.id}}">{{item.nombre}}</ion-select-option>
                 </ion-select>
@@ -121,7 +125,7 @@
           <ion-row>
             <ion-col>
               <ion-item>
-                <ion-label position="stacked"><b>{{ "organization.financing_line" | translate }}</b><ion-text color="danger" >*</ion-text></ion-label>
+                <ion-label position="stacked"><b>{{ "organization.financing_line" | translate }}</b></ion-label>
                 <ion-select [(ngModel)]="id_financing_line" okText="{{ 'general.select' | translate }}" cancelText="{{ 'general.cancel' | translate }}">
                   <ion-select-option *ngFor="let item of financing_line" value="{{item.id}}">{{item.nombre}}</ion-select-option>
                 </ion-select>
@@ -132,7 +136,7 @@
           <ion-row>
             <ion-col>
               <ion-item>
-                <ion-label position="stacked"><b>{{ "organization.proyect_type" | translate }}</b><ion-text color="danger" >*</ion-text></ion-label>
+                <ion-label position="stacked"><b>{{ "organization.proyect_type" | translate }}</b></ion-label>
                 <ion-select [(ngModel)]="id_proyect_type" okText="{{ 'general.select' | translate }}" cancelText="{{ 'general.cancel' | translate }}">
                   <ion-select-option *ngFor="let item of proyect_type" value="{{item.id}}">{{item.nombre}}</ion-select-option>
                 </ion-select>

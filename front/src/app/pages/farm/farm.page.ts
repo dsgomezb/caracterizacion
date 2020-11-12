@@ -44,6 +44,7 @@ export class FarmPage implements OnInit {
   internet: any; //ya
   cellphone: any; //ya
   productive_infrastructure: any; //ya
+  other_operator: any; //ya
   television: any; //ya
   operator_tv_type: any //ya
   earth_trend: any; //ya
@@ -59,6 +60,8 @@ export class FarmPage implements OnInit {
   initial_longitude: any;
 
   show_input_organization = false;
+  show_input_operator = false;
+  show_other_operator = false;
 
   constructor(    
     public navCtrl: NavController,
@@ -72,14 +75,9 @@ export class FarmPage implements OnInit {
      }
 
   ngOnInit() {
-  }
-
-  ionViewWillEnter(){
     this.via_type = undefined;
     this.via_status = undefined;
     this.gas = undefined;
-    this.latitude = undefined;
-    this.longitude = undefined;
     this.altitude = undefined;
     this.soil_analysis = undefined;
     this.total_hectares = undefined;
@@ -92,6 +90,7 @@ export class FarmPage implements OnInit {
     this.internet = undefined;
     this.cellphone = undefined;
     this.productive_infrastructure = undefined;
+    this.other_operator = undefined;
     this.operator_tv_type = undefined;
     this.earth_trend = undefined
     this.attached_organization = undefined
@@ -100,6 +99,8 @@ export class FarmPage implements OnInit {
     this.products_activities = [];
     this.id_organization = undefined;
     this.show_input_organization = false;
+    this.show_input_operator = false;
+    this.show_other_operator = false;
 
     this.getTypeProperties();
     this.getProductsActivities();
@@ -114,8 +115,15 @@ export class FarmPage implements OnInit {
     this.getFarmInformation();
   }
 
+  ionViewWillEnter(){
+  }
+
   showInputOrganization(value){
     this.show_input_organization = value;
+  }
+
+  showInputOperator(value){
+    this.show_input_operator = value;
   }
 
   //Organizaciones
@@ -139,6 +147,15 @@ export class FarmPage implements OnInit {
         this.toast.presentToast(data.error, "error-toast", 3000);
       }
     });
+  }
+
+  //show_other_operator
+  otherValue(event){
+    if(event.detail.value == 5){
+      this.show_other_operator = true;
+    }else{
+      this.show_other_operator = false;
+    }
   }
 
   //Tipos de gases
@@ -247,12 +264,15 @@ export class FarmPage implements OnInit {
     });
   }
 
-  //Validacion de formulario de Finca
+  //Validacion de formulario de Finca 
   validateFormFarm(){
+    console.log(this.latitude);
     if(this.via_type == undefined){
       this.toast.presentToast('El tipo de via es requerido', 'error-toast', 3000);
     }else if(this.attached_organization == undefined){
       this.toast.presentToast('Adscrito a Organización requerido', 'error-toast', 3000);
+    /*}else if(this.products_activities.length == 0){
+      this.toast.presentToast('Actividades productivas requeridas', 'error-toast', 3000);*/
     }else if(this.attached_organization == 'true' && this.id_organization == undefined){
       this.toast.presentToast('La Organización es requerida', 'error-toast', 3000);
     }else{
@@ -279,6 +299,7 @@ export class FarmPage implements OnInit {
       internet: this.internet,
       celular: this.cellphone,
       infraestructura_productiva_existente: this.productive_infrastructure,
+      otro_operador: this.other_operator,
       television: this.television,
       id_opeador_tv: this.operator_tv_type,
       id_estado_tendencia_tierra: this.earth_trend,
@@ -292,9 +313,10 @@ export class FarmPage implements OnInit {
         this.toast.presentToast(data.message, "success-toast", 3000);
         if(this.attached_organization == 'true' && this.id_organization.id == 0){
           this.navCtrl.navigateForward('/organization');
-        }else{
-          //this.navCtrl.navigateForward('/inquest');
+        }else if(this.attached_organization == 'true' && this.id_organization.id != 0){
           this.navCtrl.navigateForward('/organization-profile');
+        }else{
+          this.navCtrl.navigateForward('/inquest');
         }
       } else {
         this.toast.presentToast(data.error, "error-toast", 3000);
