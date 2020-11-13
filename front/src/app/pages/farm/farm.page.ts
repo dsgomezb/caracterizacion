@@ -48,6 +48,9 @@ export class FarmPage implements OnInit {
   television: any; //ya
   operator_tv_type: any //ya
   earth_trend: any; //ya
+  average_land_value: any; //ya
+  measure: any; //ya
+
   attached_organization: any;
   id_organization : any;
   public_service = [];
@@ -98,6 +101,9 @@ export class FarmPage implements OnInit {
     this.public_service = [];
     this.products_activities = [];
     this.id_organization = undefined;
+    this.average_land_value = undefined;
+    this.measure = undefined;
+
     this.show_input_organization = false;
     this.show_input_operator = false;
     this.show_other_operator = false;
@@ -306,7 +312,9 @@ export class FarmPage implements OnInit {
       public_service: this.public_service,
       products_activities: this.products_activities,
       adscrita_organizacion: this.attached_organization,
-      id_organizacion: this.id_organization
+      id_organizacion: this.id_organization,
+      medida: this.measure,
+      valor_promedio_tierra: this.average_land_value
     };
     this.request.postData('finca/api/update_finca', data, {}).then(data => {
       if(data.code == 0) {

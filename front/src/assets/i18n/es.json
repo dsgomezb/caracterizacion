@@ -42,7 +42,12 @@
         "documento_tecnico": "Documento del Técnico",
         "attached_organization": "La finca se encuentra adscrita a alguna Organización",
         "id_organization": "Organización",
-        "otherOperator": "Especifique el operador"
+        "otherOperator": "Especifique el operador",
+        "average_land_value": "Valor promedio de la Tierra",
+        "measure": "Medida",
+        "m2": "M2",
+        "stables": "Cuadras",
+        "ha": "Hectáreas"
     },
     "button": {
         "get": "OBTENER",
