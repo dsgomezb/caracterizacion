@@ -89,10 +89,6 @@ export class InicioPage implements OnInit {
     this.getEthnicGroup();
   }
 
-  ionViewWillEnter(){
-
-  }
-
   //Obtener la caracterización poblacional
   getCharacterization(){
     this.request.postData('persona/api/get_tipo_persona', null, {}).then(data => {

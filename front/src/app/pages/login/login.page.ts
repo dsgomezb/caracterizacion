@@ -7,14 +7,14 @@ import { ToastService  } from '../../services/toaster/toast.service';
 import { StorageService } from '../../services/storage/storage.service';
 import { ModalController  } from '@ionic/angular';
 import { ModalLocationPage } from '../modal-location/modal-location.page';
-import { Geolocation, Geoposition, GeolocationOptions  } from '@ionic-native/geolocation/ngx';
+import { Geoposition, GeolocationOptions  } from '@ionic-native/geolocation/ngx';
 import { FileChooser } from '@ionic-native/file-chooser/ngx';
 import { FilePath } from '@ionic-native/file-path/ngx';
 import { Base64 } from '@ionic-native/base64/ngx';
 import { NetworkService } from 'src/app/services/network.service';
 import { DatabaseService } from '../../services/database.service';
 import { Plugins, CameraResultType, CameraSource, Filesystem, FilesystemDirectory, FilesystemEncoding } from '@capacitor/core';
-
+const { Geolocation } = Plugins;
 @Component({
   selector: 'app-login',
   templateUrl: './login.page.html',
@@ -43,23 +43,35 @@ export class LoginPage implements OnInit {
     private platform: Platform,
     private router: Router,
     public modalCtrl: ModalController,
-    public geolocation: Geolocation,
+    //public geolocation: Geolocation,
     public fileChooser: FileChooser,
     public filePath: FilePath,
     public base64: Base64,
     private networkService: NetworkService,
     private db: DatabaseService
-  ) {}
+  ) {
+;
+  }
 
-  ngOnInit() {
+  ionViewWillEnter(){
     localStorage.clear();
     this.documento_tecnico = '';
     this.farm_name = '';
     this.sideWalk = '';
     this.city = '';
     this.department = '';
+    this.getDepartment()
+  }
+  ngOnInit() {
+    /*localStorage.clear();
+    this.documento_tecnico = '';
+    this.farm_name = '';
+    this.sideWalk = '';
+    this.city = '';
+    this.department = '';
+    this.getDepartment();*/
 
-    this.networkService.getNetworkStatus().subscribe((connected: boolean) => {
+    /*this.networkService.getNetworkStatus().subscribe((connected: boolean) => {
       this.isConnected = connected;
       console.log(this.isConnected);
       if (!this.isConnected) {
@@ -72,9 +84,9 @@ export class LoginPage implements OnInit {
       }else{
         console.log("conectado");
       }
-    });
+    });*/
   }
-
+/*
   ionViewWillEnter(){
     this.networkService.getNetworkStatus().subscribe((connected: boolean) => {
       this.isConnected = connected;
@@ -89,7 +101,7 @@ export class LoginPage implements OnInit {
       }
     });
   }
-  
+  */
   //Obtener los departamentos
   getDepartment(){
     this.request.postData('finca/api/get_departamentos', null, {}).then(data => {
@@ -139,13 +151,13 @@ export class LoginPage implements OnInit {
   }
 
   //Obtiene la posicion actual automaticamente
-  getActuallyLocation(){
-    localStorage.clear();
-    this.geolocation.getCurrentPosition().then((geoposition: Geoposition)=>{
-      localStorage.setItem('latitude', String(geoposition.coords.latitude));
-      localStorage.setItem('longitude', String(geoposition.coords.longitude));
+  async getActuallyLocation(){
+    await Geolocation.getCurrentPosition().then( pos => {
+      console.log("entra a localizaicon 2");
+      localStorage.setItem('latitude', String(pos.coords.latitude));
+      localStorage.setItem('longitude', String(pos.coords.longitude));
       this.toast.presentToast('Localización almacenada', 'success-toast', 1000);
-    }); 
+    });
   }
 
   //Validacion de campos requeridos en formulario de inicio
@@ -176,24 +188,13 @@ export class LoginPage implements OnInit {
       latitud: localStorage.getItem('latitude'),
       documento_tecnico: this.documento_tecnico
     }
-
-    this.networkService.getNetworkStatus().subscribe((connected: boolean) => {
-      this.isConnected = connected;
-      if (!this.isConnected) {
-        this.db.addFarm(data)
-        .then(_ => {
-            console.log("lo hizo");
-        });
-      }else{
-        this.request.postData('finca/api/save_finca_inicial', data, {}).then(data => {
-          if(data.code == 0) {
-            localStorage.setItem('farmId', data.idFinca[0].lastval);
-            this.toast.presentToast(data.message, "success-toast", 3000);
-            this.navCtrl.navigateForward('/inicio');
-          } else {
-            this.toast.presentToast(data.error, "error-toast", 3000);
-          }
-        });
+    this.request.postData('finca/api/save_finca_inicial', data, {}).then(data => {
+      if(data.code == 0) {
+        localStorage.setItem('farmId', data.idFinca[0].lastval);
+        this.toast.presentToast(data.message, "success-toast", 3000);
+        this.navCtrl.navigateForward('/inicio');
+      } else {
+        this.toast.presentToast(data.error, "error-toast", 3000);
       }
     });
   }

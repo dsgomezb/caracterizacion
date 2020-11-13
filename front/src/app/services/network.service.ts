@@ -25,12 +25,12 @@ export class NetworkService {
         if (this.platform.is('cordova')) {
             // on Device
             this.network.onConnect().subscribe(() => {
-                this.toast.presentToast("Dispositivo Conectado Internet", "info-toast", 3000);
+                //this.toast.presentToast("Dispositivo Conectado Internet", "info-toast", 3000);
                 this.hasConnection.next(true);
                 return;
             });
             this.network.onDisconnect().subscribe(() => {
-                this.toast.presentToast("Dispositivo no cuenta con acceso a Internet", "error-toast", 3000);
+                //this.toast.presentToast("Dispositivo no cuenta con acceso a Internet", "error-toast", 3000);
                 this.hasConnection.next(false);
                 return;
             });
