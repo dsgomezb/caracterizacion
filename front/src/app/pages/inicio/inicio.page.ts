@@ -11,7 +11,6 @@ import { FileChooser } from '@ionic-native/file-chooser/ngx';
 import { FilePath } from '@ionic-native/file-path/ngx';
 import { Base64 } from '@ionic-native/base64/ngx';
 import { Plugins, CameraResultType, CameraSource, Filesystem, FilesystemDirectory, FilesystemEncoding } from '@capacitor/core';
-import { iif } from 'rxjs';
 
 @Component({
   selector: 'app-inicio',
@@ -287,6 +286,5 @@ export class InicioPage implements OnInit {
         this.toast.presentToast("Error al guardar la imagen", "error-toast", 3000);
       }
     });
-
   }
 }

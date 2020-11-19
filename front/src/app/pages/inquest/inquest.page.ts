@@ -71,7 +71,7 @@ export class InquestPage implements OnInit {
         this.toast.presentToast(data.error, "error-toast", 3000);
       }
     });
-    this.navCtrl.navigateForward('');
+    this.navCtrl.navigateForward('attachment');
   }
 
   setValue(id_pregunta, event){

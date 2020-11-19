@@ -1,0 +1,171 @@
+<ion-header [translucent]="true">
+  <ion-toolbar color="primary">
+    <ion-title ><b>{{ "attachment.title" | translate }}</b></ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<!--Encuesta de solo adjuntos-->
+<ion-content [fullscreen]="true">
+  <div>
+    <ion-card>
+      <ion-card-content>
+        <ion-grid>
+          <!--Persona-->
+          <ion-row>
+            <ion-col class="center">
+              <ion-title color="primary" class="title"><b>{{ "attachment.person" | translate }}</b></ion-title>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              <ion-item>
+                <ion-label class="show small"><ion-text color="medium">{{ "attachment.document_picture" | translate }}</ion-text><ion-icon *ngIf="photoDocumentPicture" color="tertiary" name="document-attach-outline"></ion-icon></ion-label>
+                <ion-button (click)="takePhotoDocumentPicture()" color="primary" size="small"><ion-icon name="camera"></ion-icon></ion-button>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+
+          <!--Finca-->
+          <ion-row>
+            <ion-col class="center">
+              <ion-title color="primary" class="title"><b>{{ "attachment.farm" | translate }}</b></ion-title>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              <ion-item>
+                <ion-label class="show small"><ion-text color="medium">{{ "attachment.photoCover" | translate }}</ion-text><ion-icon *ngIf="photoCover" color="tertiary" name="document-attach-outline"></ion-icon></ion-label>
+                <ion-button (click)="takePhotoCover()" color="primary" size="small"><ion-icon name="camera"></ion-icon></ion-button>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              <ion-item>
+                <ion-label class="show small"><ion-text color="medium">{{ "attachment.photoHouse" | translate }}</ion-text><ion-icon *ngIf="photoHouse" color="tertiary" name="document-attach-outline"></ion-icon></ion-label>
+                <ion-button (click)="takePhotoHouse()" color="primary" size="small"><ion-icon name="camera"></ion-icon></ion-button>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              <ion-item>
+                <ion-label class="show small"><ion-text color="medium">{{ "attachment.photoInfrastructure" | translate }}</ion-text><ion-icon *ngIf="photoInfrastructure" color="tertiary" name="document-attach-outline"></ion-icon></ion-label>
+                <ion-button (click)="takePhotoInfrastructure()" color="primary" size="small"><ion-icon name="camera"></ion-icon></ion-button>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              <ion-item>
+                <ion-label class="show small"><ion-text color="medium">{{ "attachment.photoColtive" | translate }}</ion-text><ion-icon *ngIf="photoColtive" color="tertiary" name="document-attach-outline"></ion-icon></ion-label>
+                <ion-button (click)="takePhotoColtive()" color="primary" size="small"><ion-icon name="camera"></ion-icon></ion-button>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              <ion-item>
+                <ion-label class="show small"><ion-text color="medium">{{ "attachment.photoSoilAnalysis" | translate }}</ion-text><ion-icon *ngIf="photoSoilAnalysis" color="tertiary" name="document-attach-outline"></ion-icon></ion-label>
+                <ion-button (click)="takePhotoSoilAnalysis()" color="primary" size="small"><ion-icon name="camera"></ion-icon></ion-button>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+
+          <!--Agricola-->
+          <ion-row>
+            <ion-col class="center">
+              <ion-title color="primary" class="title"><b>{{ "attachment.agricola" | translate }}</b></ion-title>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              <ion-item>
+                <ion-label class="show small"><ion-text color="medium">{{ "attachment.photoPrincipalProductAgricultural" | translate }}</ion-text><ion-icon *ngIf="photoPrincipalProductAgricultural" color="tertiary" name="document-attach-outline"></ion-icon></ion-label>
+                <ion-button (click)="takePhotoPrincipalProductAgricultural()" color="primary" size="small"><ion-icon name="camera"></ion-icon></ion-button>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              <ion-item>
+                <ion-label class="show small"><ion-text color="medium">{{ "attachment.photoSecondaryProductAgricultural" | translate }}</ion-text><ion-icon *ngIf="photoSecondaryProductAgricultural" color="tertiary" name="document-attach-outline"></ion-icon></ion-label>
+                <ion-button (click)="takePhotoSecondaryProductAgricultural()" color="primary" size="small"><ion-icon name="camera"></ion-icon></ion-button>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+
+          <!--Pecuario-->
+          <ion-row>
+            <ion-col class="center">
+              <ion-title color="primary" class="title"><b>{{ "attachment.livestock" | translate }}</b></ion-title>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              <ion-item>
+                <ion-label class="show small"><ion-text color="medium">{{ "attachment.photoPrincipalProductLivestock" | translate }}</ion-text><ion-icon *ngIf="photoPrincipalProductLivestock" color="tertiary" name="document-attach-outline"></ion-icon></ion-label>
+                <ion-button (click)="takePhotoPrincipalProductLivestock()" color="primary" size="small"><ion-icon name="camera"></ion-icon></ion-button>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              <ion-item>
+                <ion-label class="floating"><ion-text color="medium">{{ "attachment.photoSecondaryProductLivestock" | translate }}</ion-text><ion-icon *ngIf="photoSecondaryProductLivestock" color="tertiary" name="document-attach-outline"></ion-icon></ion-label>
+                <ion-button (click)="takePhotoSecondaryProductLivestock()" color="primary" size="small"><ion-icon name="camera"></ion-icon></ion-button>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+
+          <!--Acuicultura-->
+          <ion-row>
+            <ion-col class="center">
+              <ion-title color="primary" class="title"><b>{{ "attachment.aquaculture" | translate }}</b></ion-title>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              <ion-item>
+                <ion-label class="show small"><ion-text color="medium">{{ "attachment.photoPrincipalProductAquaculture" | translate }}</ion-text><ion-icon *ngIf="photoPrincipalProductAquaculture" color="tertiary" name="document-attach-outline"></ion-icon></ion-label>
+                <ion-button (click)="takePhotoPrincipalProductAquaculture()" color="primary" size="small"><ion-icon name="camera"></ion-icon></ion-button>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              <ion-item>
+                <ion-label class="floating"><ion-text color="medium">{{ "attachment.photoSecondaryProductAquaculture" | translate }}</ion-text><ion-icon *ngIf="photoSecondaryProductAquaculture" color="tertiary" name="document-attach-outline"></ion-icon></ion-label>
+                <ion-button (click)="takePhotoSecondaryProductAquaculture()" color="primary" size="small"><ion-icon name="camera"></ion-icon></ion-button>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+
+          <!--Forestal-->
+          <ion-row>
+            <ion-col class="center">
+              <ion-title color="primary" class="title"><b>{{ "attachment.forest" | translate }}</b></ion-title>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              <ion-item>
+                <ion-label class="show small"><ion-text color="medium">{{ "attachment.photoForest" | translate }}</ion-text><ion-icon *ngIf="photoForest" color="tertiary" name="document-attach-outline"></ion-icon></ion-label>
+                <ion-button (click)="takePhotoForest()" color="primary" size="small"><ion-icon name="camera"></ion-icon></ion-button>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+
+        <!--Boton para almacenar-->
+        <ion-grid>
+          <ion-row>
+            <ion-col>
+              <ion-button color="primary" expand="block" type="submit" (click)="saveAttachmentForm()">{{ "button.save" | translate }}</ion-button>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-card-content>
+    </ion-card>
+  </div>
+</ion-content>

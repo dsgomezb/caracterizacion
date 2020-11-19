@@ -35,6 +35,10 @@ const routes: Routes = [
     path: 'organization-profile',
     loadChildren: () => import('./pages/organization-profile/organization-profile.module').then( m => m.OrganizationProfilePageModule),
     canActivate:[GuardiaGuard]
+  },
+  {
+    path: 'attachment',
+    loadChildren: () => import('./pages/attachment/attachment.module').then( m => m.AttachmentPageModule)
   }
 
 ];

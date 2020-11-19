@@ -114,5 +114,27 @@
     },
     "organization_profile": {
         "title": "Perfil Organizacional"
+    },
+    "attachment": {
+        "title":"Adjuntos",
+        "person": "PERSONA",
+        "document_picture": "Foto del Documento",
+        "farm": "FINCA",
+        "photoCover": "Portada",
+        "photoHouse": "Casa Principal",
+        "photoInfrastructure": "Infraestructura",
+        "photoColtive": "Cultivo",
+        "photoSoilAnalysis": "Análisis de Suelo",
+        "agricola": "AGRICOLA",
+        "photoPrincipalProductAgricultural": "Producción producto principal",
+        "photoSecondaryProductAgricultural": "Producción producto secundario",
+        "livestock": "PECUARIAS",
+        "photoPrincipalProductLivestock": "Producción producto principal",
+        "photoSecondaryProductLivestock": "Producción producto secundario",
+        "aquaculture": "ACUICULTURA",
+        "photoPrincipalProductAquaculture": "Producción producto principal",
+        "photoSecondaryProductAquaculture": "Producción producto secundario",
+        "forest": "FORESTAL",
+        "photoForest": "Foto"
     }
 }

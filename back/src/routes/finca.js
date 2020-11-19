@@ -362,6 +362,210 @@ router.post('/api/get_finca_actividades_productivas', async (req, res) => {
 });
 
 
+//Guardar los adjuntos de la finca
+router.post('/api/save_attachments', async (req, res) => {
+    const { id_finca, photoDocumentPicture, extensionDocumentPicture, photoCover, extensionCover, photoHouse, extensionHouse, photoInfrastructure, extensionInfrastructure,
+    photoColtive, extensionColtive, photoSoilAnalysis, extensionSoilAnalysis, photoPrincipalProductAgricultural, extensionPrincipalProductAgricultural,
+    photoSecondaryProductAgricultural, extensionSecondaryProductAgricultural, photoPrincipalProductLivestock, extensionPrincipalProductLivestock,
+    photoSecondaryProductLivestock, extensionSecondaryProductLivestock, photoPrincipalProductAquaculture, extensionPrincipalProductAquaculture,
+    photoSecondaryProductAquaculture, extensionSecondaryProductAquaculture, photoForest, extensionForest } = req.body;
+
+    //creo carpeta de la finca
+    let path = "src/public/fincas/"+id_finca;
+    if(!fs.existsSync(path)){
+        fs.mkdirSync(path, 0777);
+    }
+
+    //Documento
+    if(photoDocumentPicture && extensionDocumentPicture){
+        let nameDocumentPictureBD = 'documento'+'.'+extensionDocumentPicture;
+        let fileDocumentPicture = path+"/"+'documento'+'.'+extensionDocumentPicture;
+        let nameFileDocumentPicture = 'http://181.129.226.226:3000/fincas/'+id_finca+"/"+'documento'+'.'+extensionDocumentPicture;
+        fs.writeFile(fileDocumentPicture, photoDocumentPicture, {encoding: 'base64'}, async function(err) {
+            if (err) {
+                console.log("Error al crear la imagen del documento");
+            } else {
+                let saveFileDocumentPicture = await pool.query('INSERT INTO adjuntos (nombre, ruta, id_finca) VALUES ($1, $2, $3)', [nameDocumentPictureBD, nameFileDocumentPicture, id_finca]);
+            }
+        });
+    }
+
+    //Portada
+    if(photoCover && extensionCover){
+        let nameCoverPictureBD = 'portada'+'.'+extensionCover;
+        let fileCoverPicture = path+"/"+'portada'+'.'+extensionCover;
+        let nameCoverPicture = 'http://181.129.226.226:3000/fincas/'+id_finca+"/"+'portada'+'.'+extensionCover;
+        fs.writeFile(fileCoverPicture, photoCover, {encoding: 'base64'}, async function(err) {
+            if (err) {
+                console.log("Error al crear la imagen del portada");
+            } else {
+                let saveCoverPicture = await pool.query('INSERT INTO adjuntos (nombre, ruta, id_finca) VALUES ($1, $2, $3)', [nameCoverPictureBD, nameCoverPicture, id_finca]);
+            }
+        });
+    }
+
+    //Casa Principal
+    if(photoHouse && extensionHouse){
+        let nameHousePictureBD = 'casa_principal'+'.'+extensionHouse;
+        let fileHousePicture = path+"/"+'casa_principal'+'.'+extensionHouse;
+        let nameHousePicture = 'http://181.129.226.226:3000/fincas/'+id_finca+"/"+'casa_principal'+'.'+extensionHouse;
+        fs.writeFile(fileHousePicture, photoHouse, {encoding: 'base64'}, async function(err) {
+            if (err) {
+                console.log("Error al crear la imagen de la casa principal");
+            } else {
+                let saveHousePicture = await pool.query('INSERT INTO adjuntos (nombre, ruta, id_finca) VALUES ($1, $2, $3)', [nameHousePictureBD, nameHousePicture, id_finca]);
+            }
+        });
+    }
+
+    //Infraestructura
+    if(photoInfrastructure && extensionInfrastructure){
+        let nameInfrastructureBD = 'infraestructura'+'.'+extensionInfrastructure;
+        let fileInfrastructure = path+"/"+'infraestructura'+'.'+extensionInfrastructure;
+        let nameInfrastructure = 'http://181.129.226.226:3000/fincas/'+id_finca+"/"+'infraestructura'+'.'+extensionInfrastructure;
+        fs.writeFile(fileInfrastructure, photoInfrastructure, {encoding: 'base64'}, async function(err) {
+            if (err) {
+                console.log("Error al crear la imagen de la Infraestructura");
+            } else {
+                let saveInfrastructure = await pool.query('INSERT INTO adjuntos (nombre, ruta, id_finca) VALUES ($1, $2, $3)', [nameInfrastructureBD, nameInfrastructure, id_finca]);
+            }
+        });
+    }
+
+    //Cultivo
+    if(photoColtive && extensionColtive){
+        let nameColtiveBD = 'cultivo'+'.'+extensionColtive;
+        let fileColtive = path+"/"+'cultivo'+'.'+extensionColtive;
+        let nameColtive = 'http://181.129.226.226:3000/fincas/'+id_finca+"/"+'cultivo'+'.'+extensionColtive;
+        fs.writeFile(fileColtive, photoColtive, {encoding: 'base64'}, async function(err) {
+            if (err) {
+                console.log("Error al crear la imagen del Cultivo");
+            } else {
+                let saveColtive = await pool.query('INSERT INTO adjuntos (nombre, ruta, id_finca) VALUES ($1, $2, $3)', [nameColtiveBD, nameColtive, id_finca]);
+            }
+        });
+    }
+
+    //Analisis de Suelo
+    if(photoSoilAnalysis && extensionSoilAnalysis){
+        let nameSoilAnalysisBD = 'analisis_suelo'+'.'+extensionSoilAnalysis;
+        let fileSoilAnalysis = path+"/"+'analisis_suelo'+'.'+extensionSoilAnalysis;
+        let nameSoilAnalysis = 'http://181.129.226.226:3000/fincas/'+id_finca+"/"+'analisis_suelo'+'.'+extensionSoilAnalysis;
+        fs.writeFile(fileSoilAnalysis, photoSoilAnalysis, {encoding: 'base64'}, async function(err) {
+            if (err) {
+                console.log("Error al crear la imagen del Analisis de Suelo");
+            } else {
+                let saveSoilAnalysis = await pool.query('INSERT INTO adjuntos (nombre, ruta, id_finca) VALUES ($1, $2, $3)', [nameSoilAnalysisBD, nameSoilAnalysis, id_finca]);
+            }
+        });
+    }
+
+    //Producto Principal Agricultura
+    if(photoPrincipalProductAgricultural && extensionPrincipalProductAgricultural){
+        let namePrincipalProductAgriculturalBD = 'producto_principal_agricultura'+'.'+extensionPrincipalProductAgricultural;
+        let filePrincipalProductAgricultural = path+"/"+'producto_principal_agricultura'+'.'+extensionPrincipalProductAgricultural;
+        let namePrincipalProductAgricultural = 'http://181.129.226.226:3000/fincas/'+id_finca+"/"+'producto_principal_agricultura'+'.'+extensionPrincipalProductAgricultural;
+        fs.writeFile(filePrincipalProductAgricultural, photoPrincipalProductAgricultural, {encoding: 'base64'}, async function(err) {
+            if (err) {
+                console.log("Error al crear la imagen de Producto Principal Agricultura");
+            } else {
+                let savePrincipalProductAgricultural = await pool.query('INSERT INTO adjuntos (nombre, ruta, id_finca) VALUES ($1, $2, $3)', [namePrincipalProductAgriculturalBD, namePrincipalProductAgricultural, id_finca]);
+            }
+        });
+    }
+
+    //Producto Secundario Agricultura
+    if(photoSecondaryProductAgricultural && extensionSecondaryProductAgricultural){
+        let nameSecondaryProductAgriculturalBD = 'producto_secundario_agricultura'+'.'+extensionSecondaryProductAgricultural;
+        let fileSecondaryProductAgricultural = path+"/"+'producto_secundario_agricultura'+'.'+extensionSecondaryProductAgricultural;
+        let nameSecondaryProductAgricultural = 'http://181.129.226.226:3000/fincas/'+id_finca+"/"+'producto_secundario_agricultura'+'.'+extensionSecondaryProductAgricultural;
+        fs.writeFile(fileSecondaryProductAgricultural, photoSecondaryProductAgricultural, {encoding: 'base64'}, async function(err) {
+            if (err) {
+                console.log("Error al crear la imagen de Producto Secundario Agricultura");
+            } else {
+                let saveSecondaryProductAgricultural = await pool.query('INSERT INTO adjuntos (nombre, ruta, id_finca) VALUES ($1, $2, $3)', [nameSecondaryProductAgriculturalBD, nameSecondaryProductAgricultural, id_finca]);
+            }
+        });
+    }
+
+    //Producto Principal Pecuario
+    if(photoPrincipalProductLivestock && extensionPrincipalProductLivestock){
+        let namePrincipalProductLivestockBD = 'producto_principal_pecuario'+'.'+extensionPrincipalProductLivestock;
+        let filePrincipalProductLivestock = path+"/"+'producto_principal_pecuario'+'.'+extensionPrincipalProductLivestock;
+        let namePrincipalProductLivestock = 'http://181.129.226.226:3000/fincas/'+id_finca+"/"+'producto_principal_pecuario'+'.'+extensionPrincipalProductLivestock;
+        fs.writeFile(filePrincipalProductLivestock, photoPrincipalProductLivestock, {encoding: 'base64'}, async function(err) {
+            if (err) {
+                console.log("Error al crear la imagen de Producto Principal Pecuario");
+            } else {
+                let savePrincipalProductLivestock = await pool.query('INSERT INTO adjuntos (nombre, ruta, id_finca) VALUES ($1, $2, $3)', [namePrincipalProductLivestockBD, namePrincipalProductLivestock, id_finca]);
+            }
+        });
+    }
+
+    //Producto Secundario Pecuario
+    if(photoSecondaryProductLivestock && extensionSecondaryProductLivestock){
+        let nameSecondaryProductLivestockBD = 'producto_secundario_pecuario'+'.'+extensionSecondaryProductLivestock;
+        let fileSecondaryProductLivestock = path+"/"+'producto_secundario_pecuario'+'.'+extensionSecondaryProductLivestock;
+        let nameSecondaryProductLivestock = 'http://181.129.226.226:3000/fincas/'+id_finca+"/"+'producto_secundario_pecuario'+'.'+extensionSecondaryProductLivestock;
+        fs.writeFile(fileSecondaryProductLivestock, photoSecondaryProductLivestock, {encoding: 'base64'}, async function(err) {
+            if (err) {
+                console.log("Error al crear la imagen de Producto Secundario Pecuario");
+            } else {
+                let saveSecondaryProductLivestock = await pool.query('INSERT INTO adjuntos (nombre, ruta, id_finca) VALUES ($1, $2, $3)', [nameSecondaryProductLivestockBD, nameSecondaryProductLivestock, id_finca]);
+            }
+        });
+    }
+
+    //Producto Principal Acuicultura
+    if(photoPrincipalProductAquaculture && extensionPrincipalProductAquaculture){
+        let namePrincipalProductAquacultureBD = 'producto_principal_acuicultura'+'.'+extensionPrincipalProductAquaculture;
+        let filePrincipalProductAquaculture = path+"/"+'producto_principal_acuicultura'+'.'+extensionPrincipalProductAquaculture;
+        let namePrincipalProductAquaculture = 'http://181.129.226.226:3000/fincas/'+id_finca+"/"+'producto_principal_acuicultura'+'.'+extensionPrincipalProductAquaculture;
+        fs.writeFile(filePrincipalProductAquaculture, photoPrincipalProductAquaculture, {encoding: 'base64'}, async function(err) {
+            if (err) {
+                console.log("Error al crear la imagen de Producto Principal Acuicultura");
+            } else {
+                let savePrincipalProductAquaculture = await pool.query('INSERT INTO adjuntos (nombre, ruta, id_finca) VALUES ($1, $2, $3)', [namePrincipalProductAquacultureBD, namePrincipalProductAquaculture, id_finca]);
+            }
+        });
+    }
+
+    //Producto Secundario Acuicultura
+    if(photoSecondaryProductAquaculture && extensionSecondaryProductAquaculture){
+        let nameSecondaryProductAquacultureBD = 'producto_secundario_acuicultura'+'.'+extensionSecondaryProductAquaculture;
+        let fileSecondaryProductAquaculture = path+"/"+'producto_secundario_acuicultura'+'.'+extensionSecondaryProductAquaculture;
+        let nameSecondaryProductAquaculture = 'http://181.129.226.226:3000/fincas/'+id_finca+"/"+'producto_secundario_acuicultura'+'.'+extensionSecondaryProductAquaculture;
+        fs.writeFile(fileSecondaryProductAquaculture, photoSecondaryProductAquaculture, {encoding: 'base64'}, async function(err) {
+            if (err) {
+                console.log("Error al crear la imagen de Producto Secundario Acuicultura");
+            } else {
+                let saveSecondaryProductAquaculture = await pool.query('INSERT INTO adjuntos (nombre, ruta, id_finca) VALUES ($1, $2, $3)', [nameSecondaryProductAquacultureBD, nameSecondaryProductAquaculture, id_finca]);
+            }
+        });
+    }
+
+    //Imagen Forestal
+    if(photoForest && extensionForest){
+        let nameForestBD = 'foto_forestal'+'.'+extensionForest;
+        let fileForest = path+"/"+'foto_forestal'+'.'+extensionForest;
+        let nameForest = 'http://181.129.226.226:3000/fincas/'+id_finca+"/"+'foto_forestal'+'.'+extensionForest;
+        fs.writeFile(fileForest, photoForest, {encoding: 'base64'}, async function(err) {
+            if (err) {
+                console.log("Error al crear la imagen de Forestal");
+            } else {
+                let saveForest = await pool.query('INSERT INTO adjuntos (nombre, ruta, id_finca) VALUES ($1, $2, $3)', [nameForestBD, nameForest, id_finca]);
+            }
+        });
+    }
+
+    data = {
+        "code": "0",
+        "save": true,
+        "message": "Los adjuntos se han almacenado correctamente"
+    };
+
+    res.status(200).json(data);
+});
 /*
 
 //Ruta para enviar notificación
