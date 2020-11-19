@@ -4,6 +4,7 @@ const passport = require('passport');
 const { isNotLoggedIn } = require('../lib/auth');
 const pool = require('../database');
 const helpers = require('../lib/helpers');
+var fs = require('fs');
 
 //Api para obtener los departamentos
 router.post('/api/get_departamentos', async (req, res) => {
@@ -369,7 +370,6 @@ router.post('/api/save_attachments', async (req, res) => {
     photoSecondaryProductAgricultural, extensionSecondaryProductAgricultural, photoPrincipalProductLivestock, extensionPrincipalProductLivestock,
     photoSecondaryProductLivestock, extensionSecondaryProductLivestock, photoPrincipalProductAquaculture, extensionPrincipalProductAquaculture,
     photoSecondaryProductAquaculture, extensionSecondaryProductAquaculture, photoForest, extensionForest } = req.body;
-
     //creo carpeta de la finca
     let path = "src/public/fincas/"+id_finca;
     if(!fs.existsSync(path)){

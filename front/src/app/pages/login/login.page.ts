@@ -71,7 +71,7 @@ export class LoginPage implements OnInit {
     this.department = '';
     this.getDepartment();*/
 
-    /*this.networkService.getNetworkStatus().subscribe((connected: boolean) => {
+    this.networkService.getNetworkStatus().subscribe((connected: boolean) => {
       this.isConnected = connected;
       console.log(this.isConnected);
       if (!this.isConnected) {
@@ -84,7 +84,7 @@ export class LoginPage implements OnInit {
       }else{
         console.log("conectado");
       }
-    });*/
+    });
   }
 /*
   ionViewWillEnter(){
