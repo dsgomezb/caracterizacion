@@ -271,7 +271,7 @@ router.post('/api/get_finca_id', async (req, res) => {
 router.post('/api/update_finca', async (req, res) => {
     let { id_tipo_via, id_estado_via, id_gas,
         altitud, analisis_suelos_2_anos, area_total_hectareas,
-        disponibilidad_vias_acceso, distancia_cabecera, id_agua, electricidad,
+        disponibilidad_vias_acceso, distancia_cabecera, electricidad,
         acueducto, pozo_septico, internet, celular, infraestructura_productiva_existente,
         television, id_opeador_tv, id_estado_tendencia_tierra, public_service, products_activities, tipo_aguas, id,
         adscrita_organizacion, id_organizacion, otro_operador, medida, valor_promedio_tierra } = req.body;
