@@ -16,7 +16,7 @@ router.post('/api/get_all_organizacion', async (req, res) => {
     } else {
         data = {
             "code": "1",
-            "error": "No existen tipos de organizaciones"
+            "error": "No existen Organizaciones"
         };
     }
     res.status(200).json(data);

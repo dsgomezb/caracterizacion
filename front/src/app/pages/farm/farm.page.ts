@@ -86,7 +86,7 @@ export class FarmPage implements OnInit {
     this.total_hectares = undefined;
     this.access_roads_availability = undefined;
     this.municipal_head_distance = undefined;
-    this.water_type = undefined;
+    this.water_type = [];
     this.electricity = undefined;
     this.aqueduct = undefined;
     this.septic_tank = undefined;
@@ -298,7 +298,7 @@ export class FarmPage implements OnInit {
       area_total_hectareas: this.total_hectares,
       disponibilidad_vias_acceso: this.access_roads_availability,
       distancia_cabecera: this.municipal_head_distance,
-      id_agua: this.water_type,
+      tipo_aguas: this.water_type,
       electricidad: this.electricity,
       acueducto: this.aqueduct,
       pozo_septico: this.septic_tank,

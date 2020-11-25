@@ -126,15 +126,24 @@
           </ion-row>
           <!--Tipo de Agua-->
           <ion-row>
-            <ion-col>
+            <ion-col class="d-flex">
               <ion-item>
-                <ion-label position="stacked"><b>{{ "farm.water" | translate }}</b></ion-label>
-                <ion-select [(ngModel)]="water_type" okText="{{ 'general.select' | translate }}" cancelText="{{ 'general.cancel' | translate }}">
-                  <ion-select-option *ngFor="let item of waterTypes" value="{{item.id}}">{{item.nombre}}</ion-select-option>
-                </ion-select>
+                <ion-label position="stacked">{{ "farm.water" | translate }}</ion-label>
+                <ionic-selectable
+                  [(ngModel)]="water_type"
+                  [items]="waterTypes"
+                  itemValueField="id"
+                  itemTextField="nombre"
+                  [hasVirtualScroll]="true"
+                  closeButtonText="Cancelar"
+                  [canSearch]="true"
+                  [isMultiple]="true"
+                  >
+                </ionic-selectable>
               </ion-item>
             </ion-col>
           </ion-row>
+
           <!--Electricidad-->
           <ion-row>
             <ion-col>
