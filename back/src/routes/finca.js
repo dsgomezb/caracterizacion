@@ -273,7 +273,7 @@ router.post('/api/update_finca', async (req, res) => {
         altitud, analisis_suelos_2_anos, area_total_hectareas,
         disponibilidad_vias_acceso, distancia_cabecera, id_agua, electricidad,
         acueducto, pozo_septico, internet, celular, infraestructura_productiva_existente,
-        television, id_opeador_tv, id_estado_tendencia_tierra, public_service, products_activities, id,
+        television, id_opeador_tv, id_estado_tendencia_tierra, public_service, products_activities, tipo_aguas, id,
         adscrita_organizacion, id_organizacion, otro_operador, medida, valor_promedio_tierra } = req.body;
   
     let organiza = id_organizacion != undefined ? id_organizacion.id : undefined
@@ -295,6 +295,18 @@ router.post('/api/update_finca', async (req, res) => {
             console.log(err);
         }
     });
+
+    tipo_aguas.forEach(async element2 => {
+        try {
+            const insert_tipo_aguas_finca = await pool.query("INSERT INTO finca_aguas(id_finca, id_agua, fecha) \
+            VALUES ($1, $2, $3)", [id, element2.id, fecha]);
+        } catch (err) {
+            console.log(err);
+        }
+    });
+
+
+    
 
     const finca = await pool.query("UPDATE finca SET   id_tipo_via=$1, id_estado_via=$2, \
         id_gas=$3, altitud=$4, analisis_suelos_2_anos=$5, \
