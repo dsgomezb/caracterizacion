@@ -37,7 +37,7 @@ export class FarmPage implements OnInit {
   total_hectares: any; //ya
   access_roads_availability: any; //ya
   municipal_head_distance: any; //ya
-  water_type: any; //ya
+  water_type: []; //ya
   electricity: any; //ya
   aqueduct: any; //ya
   septic_tank: any; //ya
@@ -272,7 +272,6 @@ export class FarmPage implements OnInit {
 
   //Validacion de formulario de Finca 
   validateFormFarm(){
-    console.log(this.latitude);
     if(this.via_type == undefined){
       this.toast.presentToast('El tipo de via es requerido', 'error-toast', 3000);
     }else if(this.attached_organization == undefined){
