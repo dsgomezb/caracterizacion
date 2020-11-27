@@ -135,11 +135,10 @@ export class FarmPage implements OnInit {
   //Organizaciones
   getOrganizations(){
     this.request.postData('organizacion/api/get_all_organizacion', null, {}).then(data => {
+      this.organizations.unshift({id:0, nombre: "No esta en la lista"});
       if(data.code == 0){
         this.organizations = data.data;
         this.organizations.unshift({id:0, nombre: "No esta en la lista"});
-      }else{
-        this.toast.presentToast(data.error, "error-toast", 3000);
       }
     });
   }
