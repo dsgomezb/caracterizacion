@@ -110,8 +110,6 @@ export class OrganizationPage implements OnInit {
   validateFormOrganization(){
     if(this.name == undefined){
       this.toast.presentToast('El Nombre de la Organización es Requerido', 'error-toast', 3000);
-    }else if(this.legal_representative_name == undefined){
-      this.toast.presentToast('El Nombre del Representante Legal es Requerido', 'error-toast', 3000);
     }else{
       this.saveOrganizationQuiz();
     }

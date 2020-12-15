@@ -20,7 +20,7 @@
                 <ion-list>
                   <ion-radio-group [(ngModel)]="characterization">
                     <ion-list-header>
-                      <ion-label><b>{{ "init.characterization" | translate }}</b><ion-text color="danger" >*</ion-text></ion-label>
+                      <ion-label><b>{{ "init.characterization" | translate }}</b></ion-label>
                     </ion-list-header>            
                     <ion-item>
                       <ion-label>{{ "init.owner" | translate }}</ion-label>
@@ -71,7 +71,7 @@
             <ion-row>
               <ion-col>
                 <ion-item>
-                  <ion-label position="stacked"><b>{{ "init.document_type" | translate }}</b><ion-text color="danger" >*</ion-text></ion-label>
+                  <ion-label position="stacked"><b>{{ "init.document_type" | translate }}</b></ion-label>
                   <ion-select [(ngModel)]="document_type" okText="{{ 'general.select' | translate }}" cancelText="{{ 'general.cancel' | translate }}">
                     <ion-select-option *ngFor="let item of documentType" value="{{item.id}}">{{item.nombre}}</ion-select-option>
                   </ion-select>
@@ -82,12 +82,12 @@
               <ion-col>
                 <!--Documento-->
                 <ion-item>
-                  <ion-label position="floating">{{ "init.dni" | translate }}<ion-text color="danger" >*</ion-text></ion-label>
+                  <ion-label position="floating">{{ "init.dni" | translate }}</ion-label>
                   <ion-input [(ngModel)]="dni" type="number" ></ion-input>
                 </ion-item>
                 <!--Nombres-->
                 <ion-item>
-                  <ion-label position="floating">{{ "init.names" | translate }}<ion-text color="danger" >*</ion-text></ion-label>
+                  <ion-label position="floating">{{ "init.names" | translate }}</ion-label>
                   <ion-input [(ngModel)]="names" type="text" class="mayus"></ion-input>
                 </ion-item>
                 <!--Apellidos-->
@@ -126,7 +126,7 @@
             <ion-row>
               <ion-col class="d-flex">
                 <ion-item>
-                  <ion-label position="stacked">{{ "init.department_origin" | translate }}<ion-text color="danger" >*</ion-text></ion-label>
+                  <ion-label position="stacked">{{ "init.department_origin" | translate }}</ion-label>
                   <ionic-selectable
                     [(ngModel)]="department"
                     [items]="departments"
@@ -144,7 +144,7 @@
             <ion-row>
               <ion-col class="d-flex">
                 <ion-item>
-                  <ion-label position="stacked">{{ "init.city_origin" | translate }}<ion-text color="danger" >*</ion-text></ion-label>
+                  <ion-label position="stacked">{{ "init.city_origin" | translate }}</ion-label>
                   <ionic-selectable
                     [(ngModel)]="city"
                     [items]="citys"

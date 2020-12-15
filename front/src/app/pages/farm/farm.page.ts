@@ -271,12 +271,8 @@ export class FarmPage implements OnInit {
 
   //Validacion de formulario de Finca 
   validateFormFarm(){
-    if(this.via_type == undefined){
-      this.toast.presentToast('El tipo de via es requerido', 'error-toast', 3000);
-    }else if(this.attached_organization == undefined){
+    if(this.attached_organization == undefined){
       this.toast.presentToast('Adscrito a Organización requerido', 'error-toast', 3000);
-    /*}else if(this.products_activities.length == 0){
-      this.toast.presentToast('Actividades productivas requeridas', 'error-toast', 3000);*/
     }else if(this.attached_organization == 'true' && this.id_organization == undefined){
       this.toast.presentToast('La Organización es requerida', 'error-toast', 3000);
     }else{

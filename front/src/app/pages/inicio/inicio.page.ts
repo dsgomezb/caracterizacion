@@ -214,21 +214,7 @@ export class InicioPage implements OnInit {
 
   //Funcion para validar formulario de caracterizacion
   validateFormInit(){
-    if(this.characterization == undefined){
-      this.toast.presentToast('La Caracterización Poblacional es requerida', 'error-toast', 3000);
-    }else if(this.document_type == undefined){
-      this.toast.presentToast('El tipo de documento es requerido', 'error-toast', 3000);
-    }else if(this.dni == undefined){
-      this.toast.presentToast('El Documento es requerido', 'error-toast', 3000);
-    }else if(this.names == undefined){
-      this.toast.presentToast('El Nombre es requerido', 'error-toast', 3000);
-    }else if(this.department == undefined){
-      this.toast.presentToast('El Departamento es requerido', 'error-toast', 3000);
-    }else if(this.city == undefined){
-      this.toast.presentToast('La Ciudad de Origen es requerida', 'error-toast', 3000);
-    }else{
-      this.saveInfoInitialQuiz();
-    }
+    this.saveInfoInitialQuiz();
   }
 
   //Metodo para almacenar información de la encuensta inicial

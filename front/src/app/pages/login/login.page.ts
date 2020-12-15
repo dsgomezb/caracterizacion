@@ -153,7 +153,6 @@ export class LoginPage implements OnInit {
   //Obtiene la posicion actual automaticamente
   async getActuallyLocation(){
     await Geolocation.getCurrentPosition().then( pos => {
-      console.log("entra a localizaicon 2");
       localStorage.setItem('latitude', String(pos.coords.latitude));
       localStorage.setItem('longitude', String(pos.coords.longitude));
       this.toast.presentToast('Localización almacenada', 'success-toast', 1000);

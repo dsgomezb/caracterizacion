@@ -18,7 +18,7 @@
           <ion-row>
             <ion-col>
               <ion-item>
-                <ion-label position="stacked"><b>{{ "farm.via_type" | translate }}</b><ion-text color="danger" >*</ion-text></ion-label>
+                <ion-label position="stacked"><b>{{ "farm.via_type" | translate }}</b></ion-label>
                 <ion-select [(ngModel)]="via_type" okText="{{ 'general.select' | translate }}" cancelText="{{ 'general.cancel' | translate }}">
                   <ion-select-option *ngFor="let item of typeVia" value="{{item.id}}">{{item.nombre}}</ion-select-option>
                 </ion-select>
